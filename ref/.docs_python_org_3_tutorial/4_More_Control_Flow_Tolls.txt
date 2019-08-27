@@ -1,0 +1,373 @@
+4. More Control Flow Tools
+
+Besides the wihle statement just introduced, Python knows the usual control flow statements known from other 
+languages, with some twists.
+
+
+4.1. if Statements
+
+Perhaps the most well-known statement type is the if statement.
+>>> x = int(input('Please enter an integer: '))
+>>> if x < 0:
+...     x = 0
+...     print('Negative changed to zero')
+... elif x == 0:
+...     print('Zero')
+... elif x == 1:
+...     print('Single')
+... else:
+...     print('More')
+
+There can be zero or more elif parts, and the else part is optional. The keyword 'elif' is short for 'else if', and 
+is useful to avoid excessive indentation. An if ... elif ... elif ... sequence is a substitute for the switch or case 
+statements found in other language.
+
+
+4.2. for Statements
+
+The for statement in Python differes a bit from what you may be used to in C or Pascal. Rather than always 
+iterating over an arithmetic progression of numbers (like in Pascal), or giving the user the ability to define both 
+the iteration step and halting condition (as C), Python's for statement iterates over the items of any sequence (a 
+list or a string), in the order that they appear in the sequence.
+... words = ['cat', 'window', 'defenstrate']
+>>> for w in words:
+... 	print(w, len(w))
+
+If you need to modify the sequence you are iterating over while inside the loop (for example to duplicate selected 
+items), it is recommended that you first make a copy. Iterating over a sequence does not implicitly make a copy.
+The slice notation makes this especially convenient:
+>>> for w in words[:]:  # Loop over a slice copy of the entire list.
+...     if len(w) > 6:
+...         words.insert(0, w)
+...
+>>> print(words)
+
+
+4.3. The range() Function 
+
+If you do need to iterate over a sequence of numbers, the built-in function range() comes in handy. It generates 
+arithmetic progressions
+>>> for i in range(5):
+...     print(i)
+...
+
+The given end point is never part of the generated sequence; range(10) generates 10 values, the legal indices 
+for items of a sequence of length 10. It is possible to let the range start at another number, or to specify a
+different increment(even negative; sometimes this is called the 'step'):
+>>> print(list(range(5, 10)))
+>>> print(list(range(0, 10, 3)))
+>>> print(list(range(-10, -100, -30)))
+
+To iterate over the indices of a sequence, you can combine range() and len() as follows:
+>>> a = ['Mary', 'had', 'a', 'little', 'lamb']
+>>> for i in range(len(a)):
+...     print(i, a[i])
+...
+
+In most such cases, however, it is convenient to use the enumerate() function.
+A strange thing happens if you just print a range:
+>>> print(range(10))
+
+In many ways the object returned by range() behaves as if it is a list, but in fact it isn't. It is an object which 
+returns the successive items of the desired sequence when you iterate over it, but it doesn't really make the list,
+thus saving space.
+
+We say such an object is iterable, that is, suitable as a target for functions and constructs that expect something 
+from which they can obtain successive items until the supply is exhausted. We have seen that the for statement 
+is such an iterator. The function list() is another; it creates lists from iterables:
+>>> print(list(range(5)))
+
+
+4.4. break and continue Statements, and else Cluses on Loops
+
+The break statement, like in C, breaks out of the innermost enclosing for or while loop.
+
+Loop statements may have an else clause; it is executed when the loop terminates through exhaustion of the list 
+(with for) or when the condition becomes false (with while), but not when the loop is terminated by a break
+statement. This is exemplified by the following loop, which searches for prime numbers:
+>>> for n in range(2, 10):
+...     for x in range(2, n):
+...         if n % x == 0:
+...             print(n, 'equals', x, '*', n//x)
+...             break
+...     else:
+...         # loop fell through without finding a factor
+...         print(n, 'is a prime number')
+...
+
+the else clause belongs to the for loop, not the if statment
+
+When used with a loop, the else clause has more in common with the else clause of a try statement thatn it 
+does that of if statements: a try statement's else clause runs when no exception occurs, and a loop's else 
+clause runs when no break occurs.
+
+The continue statement, also borrowed from C, continues with the next iteration of the loop:
+>>> for num in range(2, 10):
+...     if num % 2 == 0:
+...         print('Found and even number', num)
+...         continue
+...     print('Found a number', num)
+...
+
+
+4.5. pass Statements
+
+The pass statement does nothing. It can be used when a statement is required syntactically but the program 
+requires no action.
+>>> while True:
+...     pass # Busy-wait for keyboard interrupt (Ctrl+C)
+...
+
+This is commonly used for creating minimal classes:
+>>> class MyEmptyClass:
+...     pass
+...
+
+Another place pass can be used is as a place-holder for a function or conditional body when you are working on 
+new code, allowing you to keep thinking at a more abstract level. The pass is silently ignored:
+>>> def initlog(*args):
+...     pass # Remember to implement this!
+...
+
+
+4.6. Defining Functions
+
+We can create a function that writes the Fibonacci series to an arbitrary boundary:
+>>> def fib(n):
+...     '''Print a Fibonacci series up to n.'''
+...     a, b = 0, 1
+...     while a < n:
+...         print(a, end=' ')
+...         a, b = b, a+b
+...     print()
+...
+>>> fib(2000)
+
+It is simple to write a function that returns a list of the numbers of the Fibonacci series, instead of printing it:
+>>> def fib2(n):
+...     '''Return a list containing the Fibonacci series up to n.'''
+...     result = []
+...     a, b = 0, 1
+...     while a < n:
+...         result.append(a)
+...         a, b = b, a+b
+...     return result
+...
+>>> f100 = fib2(100)
+>>> print(f100)
+
+
+4.7. More on Defining Funcitons
+
+It is also possible to define functions with a variable number of arguments. There are three forms, which can be 
+combined.
+
+
+4.7.1. Default Argument Values
+
+The most useful form is to specify a default values for one or more arguments. This create a function that can be
+called with fewer arguments thatn it is defined to allow. For examples:
+>>> def ask_ok(prompt, retries=4, reminder='Please try again!'):
+...     while True:
+...         ok = input(prompt)
+...         if ok in ('y', 'ye', 'yes'):
+...             return True
+...         if ok in ('n', 'no', 'nop', 'nope'):
+...             return False
+...         retries = retries - 1
+...         if retries < 0:
+...             raise ValueError('invalid user response')
+...         print(reminder)
+
+This function can be called in several ways:
+>>> ask_ok('Do you really want to quit?')
+>>> ask_ok('OK to overwrite the file?', 2)
+>>> ask_ok('OK to overrite the file?', 2, 'Come on, only yes or no!')
+
+
+4.7.2. Keyword Arguments
+
+Functions can also be called using keyword arguments of the form kwarg-value. For instance, the following function:
+>>> def parrot(voltage, state='a stiff', action='voom', type='Norwegian Blue'):
+...     print("-- This parrot wouldn't", action, end=' ')
+...     print('if you put', voltage, 'volts through it.')
+...     print('-- Lovely plumage, the', type)
+...     print("-- It's", state, '!')
+
+>>> parrot(1000)
+>>> parrot(voltage=1000)
+>>> parrot(action='VOOOOOM', voltage=1000000)
+>>> parrot('a million', 'bereft of life', 'jump')
+>>> parrot('a thousand', state='pushing up the daisies')
+
+In a function call, keyword arguments must follow positional arguments. All the keyword arguments passed must 
+match one of the arguments accepted by the function, and their order is not important.
+
+When a final formal parameter of the form **name is present, it receives a dictionary containing all keyword 
+arguments except for those corresponding to a formal parameter. This may be combined with a formal parameter 
+of the form *name which receives a tuple containing the positional arguments beyond the formal parameter list. 
+(*name must occur before **name.)
+
+>>> def cheeseshop(kind, *arguments, **keywords):
+...     print('-- Do you have any', kind, '?')
+...     print("-- I'm sorry, we're all out of", kind)
+...     for arg in arguments:
+...         print(arg)
+...     print('-' * 40)
+...     for kw in keywords:
+...         print(kw, ':', keywords[kw])
+
+It could be called like this:
+>>> cheeseshop('Limburger', "It's very runny, sir.",
+...         "It's really very, VERY runny, sir.",
+...         shopkeeper='Michael Palin',
+...         client='John Cleese',
+...         sketch='Cheese Shop Sketch')
+
+
+4.7.3. Arbitrary Argument Lists
+
+The least frequently used option is to specify that a function can be called with an arbitrary number of 
+arguments. These arguments will be wrapped up in a tuple. Before the variable number of arguments, zero or more 
+normal arguments may occur.
+
+>>> def write_multiple_items(file, separator, *args):
+...     file.write(separator.join(args))
+
+Normally, these variadic arguments will be last in the list of parameters, because they scoop up all 
+remaining input arguments that are passed to the function. Any formal parameters which occur after the *args 
+parameter are 'keyword-only' arguments, meaning that they can only be used as keywords rather than positional arguments.
+
+>>> def concat(*args, sep='/'):
+...     return sep.join(args)
+...
+>>> print(concat('earth', 'mars', 'venus'))
+>>> print(concat('earth', 'mars', 'venus', sep='.'))
+
+
+4.7.4 Unpacking Argument Lists
+
+The reverse situation occurs when the arguments are already in a list or tuple but need to be unpacked for a 
+function call requiring separate positional arguments. For instance, the built-in range() function expects separate 
+start and stop arguments. If they are not available separately, write the function call with the * operator to unpack 
+the arguments out of a list or tuple:
+>>> print(list(range(3, 6)))
+>>> args = [3, 6]
+>>> print(list(range(*args)))
+
+In the same fashion, dictionaries can deliver keyword arguments with the ** operator:
+>>> def parrot(voltage, state='a stiff', action='voom'):
+...     print("-- This parrot wouldn't", action, end=' ')
+...     print('if you put', voltage, 'volts through it.', end=' ')
+...     print("E's", state, '!')
+...
+>>> d = {'voltage':'four million', 'state':"bleedin' demised", 'action':'VOOM'}
+>>> parrot(**d)
+
+
+4.7.5. Lambda Expressions
+
+Small anonymous functions can be created with the lambda keyword. This function returns the sum of its two
+agruments: lambda a, b: a+b.
+>>> def make_incrementor(n):
+...     return lambda x: x + n
+...
+>>> f = make_incrementor(42)
+>>> print(f(0))
+>>> print(f(1))
+
+The above example uses a lambda expression to return a function. Another use is to pass a small function as an
+argument:
+>>> pairs = [(1, 'one'), (2, 'two'), (3, 'three'), (4, 'four')]
+>>> pairs.sort(key=lambda pair: pair[1])
+>>> print(pairs)
+
+
+4.7.6 Documentation Strings
+
+Here are some conventions about the content and formatting of documentation strings.
+
+The first line should always be a short, concise summary of the object's purpose. For brevity, it should not 
+explicitly state the object's name or type, since these are available by other means (except if the name happens 
+to be a verb describing a function's operation). This line should begin with a capital letter and end with a period.
+
+If there are more lines in the documentation string, the second line should be blank, visually separating the 
+summary from the rest of the description. The following lines should be one or more paragraphs describing the 
+object's calling conventions, its side effects, etc.
+
+The Python parser does not strip indentation from multi-line string literals in Python, so tools that process 
+documentation have to strip indentation if desired. This is done using the following convention. The first nonblank 
+line after the first line of the string determines the amount of indentation for the entire documentation string. 
+Whitespace "equivalent" to this indentation is then stripped from the start of all lines of the string. 
+Lines that are indented less should not occur, but if they occur all their leading whitespace should be tripped. 
+Equivalence of whitespace should be tested after expansion of tabs.
+
+Here is an example of a multi-line docstring:
+>>> def my_function():
+...     '''Do nothing, but document it.
+...
+...     No, really, it doesn't do anything.
+...     '''
+...
+...     pass
+...
+>>> print(my_function.__doc__)
+
+
+4.7.7. Function Annotations
+
+Function annotations are completely optional metadata information about the types used by user-defined functions.
+
+Annotations are stored in the __annotations__ attribute of the function as a dictionary and have no effect on any 
+other part of the function. Parameter annotations are defined by a colon after the parameter name, followed by an
+expression evaluating to the value of the annotation. Return annotations are defined by a literal ->, followed by 
+an expression, between the parameter list and the colon denoting the end of the def statement. The following 
+example has a positional argument, a keyword argument, and the return value annotated:
+
+>>> def f(ham: str, eggs: str = 'eggs') -> str:
+...     print('Annotations:', f.__annotations__)
+...     print('Arguments:', ham, eggs)
+...     return ham + ' and ' + eggs
+...
+>>> print(f('spam'))
+
+
+4.8. Intermezzo: Coding Style
+
+Now that you are about to write longer, more complex pieces of Python, it is a good time to talk about conding style.
+Most languages can be written (or more concise, formatted) in different sytles; some are more readable than others.
+Making it easy for others to read your code is always a good idea, and adopting a nice coding style helps 
+tremendously for that.
+
+For Python, PEP 8 has emerged as the style guide that most projects adhere to; it promotes a very readable and
+eye-pleasing coding style. Every Python developer should read it at some point; here are the most important
+points extracted for you:
+    Use 4-space indentation, and no tabs.
+	4 spaces are a good compromise between small indentation (allows greater nesting depth) and large 
+	indentation (easier to read). Tabs introduce confusion, and are best left out.
+
+    Wrap lines so that they don't exceed 79 characters.
+	This helps users with small displays and makes it possible to have several code files side-by-side on larger 
+	displays.
+
+    Use blank lines to separate functions and classes, and larger blocks of code inside functions.
+    
+    When possible, put comments on a line of their own.
+    
+    Use docstrings.
+    
+    Use spaces around operators and after commas, but not directly inside bracketing constructs: a = f(1, 2) + g(3, 4)
+
+    Name your classes and functions consistently; the convention is to use CamelCase for classes and 
+    lower_case_with_underscores for functions and methods. Always use self as the name for the first method argument.
+
+    Don't use fancy encodings if your code is meant to be used in internationsl environments. Python's default, 
+    UTF-8, or even plain ASCII work best in any case.
+
+    Likewise, don't use non-ASCII characters in identifiers if there is only the slightest chance people speaking 
+    a different language will read or maintain the code.
+
+Footnotes
+[1] Actually, call by object reference would be a better description, since if a mutable object is passed, the caller
+    will see any changes the callee makes to it (items inserted into a list).
+

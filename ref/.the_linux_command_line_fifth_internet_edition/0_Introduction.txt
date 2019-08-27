@@ -1,0 +1,106 @@
+Introduction
+
+I want to tell you a story.
+
+No, not the story of how, in 1991, Linux Torvalds wrote the first version of Linux ker-
+nel. You can read that story in lots of Linux books. Nor am I going to tell you the story of
+how, some years earlier, Richard Stallman began the GNU Project to create a free Unix-
+like operating system. That's an important story too, but most other Linux books have that
+one, as well.
+
+No, I want to tell you the story of how you take back control of your computer.
+
+When I began working with computers as a college student in the late 1970s, there was a
+revolution going on. The invention of the microprocessor had made it possible for ordi-
+nary people like you and me to actually own a computer. It's hard for many people today
+to imagine what the world was like when only big business and big government ran all the computers. Let's just say, you couldn't get much done.
+
+Today, the world is very different. Computers are everywhere, from tiny wristwatches to 
+giant data centers to everything in between. In addition to ubiquitous computers, we also
+have a ubiquitous network connecting them together. This has created a wondrous new
+age of personal empowerment and creative freedom, but over the last couple of decades
+something else has been happening. A few giant corporations have been imposing their
+control over most of the world's computers and deciding what you can and cannot do
+with them. Fortunately, people from all over the world are doing something about it. They
+are building Linux.
+
+Many people speak of "freedom" with regard to Linux, but I don't think most people
+know what this freedom really means. Freedom is the power to decide what your com-
+puter does, and the only way to have this freedom is to know what your computer is do-
+ing. Freedom is a computer that is without secrets, one where everything can be known if
+you care enough to find out.
+
+Why Use the Command Line?
+Have you ever noticed in the movies when the "super hacker,"--you know, the guy who
+can break into the ultra-secure military computer in less than 30 seconds--sits down at
+the computer, he never touches a mouse? It's because filmmakers realize that we, as hu-
+man beings, instinctively know the only way to really get anything done on a computer is
+by typing on a keyboard!
+
+Most computer users today are familiar only with the graphical user interface(GUI) and
+have been taught by vendors and pundits that the command line interface(CLI) is a terri-
+fying thing of the past. This is unfortunate, because a good command line interface is a
+marvelously expressive way of communicating with a computer in much the same way
+the written word is for human beings. It's been said that "graphical user interfaces make 
+easy tasks easy, while command line interfaces make difficult tasks possible" and this is
+still very true toay.
+
+Since Linux is modeled after the Unix family of operating systems, it shares the same
+rich heritage of command line tools as Unix. Unix came into prominence during the early
+1980s (although it was first developed a decade earlier), before the widespread adoption
+of the graphical user interface and, as a result, developed an extensive command line in-
+terface instead. In face, one of the strongest reasons early adopters of Linux chose it over,
+say Windows NT was the powerful command line interface that made the "difficult tasks 
+possible."
+
+What This Book Is About
+This book is a broad overview of "living" on the Linux command line. Unlike some
+books that concentrate on just a single program, such as the shell program, bash, this
+book will try to convey how to get along with the command line interface in a larger
+sense. How does it all work? What can it do? What's the best way to use it?
+
+This is not a book about Linux system administration. While any serious discussion of 
+the command line will invariably lead to system administration topics, this book touches 
+on only a few administration issues. It will, however, prepare the reader for additional
+study by providing a solid foundation in the use of the command line, an essential tool for
+any serious system administration task.
+
+This book is very Linux-centric. Many other books try to broaden their appeal by in-
+cluding other platforms such as generic Unix and macOS. In doing so, they "water down"
+their content to feature only general topics. This book, on the other hand, only covers
+contemporary Linux distributions. Ninety-five percent of the content is useful for users of 
+other Unix-like systems, but this book is highly targeted at the modern Linux command
+line user.
+
+What's in This Book
+This material is presented in a carefully chosen sequence, much like a tutor sitting next to
+you guiding you along. Many authors treat this material in a "systematic" fashion, ex-
+haustively covering each topic in order. This makes sense from a writer's perspective, but 
+can be very confusing to new users.
+
+Another goal is to acquaint you with the Unix way of thinking, which is different from 
+the Windows way of thinking. Along the way, we'll go on a few side trips to help you nu-
+derstand why certain things work the way they do and how they got that way. Linux is
+not just a piece of software; it's also a small part of the larger Unix culture, Which has its 
+own language and history. I might throw in a rant or two, as well.
+
+This book is divided into four parts, exch convering some aspect of the command line experience:
+Part 1 - Learning The Shell starts our exploration of the basic language of the 
+command line including such things as the structure of commands, file system 
+navigation, command line editing, and finding help and documentation for 
+commands.
+
+Part 2 - Configuration And The Environment covers editing configuration files 
+that control the computer's operation from the command line.
+
+Part 3 - Common Tasks And Essential Tools explores many of the ordinary tasks
+that are commonly performed from the command line. Unix-like operating systems,
+such as Linux, contain many "classic" command line programs that are used to 
+perform powerful operations on data.
+
+Part 4 - Writing Shell Scripts introduces shell programming, an admittedly
+rundimentary, but easy to learn, technique for automating many common computing
+tasks. By learning shell programming, you will become familiar with concepts
+that can be applied to many other programming languages.
+
+

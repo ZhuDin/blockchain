@@ -1,0 +1,36 @@
+1.3 Bags, Queues, and Stacks
+
+Several Fundamental Data Types involve collections of objects. Specifically, the set 
+of values is a collection of objects, and the operations revolve around adding, removing, 
+or examining objects in the collection. In this section, we consider three such data
+types, known as the bag, the queue, and the stack. They differ in the specification of
+which object is to be removed or examined next.
+
+Bags, queues, and stacks are fundamental and broadly useful. We use them in implementations
+throughout the book. Beyond this direct applicability, the client and implementation
+code in this section serves as an introduction to our general approach to the
+development of data structures and algorithms.
+
+One goal of this section is to emphasize the idea that the way in which we represent
+the objects in the collection directly impacts the eficiency of the various operations.
+For collections, we design data structures for representing the collection of objects that
+can support efficient implementation of the requisite operations.
+
+A second goal of this section is to introduce generics and interation, basic Java constructs
+that substantially simplify client code. These are advanced programming language 
+mechanisms that are not necessarily essential to the understanding of algorithms,
+but their use allows us to develop client code (and implementations of algorithms) that
+is more clear, compact, and elegant than would otherwise be possible.
+
+A third goal of this section is to introduce and show the importance of linked data
+structures. In particular, a classic data structure known as the linked list enables 
+implementation of bags, queues, and stacks that achieve efficiencies not otherwise 
+possible. Understanding linked lists is a key first step to the study of algorithms and 
+data structures.
+
+For each of the three types, we consider APIs and sample client programs, then
+look at possible representations of the data type values and implementations of the
+data-type operations. This scenario repeats (with more complicated data structures)
+throughout this book. The implementations here are models of implementations later
+in the book and worthy of careful study.
+

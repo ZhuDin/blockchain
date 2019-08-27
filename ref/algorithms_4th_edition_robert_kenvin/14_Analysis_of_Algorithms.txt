@@ -1,0 +1,18 @@
+1.4 Analysis of Algorithms
+
+As People Gain Experience Using Computers, they use them to solve difficult problems
+or process large amounts of data and are invariably led to questions like these:
+
+	How long will my program take?
+	Why does my program run out of memory?
+
+You certainly have asked yourself these question, perhaps when rebuilding music or
+photo library, installing a new application, working with a large document, or working
+with a large amount of experimental data. The questions are much too vague to
+be answered precisely--the answers depend on many factors such as properties of the
+particular computer being used, the particular data being processed, and the particular 
+program that is doing the job (which implements some algorithm). All of these factors
+leave us with a daunting amount of information to analyze.
+
+
+

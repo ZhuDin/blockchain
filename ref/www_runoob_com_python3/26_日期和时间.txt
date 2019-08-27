@@ -1,0 +1,77 @@
+Python3 日期和时间
+
+Python程序能用很多方式处理日期和时间，转换日期格式是一个常见的功能。
+Python提供了一个time和calendar模块可以用于格式化日期和时间。
+时间间隔是以秒为单位的浮点小数。
+每个时间戳都以自从1970年1月1日午夜(历元)经过了多长时间来表示。
+Python的time模块下有很多函数可以转换常见日期格式。如函数time.time()用于获取当前时间戳，如下实例：
+
+import time; 
+
+ticks = time.time()
+print("Now:", ticks)
+
+输出为当前的时间戳，时间戳单位最适合做日期运算。但是1970年之前的日期就无法以此表示。
+太遥远的日期也不行，UNIX和Windows只支持到2038年。
+
+
+什么是时间元组？
+
+很多Python函数用一个元组装起来的9组数字处理时间：
+序号	字段		值
+0	4位数年		2008
+1	月		1到12
+2	日		1到31
+3	小时		0到23
+4	分钟		0到59
+5	秒		0到61 (60或61是闰秒)
+6	一周的第几日	0到6 (0是周一)
+7	一年的第几日	1到366 (儒略历)
+8	夏令时		-1,0,1,-1是决定是否为夏令时的旗帜
+
+上述也就是struct_time元组。这种结构具有如下属性：
+序号	属性		值
+0	tm_year		2008	
+1	tm_mon		1到12
+2	tm_mday		1到31
+3	tm_hour		0到23
+4	tm_min		0到59
+5	tm_sec		0到61 (60或61是闰秒)
+6	tm_wday		0到6 (0是周一)
+7	tm_yday		一年中的第几天，1到366
+8	tm_isdst	是否为夏令时，值有:1(夏令时)、2(不是夏令时)、-1(未知)、默认-1
+
+
+获取当前时间
+
+从返回浮点数的时间戳方式向时间元组转换，只要将浮点数传递给如localtime之类的函数。
+
+import time
+
+localtime = time.localtime(time.time())
+print("current time:", localtime)
+
+以上实例输出结果：
+current time:time.struct_time(tm_year=20xx, tm_mon=x, tm_mday=x, tm_hour=xx, tm_min=xx, tm_sec=xx, tm_wday=x, tm_yday=xx, tm_isdst=x)
+
+
+获取格式化的时间
+
+可以根据需求选取各种格式，但最简单的获取可读的时间模式的函数是asctime():
+
+import time
+
+localtime = time.asctime(time.localtime(time.time()))
+print("current time:", localtime)
+
+以上实例输出结果：
+current time:Thu Apr 7 10:29:13 2019
+
+
+格式化日期
+可以使用time模块的strftime方法来格式化日期：
+
+time.strftime(format[, t])
+
+import time
+

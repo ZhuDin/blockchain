@@ -1,0 +1,345 @@
+9 - Permissions
+
+Operating systems in the Unix tradition differ from those in the MS-DOS tradition in that 
+they are not only multitasking system, but also multi-user systems.
+
+What exactly does this mean? It means that more than one person can be using the computer
+at the same time. While a typical computer will likely have only one keyboard and
+monitor, it can still be used by more than one user. For example, if a computer is attached
+to a network or the Internet, remote users can log in via ssh (secure shell) and operate
+the computer. In fact, remote users can execute graphical applications and have the
+graphical output appear on a remote display. The X Window System supports this as part 
+of its basic design.
+
+The multiuser capability of Linux is not a recent "innovation", but rather a feature that is
+deeply embedded into the design of the operating system. Considering the environment in
+which Unix was created, this makes perfect sense. Years ago, before computers were
+"personal", they are large, expensive, and centralized. A typical university computer
+system, for example, consisted of a large central computer located in one building and
+terminals that were located throughout the campus, each connected to the large central
+computer. The computer would support many users at the same time.
+
+To make this practical, a method had to be devised to protect the users from each other.
+Ater all, the actions of the user could not be allowed to crash the computer, nor could
+one user interface with the files belonging to another user.
+
+In this chapter we will look at this essential part of system security and introduce the 
+following commands:
+
+  * id - Display user identity
+  * chmod - Change a file's mode
+  * umask - Set the default file permissions
+  * su - Run a shell as another user
+  * sudo - Execute a command as another user
+  * chown - Change a file's owner
+  * chgrp - Change a file's group ownership
+  * passwd - Change a user's password
+
+
+Owners, Group Memebers, and Everybody Else
+
+When we were exploring the system in Chapter 3, we may have encountered a problem
+when trying to examine a file such as /etc/shadow:
+
+$ file /etc/shado
+/etc/shadow: regular file, no read permission
+
+$ less /etc/shadow
+/etc/shadow: Permission denied
+
+The reason for this error message is that, as regular users, we do not have permission to
+read this file.
+
+In the Unix security model, a user may own files and directories. When a user owns a file
+or directory, the user has control over its access. Users can, in turn, belong to a group
+consisting of one or more users who are given access to files and directories by their
+owners. In addition to granting access to a group, an owner may also grant some set of 
+access rights to everybody, which in Unix terms is referred to as the world. To find out
+information about your identity, use the id command.
+
+$ id
+uid=0(root) gid=0(root) groups=0(me)
+
+Let's look at the output. When user accounts are created, users are assigned a number
+called a user ID (uid) which is then, for the sake of the humans, mapped to a username.
+The user is assigned a primary group ID (gid) and may belong to additional groups. The
+above example is from a Ubuntu system.
+
+So where does this information come from? Like so many things in Linux, it comes from
+a couple of text files. User accounts are defined in the /etc/passwd file and groups
+are defined in the /etc/group file. When user accounts and groups are created, these
+files are modified along with /etc/shadow which holds information about the user's
+password. For each user account, the /etc/passwd file defines the user (login) name,
+uid, gid, account's real name, home directory, and login shell. If we examine the contents
+there are accounts for the superuser (uid 0) and various other system users.
+
+In the next chapter, when we cover processes, we will see that some of these other
+"users" are, in fact, quite busy.
+
+While many Unix-like systems assign regular users to a common group such as "users",
+modern Linux practice is to create a unique, single-member group with the same name as
+the user. This makes certain types of permission assignment easier.
+
+
+Reading, Writing, and Executing
+
+Access rights to files and directories are defined in terms of read access, write access, and
+execution access. If we look at the output of the ls command, we can get some clue as to
+how this is implemented:
+
+$ > foo.txt
+$ ls -l foo.txt
+-rw-rw-rw- 1 root root 4466 Aug 26 16:12 foo.txt
+
+The first 10 characters of the listing are the file attributes. The first of these characters is
+the file type. Table 9-1 describes the file types we are most likely to see (there are other,
+less common types too):
+
+Table 9-1: File Types
+Attribute	File Type
+-		A regular file.
+d		A directory.
+l		A symbollic link. Notice that with symbolic links, the remaining file attributes 
+		are always "rwxrwxrwx" and are dummy values. The real file attributes are those
+		the file the symbolic link points to.
+c		A character special file. This file type refers to a device that handles data 
+		as a stream of bytes, such as a terminal or /dev/null.
+b		A block special file: This file type refers to a device that handles data in
+		blocks, such as a hard drive or DVD drive.
+
+The remaining nine characters of the file attributes, called the file mode, represent the
+read, write, and execute permissions for the file's owner, the file's group owner, and
+everybody else.
+
+	Owner	Group	World
+	rwx	rwx	rwx
+
+Table 9-2 describes the effect the r, w, and x mode attributes have on files and directories:
+
+Table 9-2: Permission Attributes
+Attribute	Files					Directories
+r		Allows a file to be opened and read.	All a directory's contents to be listed
+							if the execute attribute is also set.
+
+w		Allows a file to be written to or	Allows files within a directory to be
+		truncated, however the attribute 	created, deleted, and renamed if the 
+		does not allow file to be renamed	execute attribute is also set.
+		or deleted. The ability to delete
+		or rename files is determined by
+		directory arributes. 
+ 
+x		Allows a file to be treated as a	Allows a directory to be entered, e.g.
+		program and executed. Program files	cd directory.
+		written in scripting languages must
+		also be set as readable to be executed
+
+
+chomod - Change File Mode
+
+To change the mode (permissions) of a file or directory, the chmod command is used. Be
+aware that only the file's owner or the superuser can change the mode of a file or directory.
+chmod supports two distinct ways of specifying mode changes: octal number representation,
+or symbolic representation. We will cover octal number representation first.
+
+
+  What the Heck is Octal?
+
+  Octal (base 8), and its cousin, hexadecimal (base 16) are number systems often
+  used to express numbers on computers. We humans, owning to the fact that we (or 
+  at least most of us) were born with 10 fingers, count using a base 10 number system.
+  Computers, on the other hand, were born with only one finger and thus do all
+  their counting in binary (base 2). Their number system has only two numerals,
+  0 and 1.
+
+  Many times, small portions of data are represented on computers as bit patterns.
+  Take for example an RGB color. On most computer displays, each pixel is
+  composed of three color commponents: eight bits of red, eight bits of green, and
+  eight bits of blue. A lovely medium blue would be a 24 digit number:
+
+  010000110110111111001101
+
+  How would you like to read and write those kinds of numbers all day? I didn't
+  think so. Here's where another number system would help. Each digit in a 
+  hexadecimal number represents four digits in binary. In octal, each digit represents
+  three binary digits. So our 24 digit medium blue could be condensed to a six-digit
+  hexadecimal number:
+ 
+  436FCD
+
+  Since the digits in the hexadecimal number "line up" with the bits in the binary
+  number, we can see that the red component of our color is 43, the green 6F, and
+  the blue CD.
+
+  These days, hexadecimal notation (often spoken as "hex") is more common than
+  octal, but as we will soon see, octal's ability to express three bits of binary will be
+  very useful...
+
+
+With octal notation, we use octal numbers to set the pattern of desired permissions. Since
+each digit in an octal number represents three binary digits, this maps nicely to the
+scheme used to store the file mode. Table 9-4 shows what we mean.
+
+Table 9-4: File Modes in Binary and Octal
+Octal	Binary	FileMode
+0	000	---
+1	001	--x
+2	010	-w-
+3	011	-wx
+4	100	r--
+5	101	r-x
+6	110	rw-
+7	111	rwx
+
+By using three octal digits, we can set the file mode for the owner, group owner, and world.
+
+chmod also supports a symbolic notation for specifying file modes. Symbolic notation is
+divided into three parts.
+
+  * Who the change will affect
+  * Which operation will be performed
+  * What permission will be set
+
+To specify who is affected, a combination of the characters "u", "g", "o", and "a" is used
+as shown in Table 9-5.
+
+Table 9-5: chmod Symbolic Notation
+Symbol		Meaning
+u		Short for "user" but means the file or directory owner.
+g		Group owner.
+o		Short for "others" but means world.
+a		Short for "all", this is the combination of "u", "g", and "o".
+
+If no character is specified, "all" will be assumed. The operation may be a "+" indicating
+that a permission is to be added, a "-" indicating that a permission is to be taken away, or
+a "=" indicating that only the specified permissions are to be applied and that all others
+are to be removed.
+
+Permissions are specified with the "r", "w", and "x" characters. 
+
+
+Setting File Mode with the GUI
+
+
+umask - Set Default Permissions
+
+The umask command controls the default permissions given to a file when it is created.
+It uses octal notation to express a mask of bis to be removed from a file's mode
+attributes.
+
+
+Changing Identities
+
+At various times, we may find it necessary to take on the identity of another user. Often 
+we want to gain superuser privileges to carry out some administrative task, but it is also
+possible to "become" another regular user for such things as testing an account. There are
+three ways to take on an alternate identity.
+
+  1. Log out and log back in as the alternate user.
+  2. Use the su command.
+  3. Use the sudo command.
+
+We will skip the first technique since we know how to do it and it lacks the convenience
+of the other two. From within our own shell session, the su command allows us to assume
+the identity of another user and either start a new shell session with that user's ID, 
+or to issue a single command as that user. The sudo command allows an administrator to
+set up a configuration file called /etc/sudoers and define specific commands that
+particular users are permitted to execute under an assumed identity. The choice of which
+command to use is largely determinded by which Linux distribution you use. Your distribution
+probably includes both commands, but its configuration will favor either one or the other.
+We'll start with su.
+
+
+su - Run a shell with Substitute User and Group IDs
+
+The su command is used to start a shell as another user. The command syntax looks like this:
+
+su [-[l]] [user]
+
+If the "-l" option is included, the resulting shell session is a login shell for the specified
+user. This means the user's environment is loaded and the working directory is changed to
+the user's home directory. This is usually what we want. If the user is not specified, the
+superuser is assumed. Notice that (strangely) the -l may be abbreviated as -, which is
+how it is most often used. To start a shell for the superuser, we would do this:
+
+$ su -
+
+After entering the comand, we are prompted for the superuser's password. If it is successfully
+entered, a new shell prompt appears indicating that this shell has superuser privileges
+(the trailing # rather than a $), and the current working directory is now the home
+directory for the superuser (normally /root). Once in the new shell, we can carry out
+commands as the superuser. When finished, enter exit to return to the previous shell.
+
+It is also possible to execute a single command rather than starting a new interactive command
+by using su this way.
+
+su -c 'command'
+
+Using this form, a single command line is passed to the new shell for execution. It is important
+to enclose the command in quotes, as we do not want expansion to occur in our shell, but
+rather in the new shell.
+
+
+sudo - Execute a Command as Another User
+
+The sudo command is like su in many ways but has some important additional capabilities. 
+The administrator can configure sudo to allow an ordinary user to execute commands
+as a different user (usually the superuser) in a controlled way. In particular, a user
+may be restricted to one or more specific commands and no others. Another important
+difference is that the use of sudo does not require access to the superuser's password. To
+authenticating using sudo, requires the user's own password. Let's say, for example, that 
+sudo has been configured to allow us to run a fictitious backup program called
+"backup_script", which requires superuser privileges. With sudo it would be done like this:
+
+$ sudo backup_script
+
+After entering the command, we prompted for our password (not the superuser's) and
+once the authentication is complete, the specified command is carried out. One important
+difference between su and sudo is that sudo does not start a new shell, nor does it load
+another user's environment. This means that commands do not need to be quote any differently
+than they would be without using sudo. Note that this behavior can be overrideden by
+specifying various options. Note, too, that sudo can be used to start an interactive
+superuser session (much like su -) by using the -i option. See thee sudo man page for
+details.
+
+
+  Ubuntu and sudo
+
+  One of the recurrent problems for regular users is how to perform certain tasks
+  that require superuser privileges. These tasks include installing and updating 
+  software, editing system configuration file, and accessing devices. In the Windows
+  world, this is often done by giving users administrative privileges. This allows
+  users to perform these tasks. However, it also enables programs executed by the 
+  user to have the same abilities. This is desirable in most cases, but it also permits
+  malware (malicious software) such as viruses to have free rein of the computer.
+
+  In the Unix world, there has always been a larger division between regular users
+  and administrators, owing to the multiuser heritage of Unix. The approach taken
+  in Unix is to grant superuser privileges only when needed. To do this, the su and
+  sudo commands are commonly used.
+
+  Up until a few of years ago, most Linux distributions relied on su for this purpose.
+  su didn't require the configuration that sudo required, and having a root account
+  is traditional in Unix. This introduced a problem. Users were tempted to 
+  operate as root unnecessarily. In fact, some users operated their systems as the
+  root user exclusively, since it does away with all those annoying "permission
+  denied" messages. This is how you reduce the security of a Linux system to that of
+  a Windows system. Not a good idea.
+
+  When Ubuntu was introduced, its creators took a different tack. By default,
+  Ubuntu disables logins to the root account (by failing to set a password for the
+  account) and instead uses sudo to grant superuser privileges. The initial user 
+  account is granted full access to superuser privileges via sudo and may grant 
+  similar powers to subsequent user accounts.
+
+
+chown - Change File Owner and Group 
+
+The chown command is used to change the owner and group owner of a file or directory.
+Superuser privileges are required to use this command. The syntax of chown looks like
+this:
+
+chown [owner][:[group]] file...
+
+chown can change the file owner and/or the file group owner depending on the first 
+argument of the command. 
+

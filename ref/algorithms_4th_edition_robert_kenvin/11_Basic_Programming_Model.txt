@@ -1,0 +1,136 @@
+1.1 Basic Programming Model
+
+Our Study of Algorithms is based upon implementing them as programs written in 
+the Java programming language. We do so for several reasons:
+
+  * Our programs are concise, elegant, and complete descriptions of algorithms.
+  * You can run the programs to study properties of the algorithms.
+  * You can put the algorithms immediately to good use in applications.
+
+These are important and significant advantages over the alternatives of working with
+English-language descriptions of algorithms.
+
+A potential downside to this approach is that we have to work with a specific programming
+languages, possibly making it difficult to separate the idea of the algorithm from
+the details of its implementation. Our implementations are designed to mitigate
+this difficulty, by using programming constructs that are both found in many modern
+languages and needed to adequately describe the algorithms.
+
+We use only a small subset of Java. While we stop short of formally defining the 
+subset that we use, you will see that we make use of relatively few Java constructs, and
+that we emphasize those that are found in many modern programming languages. The
+code that we present is complete, and our expectation is that you will download it and
+execute it, on our test data or test data of your own choosing.
+
+We refer to the programming constructs, software libraries, and operating system
+features that we use to implement and describe algorithms as our programming model.
+In this section and SECTION 1.2, we fully describe this programming model. The treatment
+is self-contained and primarily intended for documentation and for your reference
+in understanding any code in the book. The model we describe is the same model
+introduced in our book An Introduction to Programming in Java: An Interdisciplinary
+Approach, which provides a slower-paced introduction to the material.
+
+For reference, the figure on the facing page depicts a complete Java program that
+illustrates many of the basic features of our programming model. We use this code for
+examples when discussing language features, but defer considering it in detail to page
+46 (it implements a classic algorithm known as binary search and tests it for an application
+known as whitelist filtering). We assume that you have experience programming
+in some modern language, so that you are likely to recognize many of these features in
+this code. Page references are included in the annotations to help you find answers to 
+any questions that you might have. Since our code is somewhat stylized and we strive
+to make consistent use of various Java idioms and constructs, it is worthwhile even for
+experienced Java programmers to read the information in this section.
+
+
+Basic Structure of a Java Program
+
+A Java program (class) is either a library of static methods (functions) or a data type 
+definition. To create libraries of static methods and data-type definitions, we use
+the following five components, the basis of programming in Java and many other modern
+languages:
+
+  * Primitive data type precisely define the meaning of terms like integer, real number,
+    and boolean value within a computer program. Their definition includes the set
+    of possible values and operations on those values, which can be combined into
+    expressions like mathematical expressions that define values.
+  * Statements allow us to define a computation by creating and assigning values to
+    variables, controlling execution flow, or causing side effects. We use six types of
+    statements: decalrations, assignments, conditionals, loops, calls, and returns.
+  * Arrays allow us to work with multiple values of the same type.
+  * Static methods allow us to encapsulate and reuse code and to develop programs
+    as a set of independent modules.
+  * Strings are sequences of characters. Some operations on them are built in to Java.
+  * Input/Output sets up communication between programs and the outside world.
+  * Data abstraction extends encapsulation and reuse to allow us to define non-primitive
+    data types, thus supporting object-oriented programming.
+
+In this section, we will consider the first five of these in turn. Data abstraction is the
+topic of the next section.
+
+Running a Java program involves interacting with an operating system or a program
+development environment. For clarity and economy, we describe such actions in terms
+of a virtual terminal, where we interact with programs by typing commands to the
+system. See the booksite for details on using a virtual terminal on your system, or for
+information on using one of the many more advanced program developemnt environments
+that are available on modern systems.
+
+For example, BinarySearch is two static mehtods, rank() and main(). The first
+static method, rank(), is four statements: two declarations, a loop (which is itself an
+assignent and two conditionals), and a return. The second, main(), is three statements:
+a declaration, a call, and a loop (which is itself an assignment and a conditional).
+
+To invoke a Java program, we first compile it using the javac command, the run it
+using the java command. For example, to run BinarySearch, we first type the command
+javac BinarySearch.java (which creates a file BinarySearch.class that contains
+a lower-level version of the program in Java bytecode in the file BinarySearch.class).
+Then we type java BinarySearch (followed by a whitelist file name) to transfer 
+control to the bytecode version of the program. To develop a basis for understanding the
+effect of these actions, we next consider in detail primitive data types and expressions,
+the various kinds of Java statements, arrays, static methods, strings, and input/output.
+
+
+Primitive data types and expressions
+
+A data type is a set of values and a set of operations on these values. We begin ty considering 
+the following four primitive data types that are the basis of the Java language:
+
+  * Integers, with arithmetic operations (int)
+  * Real numbers, again with arithmetic operations (double)
+  * Booleans, the set of values {true, false} with logical operations (boolean)
+  * Characters, the alphanumeric characters and symbols that you type (char)
+
+Next we consider mechanisms for specifying values and operations for these types.
+
+A Java program manipulates variables that are named with identifiers. Each variable 
+is associated with a data type and stores one of the permissible data-type values. In Java
+code, we use expressions like familiar mathematical expressions to apply the operations
+associated with each type. For primitive types, we use identifiers to refer to variables, 
+operator symbols such as + - * / to specify operations, literals such as 1 or 3.14 to
+specify values, and expressions such as (x + 2.236)/2 to speficy operations on values.
+The purpose of an expression is to define one of the data-type values.
+
+
+Perspective
+
+In this section, we have described a fine and complete programming model that
+served (and still serves) many programmers for many decades. Modern programming,
+however, goes one step further. This next level is called data abstraction,
+sometimes known as object-oriented programming, and is the subject of the next
+section. Simply put, the idea behind data abstraction is to allow a program to define
+data types (sets of values and sets of operations on those values), not just static 
+methods that operate on predefined data types.
+
+Object-oriented programming has some into widespread use in recent decades, and 
+data abstraction is central to modern program development. We embrace data abstraction
+in this book for three primary reasons:
+
+  * It enables us to expand our ability to reuse code through modular programming.
+  * It provides a convenient mechanism for building so-called linked data structures
+    that provide more flexibility than arrays and are the basis of efficient algorithms
+    in many settings.
+  * It enables us to precisely define the algorithmic challenges that we face.
+
+Despite all of these considerations, our focus remains on the study of alogrithms. In
+this context, we proceed to consider next the essential feature of object-oriented 
+programming that are relevant to our mission.
+

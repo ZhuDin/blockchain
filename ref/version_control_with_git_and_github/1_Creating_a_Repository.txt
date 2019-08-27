@@ -1,0 +1,130 @@
+Creating a Respository
+
+Verison control requires that the files ant associated 
+changes that need to be tracked are organized in a repository
+which is the unit that Git identifies as the candidate
+for source control. To commence a piece of work, we need
+to create a repository.
+
+In this section, we shall explore two approaches that you
+may use to initialize a repository.
+
+
+Exercise 8: Creating a Repository in a Local Environment
+
+Initializing a repository locally entails using git init
+and mapping the local repository to its corresponding remote
+repository.
+
+1. Launch the Terminal.
+
+  a. On a Linux computer: Press Ctrl+Alt+T.
+
+  b. On a macOS computer: Press command + spacebar, Type terminal 
+     or iTerm, and then click the application logo to launch the
+     Terminal
+	
+  c. On a Microsoft Windows computer: Press Win + R on your
+     keyboard to launch the Run window. Then, type cmd.exe
+     and press Enter on your keyboard, or click Ok on the Run 
+     window.
+
+2. Create a directory for the application using the following command:
+
+   mkdir abacus
+
+3. Change the working directory to the project directory using 
+   the following command:
+
+   cd abacus
+
+4. Initialize the repository using the following command:
+
+   git init
+
+5. Go to hppts://github.com/
+
+6. Click New repository on the left-hand pane on the page.
+
+7. Specify the name of the repository.
+
+8. Click Create repository.
+
+9. Click on the SSH button on obtain the SSH URL. This button
+   is below the text that reads Quick setup - if you've 
+   done this kind of thing before.
+
+10.On the terminal, specify the GitHub URL of the repository,
+   that is, abacus:
+
+   git remote add origin [repository_rul]
+
+11.Add teh file where we'll host the class that will host our
+   code using the following code as seen in the following 
+   screenshots.
+
+   mkdir -p src/lib
+   > src/lib/compute.py
+
+12.Prepare the files for the first commit using the following 
+   command:
+
+   git add src/lib/compute.py
+
+13.Commit the files using the following command:
+ 
+   git commit -m "Initial commit"
+
+Note
+
+The -m option that's used with the commit command specifies 
+the message we wish to use for a commit.
+
+You can push the repository files to the repository on GitHub
+using the following command:
+
+git push -u origin master
+
+outcome
+
+You have successfully initialized a repository locally by
+using git init and mapping the local repository to the 
+remote repository.
+
+Note
+
+The -u option that's used with the push command sets teh remote
+branch of the remote repository that the local repository
+is linked to. This option is used to create a tracking reference
+between a local and remote branch. It enables you to run git
+push or git pull without haveing to specify arguments such
+as the branch name as shown in the example.
+
+
+Exercise 9: Creating a Repository on GitHub
+
+To start a piece of work, you may, instead of initializing 
+a repository locally, create the repository on GitHub, after
+which you can then clone it locally.
+
+1. Go to https://github.com/.
+
+2. Go to your account's repository listing by clicking Your
+   repositories and then click the New button.
+
+3. Specify the repository name and description.
+
+4. Click the Create repository button.
+
+5. Retrieve the SSH URL.
+
+6. Clone the repository on your local environment using 
+   the following command:
+
+   git clone [repository_rul]
+
+outcome
+
+You have successfully create the repository on GitHub,
+which you can now clone locally.
+

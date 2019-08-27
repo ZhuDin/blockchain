@@ -1,0 +1,250 @@
+8 - Advanced Keyboard Tricks
+
+I often kiddingly describe Unix as "the operating system for people who like to type". Of
+course, the fact that it even has a command line is a testament to that. But command line
+users don't like to type that much. Why else would so many commands have such short
+names like cp, ls, mv, and rm? In fact, one of the most cherished goals of the command
+line is laziness; doing the most work with the fewest number of keystrokes. Another goal
+is never having to lift our fingers from the keyboard and reach for the mouse. In this 
+chapter, we will look at bash features that make keyboard use faster and more efficient.
+
+The following commands will make an appearance:
+
+  * clear - Clear the screen
+  * history - Display the contents of the history list
+
+
+Command Line Editing
+
+bash uses a library (a shared collection of routines that different programs can use)
+called Readline to implement command line editing. We have already seen some of this.
+We know, for example, that the arrow keys move the cursor, but there are many more 
+feature. Think of these a additional tools that we can employ in our work. It's not 
+important to learn all of them, but many of them are very useful. Pick and choose as 
+desired.
+
+  Note: Some of the key sequences below (particularly those that use Alt key)
+  may be intercepted by the GUI for other functions. All of the key sequences 
+  should work properly when using a virtual console.
+
+
+Cursor Movement
+
+The following table lists the keys used to move the cursor:
+
+Table 8-1: Cursor Movement Commands
+Key		Action
+Ctrl-a		Move cursor to the beginning of the line.
+Ctrl-e		Move cursor to the end of the line.
+Ctrl-f		Move cursor forward one character; same as the right arrow key.
+Ctrl-b		Move cursor backward one character; same as the left arrow key.
+Alt-f		Move cursor forward one word.
+Alt-b		Move cursor backward one word.
+Ctrl-l		Clear the screen and move the cursor to the top-left corner.
+		The clear command does the same thing.
+
+
+Modifying Text
+
+Since it's possible we might make a mistake when composing a command, we need a way
+to correct them efficiently. Table 8-2 describes keyboard commads that are used to 
+edit characters on the command line.
+
+Table 8-2: Text Editing Commands
+Key		Action
+Ctrl-d		Delete the character at the cursor location.
+Ctrl-t		Transpose (exchange) the character at the cursor location with the 
+		one preceding it.
+Alt-t		Transpose the word at the cursor location with the one preceding it.
+Alt-l		Convert the characters from the cursor location to the end of the 
+		word to lowercase.	
+Alt-u		Convert the characters from the cursor location to the end of the 
+		word to uppercase.
+
+
+Cutting and Pasting (Killing and Yanking) Text
+
+The Readline documentation uses the terms killing and yanking to refer to what we would
+commonly call cutting and pasting. Items that are cut are stored in a buffer (a temporary
+storage area in memory) called the kill-ring.
+
+Table 8-3: Cut and Paste Commands
+Key		Action
+Ctrl-k		Kill text from the cursor location to the end of line.
+Ctru-u		Kill text from the cursor location to the beginning of the line.
+Alt-d		Kill text from the cursor location to the end of the current word.
+Alt-Backspace	Kill text from the cursor location to the beginning of the current word.
+		If the cursor is at the beginning of a word, kill the previous word.
+Ctry-y		Yank text from the kill-ring and insert it at the cursor location
+
+
+  The Meta Key
+
+  If you venture into the Readline documentation, which can be found in the 
+  "READLINE" section of the bash man page, you will encounter the term meatkey.
+  On modern keyboards this maps to the Alt key but it wasn't always so.
+
+  Back in the dim times (before PCs but after Unix), not everybody had their own
+  computer. What they might have had was a device called a terminal. A terminal
+  was a communication device that featured a text display screen and a keyboard
+  and just enough electronics inside to display test characters and move the cursor
+  around. It was attached (usually by serial cable) to a larger computer or the 
+  communication network of a larger computer. There were many different brands of
+  terminals, and they all had different keyboards and display feature sets. Since they
+  all tended to at least understand ASCII, software developers wanting portable 
+  applications wrote to the lowest common denominator. Unix systems have an elaborate
+  way of dealing with terminals and their different display features. Since the
+  developers of Readline could not be sure of the presence of a dedicated extra 
+  control key, they invented one and called it meta. While the Alt key serves as the
+  meta key on modern keyboards, you can also press and release the Esc key to get
+  the same effect as holding hown the Alt key if you;re still using a terminal
+  (which you can still do in Linux!).
+
+
+Completion
+
+Another way that the shell can help us is through a mechanism called completion.
+Completion occurs when we press the tab key while typing a command. 
+
+There are a number of control and meta key sequences that are associated with
+completion, as listed in Table 8-4.
+
+Table 8-4: Completion Commands
+Key		Action
+Alt-?		Display a list of possible completion. On most system you can also 
+		do this by pressing the Tab key a second time, which is much easier.
+Alt-*		Inert all possible completion. This is useful when you want to use
+		more than one possible match.
+
+There quite a few more that are rather obscure. A list appears in the bash man page
+under "READLINE".
+
+
+  Programmable Completion
+  
+  Recent versions of bash have a facility called programmable completion. Programmable
+  completion allows you (or more likely, your distribution provider) to add additional
+  completion rules. Usually this is done to add support for specific application.
+  For example, it is possible to add completions for the option list of a command or
+  match particular file types that an application supports. Ubuntu has a fairly large
+  set defined by default. Programmable completion is implemented by shell functions,
+  a kind of mini shell script that we will cover in later chapters. If you are curious,
+  try the following:
+
+  set | less
+
+  and see if you can find them. Not all distributions include them by default.
+
+
+Using History
+
+As we discovered in Chapter 1, bash maintains a history of commands that have been entered.
+This list of commands is kept in our home directory in a file called .bash_history.
+The history facility is a useful resource for reducing the amount of typing we
+have to do, especially when combined with command line editing.
+
+
+Searching History
+
+At any time, we can view the contents of the history list by doing the following:
+
+$ history | less
+
+By default, bash stores the last 500 commands we have entered, though most modern 
+distributions set this value to 1000. We will see how to adjust this value in Chapter 11.
+Let's say we want to find the commands we used to list /usr/bin. This is one way we could 
+do this:
+
+$ history | grep /usr/bin
+
+And let's say that among our results we got a line containing an interresting command like 
+this:
+
+88 ls -l /usr/bin > ls-output.txt
+
+The 88 is the line number of the command in the history list. We could use this immediately
+using another type of expansion called history expansion. To use our discovered line, 
+we could do this:
+
+$ !88
+
+bash will expand !88 into the contents of the 88th line in the history list. There are
+other forms of history expansion that we will cover in the next section.
+
+bash also provides the ability to search the history list incrementally. This means we can
+tell bash to search the history list as we enter characters, with each additional character
+further refining our search. To start incremental search press Ctrl-r followed by the 
+text we are looking for. When we find it, we can either press Enter to execute the command
+or press Ctrl-j to copy the line from the history list to the current command line.
+To find the next occurrence of the text (moving "up" the history list), press Ctrl-r
+again. To quit searching, press either Ctrl-g or Ctrl-c. Here we see it in action:
+
+First press Ctrl-r.
+
+(reverse-i-search)`':
+
+The prompt changes to indicate that we are performig a reverse incremental search. It is
+"reverse" because we are searching from "now" to some time in the past. Next, we start
+typing our search text.
+
+Immeditately, the search returns our result. With our result, we can execute the command
+ty pressing Enter, or we can copy the command to our current command line for further
+editing ty pressing Ctrj-j.
+
+The Table 8-5 lists some of the keystrokes used to manipulate the history list.
+
+Table 8-5: History Commands
+Key		Action
+Ctrl-p		Move to the previous history entry. This is the same action as the up arrow.
+Ctrl-n		Move to the next history entry. This is the same action as the down arrow.
+Alt-<		Move to the beginning (top) of the history list.
+Alt->		Move to the end (botton) of the history list, i.e., the currnet command line.
+Ctrl-r		Reverse incremental search. This searches incrementally from the current
+ 		command line up the history list.
+Alt-p		Forward search, nonincremental.
+Ctrl-o		Execute the current item in the history list and advance to the next one.
+		This is handy if we are typing to re-execute a sequence of commands.
+
+
+History Expansion
+
+The shell offers a specialized type of expansion for items in the hsitory list by using the 
+! character. We have already seen how the exclamation point can be followed by a number 
+to insert an entry from the history list. There are a number of other expansion features, as
+described in Table 8-6.
+
+Table 8-6: History Expansion Commands
+Sequence	Action
+!!		Repeat the last command. It is probably easier to press up arrow and enter.
+!number		Repeat history list item number.
+!string		Repeat last history list item starting with string.
+!?string	Repeat last history list item containing string.
+
+I would caution against using the !string and !?string forms unless you are absolutely
+sure of the contents of the history list items.
+
+Many more elements are available in the history expansion mechanism, but this subject is
+already too arcane and our heads may explode if we continue. The HISTORY EXPANSION
+section of the bash man page goes into all the gory details. Feel free to explore!
+
+
+  script
+
+  In addition to the history of feature in bash, most Linux distributions include
+  a program called stript that can be used to record an entire shell session
+  and store it in a file. The basic syntax of the command is as follows:
+
+  script [file]
+
+  where file is the name of the file used for storing the recording. If no file is 
+  specified, the file typescript is used. See the script man page for a complete
+  list of the program's options and features.
+
+
+Summing Up
+
+In this chapter we covered some of the keyboard tricks that the shell provides to help
+hardcore typists reduce their workloads. As time goes by and we become more involved
+with the command line, we can refer back to this chapter to pick up more of these tricks.
+For now, consider them optional and potentially helpful.
+

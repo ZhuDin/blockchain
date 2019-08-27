@@ -1,0 +1,187 @@
+git add
+
+So far, we've established that a file exists in three forms,
+that is, untracked, unstaged, and staged. We've also explored
+how to determine the status of a file and examine the changes
+on a tracked file, whether it be unstaged or staged.
+
+We will now explore how to add files to the index from the 
+working tree. This is achieved by using the git add command.
+
+The git add command uses the following syntax:
+
+git add [options] [path_to_files]
+
+The [options] used with git add include the following:
+
+-n or --dry-run
+
+This option simulates the behavior of git add for the specified 
+file:
+
+-f or --force
+
+This option adds ignored files to the index:
+
+-i or --interactive
+
+This option creates an interactive prompt that can be used
+to add files from the working tree to the index:
+
+-p or --patch
+
+The --patch option caters to adding portions of a file to
+the index.
+
+Once this option is chosen, it presents the differences in
+parts, referred to as hunks. You will then need to use the
+following options to instruct the git add utility on how
+to treat a hunk. Take a look at the patch interactive interface
+options that are given in the following table:
+
+Option		Meaning
+?		Print help.
+y		Stage this hunk
+n		Do not stage this hunk
+q		Exit or quit. Do not stage this hunk or any of the remaining hunks
+a		Stage this hunk and all later hunks in the specified files
+d		Do not stage this hunk or any of the remaining hunks in the file
+g 		Select a hunk to go to
+/		Search for the hunk that matches the specified regex pattern
+j		Leave this hunk undecided; see the next undecided hunk
+J		Leave this hunk undecided; see the next hunk
+k		Leave this hunk undecided; see the previous undecide hunk
+K		Leave this hunk undecided; see the previous hunk
+s		Split the current hunk into more granular hunks
+e		Manually edit the current hunk
+
+
+Exercise 14: Adding Files to the Index
+
+To determine the stage of a file in order to ensure that it is
+ready for the commit process, follow these steps:
+
+1. Lanuch the Terminal.
+
+2. Creating a branch that comes off the ft-support-multiplication-
+   arithmetic branch by using the git checkout -b ft-support-subtraction-
+   arithmetic command.
+
+   Note
+   This branch will be used to add a new feature to our application.
+
+3. Open the abacus repository in a text editor of your choice.
+
+4. Open compute.py in the text editor.
+
+5. Make the following change to compute.py and save the changes.
+
+    def function(self):
+	...
+
+6. Add files to the index by using the following command:
+
+    git  add --patch src/lib/compute.py
+
+7. Check the staged changes by using the git status command.
+
+8. Commit the changes by using the following command:
+  
+    git commit -m "Remove usage of a reserved word"
+
+9. Stage the remainder of the alterations by using the following command:
+
+    git add src/lib/compute.py
+
+10.Commit the staged changes using the following command:
+
+    git commit -m "Add substraction support"
+
+11.Push the changes to a remote repository by using the following command:
+
+    git push origin ft-support-subtraction-arithmetic
+
+
+Outcome
+
+Having following these steps, you should be able to add files 
+to the index, commit the files, and push the file to a remote
+repository.
+
+Note
+
+git add will ignore files specified in the .gitignore file.
+
+
+git commit
+
+The git commit command saves the files in the index. 
+This commit operation stores a message along with the
+commit. The message describes the additions or alterations
+associated with the created snapshot.
+
+The syntax of this command is as follows:
+
+git commit [options].
+
+NOTE
+The git commit command requires that a message be provided for
+each commit operation.
+
+The options supported by this command include -m [text] or --message [text].
+
+This message is used to associate the index file with the commit action:
+
+-a or -all
+
+This option instructs the git commit utility to stage
+tracked files that are unstaged, that is, the tracked files
+have been added to the index if the files are yet to be staged.
+Untracked fils are not added to the index.
+
+-p or --patch
+
+This launches the interactive path tool. The options are
+akin to those that are available through the git add command.
+See the preceding table for more information on this:
+
+-C [commit hash] or --reuse-message=[commit hash]
+
+This instructs git commit to reuse a commit message and 
+teh author information of the specified commit hash.
+
+-F [file] or --file=[file]
+
+This command specifies a file from which a commit message 
+should be obtained.
+
+-t [file] or --template [file]
+
+This command specifies the commit message template file.
+
+-e or --edit
+
+This command edits the provided commit message. This refers to
+the message provided by the -F, -t, and -m options.
+
+--no-edit
+
+This command uses the specified message as is. Do not
+launch and editor to edit the message.
+
+--author=[author]
+
+This command overrides the details of a commit author,
+and takes the following form:
+
+git commit --author="username<username@email.com>"
+
+--date=[date]
+
+As you can see, this override the date details used in a commit.
+
+-q or --quiet
+
+This command suppresses the summary message that's returned 
+after running the git commit command.
+

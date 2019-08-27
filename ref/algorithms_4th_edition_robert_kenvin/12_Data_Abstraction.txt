@@ -1,0 +1,79 @@
+1.2 Data Abstraction
+
+A Data Type is a set of vlaues and a set of operations on those values. So far, we have 
+discussed in detail Java's primitive data types: for example, the values of the primitive
+data type int are integers between -2^31 and 2^31-1; the operations of int include +, *,
+-, /, %, <, and >. In principle, we could write all of our program using only the built-in
+primitive types, but it is much more convenient to write programs at a higher level of
+abstraction. In this section, we focus on the process of defining and using data types,
+which is known as data abstraction (and supplements the function abstraction style that
+is the bisis of SECTION 1.1).
+
+Programming in Java is largely based on building data types known as reference types
+with the familiar Java class. This style of programming is know as object-oriented
+programming, as it revolves around the concept of an object, an entity that holds a data
+type value. With Java's primitive types we are largely confined to programs that operate
+on numbers, but with reference types we can write programs that operate on strings,
+pictures, sounds, any of humbreds of other abstractions that are available in Java's 
+standard libraries or on our booksite. Even more significant that libraries of predefined
+data types in that the range of data types available in Java programming is open-ended,
+because you can define your own data type to implement any abstraction whatsoever.
+
+An abstract data type (ADT) is a data type whose representation is hidden from the 
+client. Implementing an ADT as a Java class is not very different from implementing a
+function library as a set of static methods. The primary difference is that we associate
+data with the function implementations and we hide the representation of the data from 
+the client. When using an ADT, we focus on the operations specified in the API and 
+pay no attention to the data representation; when implementing an ADT, we focus on
+the data, then implement operations on that data.
+
+Abstract data types are important because they support encapsulation in program 
+design. In this book, we use them as a means to
+
+  * Precisely specify problems in the form of APIs for use by diverse clients
+  * Describe algorithms and data structures as API implementations
+
+Our primary reason for studying different algorithms for the same task is that 
+performance characteristics differ. Abstract data types are an appropriate framework for the
+study of algorithms because they allow us to put knowledge of algorithm performance
+to immediate use: we can substitute one algorithm for another to improve performance
+for all clients without changing any client code.
+
+
+Using abstract data types
+
+You do not need to know how a data type is implemented in order to be able to
+use it, so we begin by describing how to write programs that use a simple data
+type named Counter whose values are a name and a nonegative integer and whose
+operations are create and initialize to zero, increment by one, and examine
+the current value. This abstraction is useful in many contexts. For example, it
+would be reasonable to use such a data type in electronic voting software, to ensure that
+the only thing that a voter can do is increment a chosen candidate's tally by one. Or,
+we might use a Counter to keep track of fundamental operations when analyzing the
+performance of algorithms. To use a counter, you need to learn our mechanism for 
+specifying the operations defined in the data type and the Java language mechanisms
+for creating and manipulating data-type values. Such mechanisms are critically 
+important in modern programming, and we use them throughout this book, so this first
+example is worthy of careful attention.
+
+
+More ADT implementations 
+
+As with any programming concept, the best way to understand the power and utility
+of ADTs is to consider carefully more examples and more implementations. There
+will be ample opportunity for you to do so, as much of this book is devoted to
+ADT implementations, but a few more simple examples will help us lay the groundwork
+for addressing them.
+
+
+Data-type design
+
+An abstract data type is a data type whose representation is hidden from the client.
+This idea has had a powerful effect on modern programming. The various examples that 
+we have considered give us the vocabulary to address advanced characteristics of ADTs
+and their implementation as Java classes. Many of these topics are, on the surface,
+tangential to the study of algorithms, so it is safe for you to skim this section and
+refer to it later in the context of specific implementation problems. Our goal is to
+put important information related to designing data types in one place for reference
+and to set the stage for implementations through this book.
+

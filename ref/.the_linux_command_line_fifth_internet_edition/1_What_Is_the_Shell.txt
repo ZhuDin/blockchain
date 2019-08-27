@@ -1,0 +1,86 @@
+1 - What Is the Shell?
+
+When we speak of the command line, we are really referring to the shell. The shell is a
+program that takes keyboard commands and passes them to the operating system to carry
+out. Almost all Linux distributions supply a shell program from the GNU Project called
+bash. The name "bash" is an acronym for "Bourne Again SHell", a reference to the fact
+bash is an enhanced replacement for sh, the original Unix shell program written by Steve Bourne.
+
+Terminal Emulators
+When using a graphical user interface (GUI), we need another program called a terminal
+emulator to interact with the shell. If we look through our desktop menus, wwe will
+probably find one. KDE uses lonsole and GNOME uses gneme-terminal, though it's
+likely called simply "terminal" on our menu. A number of other terminal emulators are
+available for Linux, but they all basically do the same thing; give us access to the 
+shell. You will probably develop a preference for one or another terminal emulator based
+on the number of bells and whistles it has.
+
+Making  Your First Keystrokes
+
+Command History
+If we press the up-arrow key, we will see that the previous command reappears after the 
+prompt. This is called command history. Most Linux distributions remember the last 
+1000 commands by default. Press the down-arrow key and the previous command disappears.
+
+Cursor Movement
+Recall the previous command by pressing the up-arrow key again. If we try the left and
+right-arrow keys, we'll see how we can position the cursor anywhere on the command line.
+This makes editing commands easy.
+
+A Few Words About Mice and Focus
+While the shell is all about the keyboard, you can also use a mouse with your terminal
+emulator. A mechanism built into the X Window System (the underlying engine that makes
+the GUI go) supports a quick copy and paste technique. If you highlight some text by 
+holding down the left mouse button and dragging the mouse over it (or double clicking
+on a word), it is copied into a buffer maintained by X. Pressing the middle mouse button
+will cause the text to be pasted at the cursor location.
+
+Note: Don't be tempted to use Ctrl-c and Ctrl-v to perform copy and paste
+inside a terminal window. They don't work. These control codes have different
+meanings to the shell and were assigned many years before the release of
+Microsoft Windows.
+Your graphical desktop environment (most likely KDE or GNOME), in an effort 
+to behave like Windows, probably has its focus policy set to "click to focus." This
+means for a window to get focus (become active) you need to click on it. This is
+contrary to the traditional X behavior of "focus follows mouse" which means that 
+a window gets focus just by passing the mouse over it. The window will not come 
+to the foreground util you click on it but it will be able to receive input. Setting
+the focus policy to "focus follows mouse" will make the copy and paste technique
+even more useful. 
+
+Try Some Simple Commands
+Now that we have learned to enter text in our terminal emulator, let's try a few simple
+commands. Let's begin with the date command, which displays the current time and data.
+$ date
+
+A related command is cal which, by default, displays a calendar of the current month.
+$ cal
+
+To see the current amount of free space on our disk drives, enter df.
+$ df
+
+Likewise, to display the amount of free memory, enter the free command.
+$ free
+
+Ending a Terminal Session
+We can end a terminal session by either closing the terminal emulator window, by entering
+the exit command at the shell prompt, or pressing Ctrl-d.
+$ exit
+
+The Console Behind the Curtain
+Even if we have no terminal emulator running, several terminal sessions continue
+to tun behind the graphical desktop. We can access these sessions, called virtual
+terminals or virtual consoles, by pressing Ctrl-Alt-F1 through Ctrl-Alt-F6 on 
+most Linux distributions. When a session is accessed, it presents a login prompt
+into which we can enter our username and password. To switch from one virtual
+console to another, press Alt-F1 through Alt-F6. On most system we can return to
+the graphical desktop by pressing Alt-F7.
+
+Summing Up
+This chapter marks the beginning of our journey into the Linux command line with an 
+introduction to the shell and a brief glimpse at the command line and a lesson on how to
+start and end a terminal session. We also saw how to issue some simple commands and
+perform a little light command line editing.
+In the next chapter, we'll learn a few more commands and wander around the Linux file 
+system.
+

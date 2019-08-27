@@ -1,0 +1,51 @@
+-Python3 循环语句
+
+Python中的循环语句有for和while。
+
+--while循环
+Python中while语句的一般形式：
+while 判断条件:
+    语句
+同样需要注意冒号和缩进。另外，在Python中没有do...while循环。
+
+--无限循环
+可以通过设置条件表达式永远不为false来实现无限循环。
+可以使用CTRL+C来即出当前的无限循环。
+无限循环在服务器上客户端的实时请求非常有用。
+
+--while循环使用else语句
+在while...else在条件语句为false时很乖else的语句块
+while 条件1:
+    语句
+else:
+    语句
+
+--简单语句组
+类似if语句的语法，如果while循环体中只有一条语句，可以将该语句与while写在同一行中
+
+--for语句
+Python for循环可以遍历任何序列的项目，如一个列表或者一个字符串。
+for循环的一般格式如下：
+for <variable> in <sequence>:
+    <statements>
+else:
+    <statements>
+
+--range()函数
+如果需要遍历数字序列，可以使用内置range()函数。它会生成数列
+可以使用range指定区间的值
+也可以使用range指定数字开始并指定不同的增量(甚至可以是负数，称作步长)
+结合range()和len()函数可以遍历一个序列的索引
+或使用range()函数来创建一个列表：list(range(number))
+
+--break和continue语句及循环中的else子句
+break语句可以跳出for和while的循环体。如果从for或while循环中终止，任何对应的循环else块将不再执行。
+
+continue语句被用来告诉Python跳过当前循环块中剩余语句，然后继续进行下一轮循环
+
+循环语句可以有else子句，它在穷尽列表(以for循环)或条件变为false(以while循环)导致循环终止时被执行，但循环被break终止时不执行。
+
+--pass语句
+Python pass是空语句，是为了保持程序结构的完整性。
+pass不做任何事情，一般用作点位语句
+

@@ -1,0 +1,170 @@
+In this section, we will explore some use cases of the git diff
+command.
+
+
+Comparing the Working Tree to the Index
+
+To compare the entire working tree to the index, run the
+git diff command without specifying a path:
+
+  git diff
+
+This command supports examing the difference of a
+specific file or directory by accepting a path:
+  
+  git diff -- [Path_to_a_file_or_directory]
+  
+  1. git diff -- src/lib/
+  2. git diff -- src/lib/compute.py
+
+(1) and (2) compare the version in the working directory 
+of the specified paths to the version that's present in the 
+index.
+
+
+Comparing the Working Tree to an Arbitrary Commit or Branch
+
+A comparison can be made between the working tree and 
+a special commit on the same branch, or even the tip of a
+given branch. To compare the working tree to a given commit,
+use the following syntax:
+
+git diff [commit_hash] -- [path_to_a_file_or_directory]
+
+1. git diff HEAD -- src/
+2. git diff [commit_hash] -- src/lib/
+3. git diff master
+   
+(1) Compare the version in the working directory of the
+    src directory, to the version of the most recent commit
+    on the current branch.
+
+(2) Compare the version in the working directory of the 
+    src directory to the version in the snapshot represented
+    by the hash [commit_hash].
+
+(3) Compares the version in the working directory of the 
+    src directory to the version at the tip of the branch
+    master.
+
+
+Comparing the Index to an Arbitrary Commit
+
+To compare the files in the index to a specific commit,
+(for example, the most recent commit, also referred to
+as the tip of the branch), you can use the --staged
+or --cached option with the git diff command.
+A commit hash is required for this scenario. The git
+diff command defaults to HEAD in the absence of a
+specific commit hash:
+
+git diff --cached [commit_hash]    or
+git diff --chahed [commit_hash] --[path_to_a_file_or_directory]
+
+4. git diff --cached HEAD -- /src/lib/compute.py
+
+(1) compare the version in the index of the compute.py
+    file to the version at the tip of the current branch.
+
+
+Comparing Commits and Branches
+
+git diff provides a variant of the command's usage that
+supports comparing commits and branches.
+
+To compare two commits or the tips of two branches, use
+the following syntax:
+
+git diff [commit_hash or branch_name] [commit_hash or branch_name]    or
+git diff [commit_hash or branch_name] [commit_hash or branch_name] --[path_to_a_file_or_directory]    or
+git diff [commit_hash or branch_name].. [commit_hash or branch_name]
+
+1. git diff ft-add-encapsulating-class master
+2. git diff ft-add-encapsulating-class.. master
+3. git diff [commit_hash] [commit_hash]
+
+(1) and (2) compare the different between the tips of the 
+special branches.
+
+(3) compares the different between the files at the point
+referenced by the specified hashes.
+
+Using the ... notation, git diff is capable of comparing 
+the changes that have been made on branch A to branch B.
+This occurs from the point where the two branches share
+an ancestor to the most recent commit of branch B.
+
+To achieve this, use the following syntax:
+
+git diff [branch_A]...[branch_B] --[path_to_a_file_or_directory]
+
+1. git diff ft-add-encapsulating-class...master
+
+(1) lists the changes that have occured in the branch master,
+    since the ft-add-encapsulating-class branch was created
+    from the branch master.
+
+Note
+When .. or ... are used with the git diff command, it implies
+the comparision of two points in history, and not a range.
+
+git diff defaults to HEAD when a commit hash or branch
+name is not specified.
+
+
+Exercise 13: Examining Differences Between Files
+
+To determine the differences in a branch or file, follow
+these steps:
+
+1. Launch the Terminal.
+
+2. Create a branch that comes off the ft-add-encapsulating-class
+   branch by using the following command:
+
+    git checkout -b ft-support-multiplication-arithmetic
+
+  Note
+  This branch will be used to add a new feature to our application.
+
+3. Open the abacus repository in a text editor of your choice.
+
+4. Open compute.py in the text editor.
+
+5. Add the following lines to compute.py and save the changes:
+    
+    def multiple(self):
+      sum = 1
+      for item in self.operands:
+	sum *= item
+      print(sum)
+
+6. Compare the working tree to index by using the git diff command. 
+
+7. Compare the working tree to the master branch by using the
+   git diff master command:
+
+8. Compare the index to an arbitrary commit by using the 
+   following commands:
+
+    git add src/lib/compute.py
+    git diff --cached
+    git diff --cached [commit_hash]
+  
+  Note
+  To retrive a commit hash, run the git log command
+
+9. You can compare different branches by using the following 
+   commands:
+
+    git commit -m "Add support for multiplication"
+    git diff ft-support-multiplication-arithmetic..ft-add-encapsulating-class
+
+10.Push the changes to a remote branch by using the following command:
+
+    git push origin ft-support-multiplication-arithmetic
+
+Outcome
+By completing this exercise, you should be able to list and examine
+the differences between varying snapshots of a branch.
+

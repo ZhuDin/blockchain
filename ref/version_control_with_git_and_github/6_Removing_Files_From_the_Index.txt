@@ -1,0 +1,6 @@
+git rm
+
+The git rm command performs two roles. These roles are 
+used to remove files from the working directory and the index.
+
+

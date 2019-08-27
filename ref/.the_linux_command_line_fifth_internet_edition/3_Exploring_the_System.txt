@@ -1,0 +1,376 @@
+3 - Exploring the System
+
+Now that we know how to move around the file system, it's time for a guided tour of our
+Linux system. Before we start however, we're going to learn some more commands that 
+will be useful along the way.
+
+ls - List directory contents
+file - Determine file type
+less - View file contents
+
+
+Having More Fun with ls
+
+The ls command is probably the most used command, and for good reason. With it, we
+can see directory contents and determine a variety of important file and directory
+attributes. As we have seen, we can simply enter ls to get a list of files and 
+subdirectories contained in the current working directory.
+
+By adding "-l" to the command, we changed the output to the long format.
+
+
+Options and Arguments
+
+This brings us to a very important point about how most commands work. Commands are
+often followed by one or more options that modify their behavior, and further, by one or
+more arguments, the items upon which the command acts. So most commands look kind of
+like this:
+
+command -options arguments
+
+Most commands use options which consist of a single character preceded by a dash, for
+example, "-l". Many commands, however, including those from the GNU Project, also 
+support long options, consisting of a word preceded by two dashes. Also, many commands
+allow multiple short options to be strung together. In the following example, the
+ls command is given two options, which are the l option to produce long format output,
+and the t option to sort the result by the file's modification time.
+$ ls -lt
+
+We'll add the long option "--reverse" to reverse the order of the sort.
+$ ls -lt --reverse
+
+Note that command options, like filenames in Linux, are case-sensitive.
+
+The ls command has a large number of possible options. The most common are listed:
+
+Option	Long Option		Description
+-a	--all			List all file, even those with names that begin
+				with a period, which are normally not listed.
+
+-A	--almost-all		Like the -a option above except it does not
+				list .(current directory) and ..(parent directory).
+
+-d	--directory		Ordinarily, if a directory is specified, ls will
+				list the contents of the directory, not the 
+				directory itself. Use this option in conjunction
+				with the -l option to see details about the 
+				directory rather than its contents.
+
+-F	--classify		This option will append an indicator character
+				to the end of each listed name.
+
+-h	--human-readable	In long format listings, display file sizes in 
+				human readable format rather than in bytes.
+
+-l				Display results in long format.
+
+-r	--reverse		Display the results in reverse order. Normally,
+				ls displays its results in ascending 
+				alphabetical order.
+
+-S				Sort results by file size.
+-t				Sort by modification time.
+
+
+A Longer Look at Long Farmat
+
+As we saw earlier, the -l option causes ls to display its results in long farmat. This
+format contains a great deal of useful information. 
+
+
+Determining a File's Type with file
+
+As we explore the system it will be useful to know what files contain. To do this we will
+use the file command to determine a file's type. As we discussed earlier, filenames in
+Linux are not required to feflect a file's contents. While a filename like "picture.jpg"
+would normally be expected to contain a JPEG compressed image, it is not required to in
+Linux. We can invoke the file command this way:
+
+file filename
+
+When invoked, the file command will print a brief description of the file's contents.
+
+There are many kinds of files. In fact, one of the common ideas in Unix-like operating 
+systems such as Linux is that "everything is a file." As we proceed with our lessons, we
+will see just how true that statement is.
+
+While many of the files on our system are familiar, for example MP3 and JPEG, there are
+many kinds that are a little less obvious and a few that are quite strange.
+
+
+Viewing File Contents with less
+
+The less command is a program to view text files. Troughout our Linux system, there
+are many files that contain human-readable text. The less program provides a convenient
+way to examine them.
+
+
+  What Is "Text"?
+
+  There are many ways to represent information on a computer. All methods involve 
+  defining a relationship between the information and some numbers that will
+  be used to represent it. Computers, after all, only understand numbers and all data
+  is converted to numeric representation.
+
+  Some of these representation systems are very complex (such as compressed
+  video files), while others are rather simple. One of the earliest and simplest is
+  called ASCII text. ASCII (pronounced "As-Key") is short for American Standard
+  Code for Information Interchange. This is a simple encoding scheme that was first
+  used on Teletype machines to map keyboard characters to numbers.
+
+  Text is a simple one-to-one mapping of characters to numbers. It is very compact.
+  Fifty characters of text translates to fifty bytes of data. It is important to understand
+  that text only contains a simple mapping of characters to numbers. It s not 
+  the same as a word processor document such as one created by Microsoft Wrod or 
+  LibreOffice Writer. Those file, in contrast to simple ASCII text, contain many
+  non-text elements that are used to describe its structure and formatting. Plain
+  ASCII text files contain only the characters themselves and a few rudimentary
+  control codes such as tabs, carriage returns and line feeds.
+
+  Throughout a Linux system, may files are stored in text format and there are 
+  many Linux tools that work with text files. Even Windows recognizes the important
+  of this format. The well-known NOTEPAD.EXE program is an editor for plain ASCII 
+  text files.
+
+Why would we want to examine text files? Because many of the files that contain system
+settings (called configuration files) are stored in this format, and being able to read them
+gives us insight about how the system works. In addition, some of the actual programs
+that the system uses (called scripts) are stored in this format. In later chapters, we will
+learn how to edit text files in order to modify systems settings and write our own scripts,
+but for now we will just look at their contents.
+
+The less command is used like this:
+
+less filaname
+
+Once started, the less program allows us to scroll forward and backward through a text
+file. 
+
+Once the less program starts, we can view the contents of the file. If the file is longer
+than one page, we can scroll up and down. To exit less, press the q key.
+The table below lists the most common keyboard commands used by less.
+
+Command 		Action
+Page Up or b		Scroll back one page
+Page Down or space	Scroll forward one page
+Up arrow		Scroll up one line
+Down arrow		Scroll down one line
+G			Move the the end of the text file
+1G or g			Move to the beginning of the text file
+/characters		Search forward to the next occurrence of characters
+n			Search for the next occurence of the previous search
+h			Display help screen
+q			Quit less
+
+  Less Is More
+  The less program was designed as an improved replacement of an earlier Unix
+  program called more. The name "less" is a play on the phrase "less is more"--a
+  motto of modernist architects and designers.
+
+  less falls into the class of programs called "pagers," programs that allow the
+  easy viewing of long text documents in a page by page manner. Whereas the 
+  more program could only page forward, the less program allows paging both
+  forward and backword and has many other features as well.
+
+
+Taking a Guided Tour
+
+The file system layout on a Linux system is much like that found on other Unix-like 
+system. The design is actually specified in a published standard called the Linux
+Filesystem Hierarchy Standard. Not all Linux distributions conform to the standard
+exactly but most come pretty close.
+
+Next, we are going to wander around the file system ourselves to see what makes our
+Linux system tick. This will give us a chance to practice our navigation skills. One of the
+things we will discover is that many of the interesting files are in plain human-readable
+text. As we go about our tour, try the following:
+
+  1. cd into a given directory
+  2. List the directory contents with ls -l
+  3. If you see an interesting file, determine its contents with file
+  4. If it look like it might be text, try viewing it with less
+  5. If we accidentally attempt to view a non-text file and it scrambles the terminal
+     window, we can recover by entering the command.
+
+  Remember the copy and paste trick! If you are using a mouse, you can double 
+  click on a file to copy it and middle click to paste it into commands.
+
+As we wander around, don't be afraid to look at stuff. Regular users are largely prohibited
+from messing thing up. That's the system administrator's job! If all command complains
+about something, just move on to something else. Spend some time looking around. The
+system is ours to explore. Remember, in Linux, there are no secrets!
+
+Table 3-4: Directories Found on Linux Systems
+Directory	Comments
+/		The root directory. Where everything begins.
+
+/bin		Contains binaries (programs) that must be present for the 
+		system to boot and run.
+
+/boot		Contains the Linux kernel, initial RAM disk image (for
+		drivers needed at boot time), and the boot loader.
+
+		Interesting files:
+		  * /boot/grub/grub.conf or menu.lst, which
+		    are used to configure the boot loader.
+		  * /boot/vmlinuz (or something similar), the Lniux kernel
+
+/dev		This is special directory that contains device node.
+		"Everything is a file" also applies to devices. Here is where
+		the kernel maintains a list of all the devices it understands.
+
+/etc		The /etc directory contains all of the system-wide
+		configuration files. It also contains a collection of shell
+		scripts that start each of the system services at the boot time.
+		Everything in this directory should be readable text.
+
+		Interesting files: While everything in /etc is interesting,
+		here are some all-time favorites:
+		  * /etc/crontab, a file that defines when
+		    automated jobs will run.
+		  * /etc/fstab, a table of storage devices and their
+		    associated mount points.
+		  * /etc/passwd, a list of the user accounts.
+
+/home		In normal configurations, each user is given a directory in
+		/home. Ordinary users can only write files in their home
+		directories. This limitation protects the system from errant
+		user activity.
+
+/lib		Contains shared library files used by the core system
+		programs. These are similar to dynamic link libraries
+		(DLLs) in Windows.
+
+/lost+found	Each formatted partition or device using a Linux file system,
+		such as ext4, will have this directory. It is used in the case of 
+		a partial recovery from a file system corruption event.
+		Unless something really bad has happened to our system,
+		this directory will remain empty.
+
+/media		On modern Linux systems the /media directory will 
+		contain the mount points for removable media such as USB
+		drives, CD-ROMs, etc. that are mounted automatically at
+		insertion.
+
+/mnt		On order Linux systems, the /mnt directory contains mount
+		points for removable devices that have been mounted
+		manually.
+
+/opt		The /opt directory is used to install "optional" software.
+		This is mainly used to hold commercial software products
+		that might be installed on the system.
+
+/proc		The /proc directory is special. It's not a real file system in
+		the sense of files stored on the hard drive. Rather, it is a
+		virtual file system maintained by the Linux kernel. The
+		"files" it contains are peepholes into the kernel itself. The
+		files are readable and will give us a picture of how the 
+		kernel sees the computer.
+
+/root		This is the home directory for the root account.
+
+/sbin		This directory contains "system" binaries. These are
+		programs that perform vital system tasks that are generally 
+		reserved for the superuser.
+
+/tmp		The /tmp directory is intended for the storage of temporary,
+		transient files created by various program. Some 
+		configurations cause this directory to be emptied each time
+		the system is rebooted.
+
+/usr		The /usr directory tree is like the largest one on a Linux
+		system. It contains all the programs and support files used 
+		by regular users.
+
+/usr/bin	/usr/bin contains the executable programs installed by
+		the Linux distribution. It is not uncommon for this directory
+		to hold thousands of programs.
+
+/usr/lib	The shared libraries for the programs in /usr/bin.
+
+/usr/local	The /usr/local tree is where programs that are not 
+		included with the distribution but are intended for system-wide
+		use are installed. Programs compiled from source code
+		are normally installed in /usr/local/bin. On a newly installed
+		Linux system, this tree exists, but it will be empty
+		until the system administrator puts something in it.
+
+/usr/sbin	Contains more system administration programs.
+
+/usr/share	/usr/share contains all the shared data used by
+		programs in /usr/bin. This includes things such as
+		default configuration files, icons, screen backgrounds, sound 
+		files, etc.
+
+/usr/share/doc	Most packages installed on the system will include some
+		kind of documentation. In /usr/share/doc, we will find
+		documentation files organized by package.
+
+/var		With the exception of /tmp and /home, the directories we
+		have looked at so far remain relatively static, that is, their
+		contents don't change. The /var directory tree is where
+		dota that is likely to change is sotred. Various databases,
+		spool files, user mail, etc. are located here.
+
+/var/log	/var/log contains log files, records of various system 
+		activity. These are important and should be monitored from
+		time to time. The most useful ones are
+		/var/log/messages and /var/log/syslog. Note
+		that for security reasons on some systems only the superuser
+		may view log files.
+
+
+Symbolic Links
+
+As we look around, we are likely to see a directory listing (for example, /lib) with an
+entry like this:
+
+lrwxrwxrwx 1 root root   11 2007-08-11 07:34 libc.so.6 -> libc-2.6.so
+
+Notice how the first letter of the listing is "l" and the entry seems to have two filenames?
+This is a special kind of a file called a symbolic link (also known as a soft link or 
+symlink). In most Unix-like systems it is possible to have a file referenced by multiple names.
+While the value of this might not be obvious, it is really a useful feature.
+
+Picture this scenario: A program requires the use of a shared resource of some kind contained
+in a file named "foo", but "foo" has frequent version changes. It would be good to include
+the version number in the filename so the administrator or other interested party could
+see what version of "foo" is installed. This presents a problem. If we change the name
+of the shared resource, we have to track down every program that might use it and change
+it to look for a new resource name every time a new version of the resource is installed.
+That doesn't sould like fun at all.
+
+Here is where symbolic links save the day. Suppose we intall version 2.6 of "foo", which
+has the filename "foo-2.6" and then create a symbolic link simply called "foo" that points
+to "foo-2.6". This means that when a program opens the file "foo", it is actually opening
+the file "foo-2.6". Now everybody is happy. The programs that rely on "foo" can find it
+and we can still see what actual version is installed. When it is time to upgrade to "foo-
+2.7", we just add the file to our system, delete the symbolic link "foo" and create a new
+one that points to the new version. Not only does this solve the problem of the version
+upgrade, but it also allows us to keep both versions on our machine. Imagine that "foo-2.7"
+has a bug (damn those developers!) and we need to revert to the old version. Again,
+we just delete the symbolic link pointing to the new version and create a new symbolic
+link pointing to the old version.
+
+The directory listing at the beginning of this section (from the /lib directory of a
+Fedora system) shows a symbolic link called libc.so.6 that points to a shared library
+file called libc-2.6.so. This means that programs looking for libc.so.6 will actually
+get the file libc-2.6.so. We will learn how to create symbolic links in the next chapter.
+
+
+Hard Links
+
+While we are on the subject of links, we need to mention that there is a second type of
+link called a hard link. Hard links also allow files to have multiple names, but they do it
+in a different way. We'll talk more about the differences between symbolic and hard links
+in the next chapter.
+
+
+Summing Up
+
+With our tour behind us, we have learned a lot about our system. We've seen various files
+and directories and their contents. One thing we should take away from this is how open
+the system is. In Linux there are many important files that are plain human-readable text.
+Unlike many proprietary systems, Linux makes everything available for examination and
+study.
+
