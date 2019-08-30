@@ -1,0 +1,9 @@
+[package]
+name = "pro_2"
+version = "0.1.0"
+authors = ["zhudin <279388213@qq.com>"]
+edition = "2018"
+
+[dependencies]
+rand = "0.4.0"
+

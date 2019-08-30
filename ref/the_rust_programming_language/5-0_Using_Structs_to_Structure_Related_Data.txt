@@ -1,0 +1,22 @@
+Using Structs to Structure Related Data
+
+A struct, or structure, is a custom data type that lets you name and package together multiple related
+values that make up a meaningful group. If you're familiar with an object-oriendte language, a struct
+is like an object's data attributes. In this chpater, we'll compare and contrast tuples with structs,
+demonstrate how to use structs, and discuss how to define methods and associtated functions to
+specify behavior associtaed with a struct's data. Structs and enums (discussed in Chapter 6) are the
+building blokcs for creating new types in your program's domain to take full advantage of Rust's 
+compile time type checking.
+
+
+Summary
+
+Structs let you create custom types that are meaningful for your domain. By using structs, you can 
+keep associated pieces of data connected to each other and name each piece to make your code 
+clear. Methods let you specify the behavior that instances of your structs have, and associated 
+functions let you namespace functionality that is particular to your struct without having an instance 
+available.
+
+But structs aren’t the only way you can create custom types: let’s turn to Rust’s enum feature to add 
+another tool to your toolbox.
+

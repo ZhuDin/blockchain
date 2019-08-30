@@ -248,7 +248,7 @@ created for you:
 
 [dependencies]
 
-rand = "0.3.14"
+rand = "0.4.0"
 
 In the Cargo.toml file, everything that follows a header is part of a section that continues until
 another section starts. The [dependencies] section is where you tell Cargo which external crates
