@@ -1,6 +1,0 @@
-[package]
-name = "pro_3_5"
-version = "0.1.0"
-authors = ["zhudin <279388213@qq.com>"]
-
-[dependencies]

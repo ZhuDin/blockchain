@@ -1,0 +1,17 @@
+Abstract
+
+This monograph aims at providing an introduction to key
+concepts, algorithms, and theoretical results in machine learning.
+The treatment concentrates on probabilistic models
+for supevised and unsupervised learning problems. It 
+introduceds fundamental concepts and algorithms by building
+on first priciples, while also exposing the reader to more
+advanced topics with extensive pointers to the literature,
+within a unified notation and mathematical framework. The 
+material is organized according to clearly defined categories,
+such as discriminative and generative models, frequentist
+and Bayesian approaches, exact and approximate inference,
+as well as directed and undirected models. This monograph
+is meant as an entry point for researchers with an engineering
+background in probability and linear algebra.
+

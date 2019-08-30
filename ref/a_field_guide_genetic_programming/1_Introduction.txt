@@ -1,0 +1,49 @@
+Chapter 1: Introduction
+
+The goal of having computers automatically solve problems is central to 
+artificial intelligence, machine learning, and the broad area encompassed by 
+what Turing called "machine intelligence" (?). Machine learning 
+pioneer Arthur Samuel, in his 1983 talk entitled "AI: Where It Has Been 
+and Where It Is Going"(Samuel, 1983), started that the main goal of the 
+fields of machine learning and artificial intelligence is:
+
+"To get machine to exhibit behaviour, which if done by humans, 
+would be assumed to involve the use of intelligence."
+
+Genetic programming (GP) is an evolutionary computation (EC) technique
+that automatically solves problems without requiring the user to know
+or specify the form or structure of the solution in advance. At the most
+abstract level GP is a systematic, domain-independent method for getting
+computers to solve problems automatically starting from a high-level statment
+of what needs to be done.
+
+Since its inception, GP has attracted the interest of myriads of people 
+around the globe. This book gives an overview of the basics of GP, 
+summarised important work that gave direction and impetus to the field and
+discusses some interesting new directions and applications. Things continue
+to change repidly in genetic programming as investigators and practitioners
+discover new methods and applications. This makes it impossible to cover
+all aspects of GP, and this book should be seen as a snapshot of a particular
+moment in the history of field.
+
+
+1.1 Genetic Programming in a Nutshell
+
+In genetic programming we evolve a population of computer programs. That
+is, generation by generation, GP stochastically transforms populations of 
+programs into new, hopefully better, populations of programs, cf.
+GP's essential reandomness, however, can lead it to escape traps which 
+deterministic methods may be captured by. Like nature, GP has been very
+successful at evolving novel and unexpected ways of solving problems.
+
+
+1.2 Getting Started
+
+
+1.3 Prerequisites
+
+
+1.4 Overview of this Field Guide
+
+
+

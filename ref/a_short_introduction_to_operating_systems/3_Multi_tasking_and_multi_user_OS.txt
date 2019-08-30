@@ -1,0 +1,206 @@
+Chapter 3
+
+Multi-tasking and multi-user OS
+
+To make a multi-tasking OS we need loosely to reproduce all of the features
+discussed in the last chapter for each task or process which runs. It is not
+necessary for each task to have its own set of devices. The basic hardware
+resources of the system are shared between the tasks. The operating system
+must therefore have a 'manager' which shares resources at all times. This 
+manager is called the 'kernel' and it constitutes the main difference between
+single and multitasking operating system.
+
+
+3.1 Competition for resources
+
+
+3.1.1 User - authentication
+
+If a system supports several users, then each user must have his or her own
+place on the system disk, where files can be stored. Since each user's files may
+be private, the file system should recored the owner of each file. For this to be
+possible, all users must have a user identity or login name and must supply
+a password which prevents others from impersonating them. Passwords are
+stored in a cryptographic (coded) form. When a user logs in, the OS encrypts
+the typed password and compares it to the stored version. Stored passwords
+are never decrypted for comparison.
+
+
+3.1.2 Privileges and security
+
+On a multi-user system it is important that one user should not be able to interfere
+with another user's activities, either purposefully or accidentally. Certain
+commands and system calls are therefore not available to normal users directly.
+
+The super-user is a privideged user (normally the system operator) who has permission
+to do anything, but normal users have restrictions placed on them in the
+interest of system safety.
+
+For example: normal users should never be able to halt the system; nor
+should they be able to control the devices connected to the computer, or write
+directly into memory without making a formal request of the OS. One of the tasks
+of the OS is to prevent collisions between users.
+
+
+3.1.3 Tasks - two-mode operation
+
+It is crucial for the security of the system that different tasks, working side
+by side, should not be allowed to interfere with one another (although this 
+occasionally happens in microcomputer operating systems, like the Macintosh,
+which allow serveral programs to be resident in memory simultaneously). Protection
+mechanisms are needed to deal with this problem. The way this is
+normally done is to make the operation system all-powerful and all no user
+to access the system resources without going via the OS.
+
+To prevent users from tricking the OS, multiuser systems are based on hardware
+which supports two-mode operation: privileged mode for executing OS instructions
+and user mode for working on user programs. When running in user
+mode a task has no special privileges and must ask the OS for resources through
+system calls. When I/O or resource management is performed, the OS takes
+over and switches to privileged mode. The OS switches between these modes
+personally, so provided it starts off in control of the system, it will alway remain
+in control.
+
+  * At boot-time, the system starts in privileged mode.
+  * During user execution, it is switched to user mode.
+  * When interrupts occr, the OS takes over and it is switched back to privileged mode.
+
+Other names for privileged mode are monitor mode or supervisor mode.
+
+
+3.1.4 I/O and Memory protection
+
+To prevent users from gaining control of devices, by tricking the OS, a mechanism
+is required to prevent them from writing to an arbitrary address in the
+memory. For example, if the user could modify the OS program, then it would
+clearly be possible to gain control of the entire system in privileged mode. All a
+user would have to do would be to change the addresses in the interrupt vector
+to point to a routine of their own making. This routine would then executed
+when an interrupt was received in privileged mode.
+
+The solution to this problem is to let the OS define a segment of memory for
+each user process and to check, when running in user mode, every address that
+the user program refers to. If the user attempts to read or write outside this 
+allowed segment, a segmentation fault is generated and control returns to the
+OS. This checking is normally hard-wired into the hardware of the computer so
+that it cannot be switched off. No checking is required in privileged mode.
+
+
+3.1.5 Time sharing 
+
+There is always the problem in a multi-tasking system that a user program will
+go into an infinite loop, so that control never returns to the OS and the whole
+system stops. We have to make sure that the OS always remains in control by 
+some method. Here are tow possibilities:
+
+  * The operating system fetches each instruction from the user program
+    and executes it personally, never giving it directly to the CPU. The OS
+    software switches between different processes by fetching the instructions
+    it decides to execute. This is a kind of software emulation. This method
+    work, but it is extremely inefficient because the OS and the user program
+    are always running together. The full speed of the CPU is not realized. 
+    This method is often used to make simulators and debuggers.
+
+  * A more common method is to switch off the OS while the user program
+    is executing and switch off the user process while the OS is executing.
+    The switching is achieved by hardware rather than software, as follows.
+    When handling control to a user program, the OS uses a hardware timer
+    to ensure that control will return after a certain time. The OS loads a
+    fixed time interval into the timer's control registers and gives control to
+    the user process. The timer then counts down to zero and when it reaches
+    zero it genertes a non-maskable interrupt, whereupon control returns to
+    the OS.
+
+
+3.2 Memory map
+
+We can represent a multi-tasking system schematically as in figure 3.1. Clearly
+the memory map of a computer does not look like this figure. It looks like the 
+figures in the previous chapter, so the OS has to simulate this behaviour using 
+software. The point of this diagram is only that it shows the elements required
+by each process executing on the system. Each program must have a memory
+area to work in and a stack to keep track of subroutine calls and local variables.
+
+Figure 3.1: Schematic diagram of a multitasking system
+	Input/output		Screen memory
+
+			Kernel
+
+	Virtual I/O	Virtual I/O	Virtual I/O
+
+	Program #1	Program #2	Program #3
+
+	Stack		Stack		Stack
+
+Each program must have its own input/output sources. These cannot be 
+the acutal resources of the system: instead, each program has a virtual I/O
+stream. The operating system arrange things so that the virtual I/O looks, to
+the user program, as though it is just normal I/O. In reality, the OS controls all
+the I/O itself and arranges the sharing of resources transparently. The virtual
+output stream for a program might be a window on the real screen, for instance.
+The virtual printer is really a print-queue. The keyboard is only 'connected' to
+one task at a time, but the OS can share this too. For example, in a window
+environment, this happens when a user clicks in a particular window.
+
+
+3.3 Kernel and shells - layers of software
+
+So far we have talked about the OS almost as though it were a living thing.
+In a multitasking, multi-user OS like UNIX this is not a bad approximation
+to the truth! In what follows we make use of UNIX terminology and all of
+the examples we shall converlater will refer to versions of the UNIX operting
+system.
+
+The part of the OS which handles all of the details of sharing and device
+handling is called the kernel or core. The kernel is not something which can be
+used directly, although its services can be accessed through system calls. What
+is needed is a user interface or command line interface (CLI) which allows users
+to log onto the machine and manipulate files, compile programs and execute
+them using simple commands. Since this is a layer of software which wraps the
+kernel in more acceptable clothes, it is called a shell around the kernel.
+
+It is only by making layers of software, in a hierachy that very complex
+programs can be written and maintained. The idea of layers and hierarchies
+returns again and again.
+
+
+3.4 Services: daemons
+
+The UNIX kernel is a very large program, but it does not perform all of the 
+services required in an OS. To keep the size of the kernel to a minimum, it only
+deals with the sharing of resources. Other jobs for operating system (which
+we can call services) are implemented by writing program which run along side
+user's programs. Indeed, they are just 'user programs' - the only difference is
+that are owned by the system. These programs are called daemons. Here are 
+some example from UNIX.
+
+  * mounted: Deals with requests for 'mounting' this machine's disks on other
+    machines - i.e. requests to access the disk on this machine from another
+    machine on the network.
+
+  * rlogind: Handles requests to login from remote terminals.
+
+  * keyserv: A server which stores public and private keys. Part os a network
+    security system.
+
+  * syslogd: Records information about important events in a log file.
+
+  * named: Converts machine names into their network addresses and vice versa.
+
+
+3.5 Multiprocessors - parallelism
+
+The idea of constructing computers with more than one CPU has become more
+popular recently. On a system with several CPUs it is not just a virtual fact that
+several tasks can be performed simultaneously - it is a reality. This introduces
+a number of complications in OS design. For example - how can we stop
+two independent processors from altering some memory location which they
+both share simultaneously (so that neither of them can detect the collision)?
+This is a problem in process synchronization. The solution to this problem is
+much simpler in a single CPU system since no two things ever happen truly 
+simultaneously.
+
+We shall consider this in more detail in later chapters. For now it is useful
+to keep in mind that multiprocessors are an important element of modern OS 
+design.
+

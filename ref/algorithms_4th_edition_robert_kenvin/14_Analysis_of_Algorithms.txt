@@ -14,5 +14,57 @@ particular computer being used, the particular data being processed, and the par
 program that is doing the job (which implements some algorithm). All of these factors
 leave us with a daunting amount of information to analyze.
 
+Despite these challenges, the path to developing useful answers to these basic questions
+is often remarkably straightforward, as you will see in this section. This process is
+based on the scientific method, the commonly accepted body of techniques used by 
+scientists to develop knowledge about the natural world. We apply mathematical analysis
+to develop concise models of costs and do experiemental studies to validate these models.
 
+
+Scientific method 
+
+The very same approach that scientists use to understand the natural world is effective
+for studying the running time of programs:
+
+  * Observe some feature of the natural world, generally with precise measurements.
+  * Hypothesize a model that is consistent with the observations.
+  * Predict events using the hypothesis.
+  * Verify the predictions by making further observations.
+  * Validate by repeating until the hypothesis and observations agree.
+
+One of the key tenets of the scientific method is that the experiments we disign must
+be reproducible, so that others can convince themselves of the validity of the hypothesis.
+Hypotheses must also be falsifiable, so that we can know for sure when a given hypothesis 
+is wrong (and thus needs revision). As Einstein famously is reported to have said
+("No amount of experimentation can ever prove me right; a single experiment can prove
+me wrong"), we can never know for sure that any hypothesis is absolutely correct; we
+can only validate that it is consistent with our observations.
+
+
+Observations
+
+Our first challenge is to determine how to make quantitative measurements of
+the running time of our programs. This task is far easier than in the natural
+sciences. We do not have to send a rocket to Mars or kill laboratory animals or
+split an atom--we can simply run the program. Indeed, every time you run a programs, 
+you are performing a scientific experiment that relates the program to the natural world
+and answers one of our core questions: How long will my program take?
+
+Our first qualitative observation about most programs is that there is a problem size
+that characterizes the difficulty of the computational task. Normally, the problem size
+is either the size of the input or the value of a command-line argument. Intuitively, the
+running time should increase with problem size, but the question of by how much it
+increases naturally comes up every time we develop and run a program.
+
+Another qualitative observation for many programs is that the running time is relatively
+insensitive to the input itself; it depends primarily on the problem size. If this
+relationship does not hold, we need to take steps to better understand and perhaps
+better control the running time's sensitivity to the input. But it does often hold, so we
+now focus on the goal of better quantifying the relationship between problem size and
+running time.
+
+
+Approximate running time
+
+To follow through on Knuth's approach to 
 

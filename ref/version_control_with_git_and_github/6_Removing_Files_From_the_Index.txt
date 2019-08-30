@@ -4,3 +4,18 @@ The git rm command performs two roles. These roles are
 used to remove files from the working directory and the index.
 
 
+Removing Files From the Index
+
+What doesn't git rm do?
+
+git rm cannot remove a file from the working tree and 
+ratain the same file in the index.
+
+git rm follows the following syntax:
+
+git rm [options] [path_file_or_directory]
+
+The options avaiable for the git rm command are -n or --dry-run.
+
+
+

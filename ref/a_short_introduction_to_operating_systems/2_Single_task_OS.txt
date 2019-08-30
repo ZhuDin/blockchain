@@ -1,0 +1,179 @@
+Chapter 2
+
+Single-task OS
+
+Before tackling the complexities of multi-tasking, it is useful to think about the
+operation of a single-task OS without all the clutter that multi-tasking entails.
+In a multi-task OS the features we shall discuss below have to be reproduced
+N-times and then augmented by extra control structures.
+
+
+2.1 Memory map and registers
+
+The key elements of a single-task computer are shown in figure 2.1. Roughly
+speaking, at the hardware level a computer consists of a CPU, memory and a
+number of peripheral devices. The CPU contains registers or 'internal variables'
+which control its operation. The CPU can store information only in the memory 
+it can address and in the registers of other microprocessors it is conncected to.
+The CPU reads machine code instructions, one at a time, from the memory and
+executes them forever without stopping.
+
+Here is a brief summary of types of register a CPU has. Some micro-processors 
+have several of each type.
+
+  Register			Purpose
+  Accumulator			Holds the data currently being worked on.
+  Program counter		Holds the address of the next instruction to be executed.
+  Index (addressing) registers	Used to specify the address of data to be loaded
+				into or saved from the accumulator, or operated on in some way.
+  Stack pointer			Points to the top of the CPUs own hardware
+				controlled stack.
+  Status register		Contains status information after each instruction
+				which can be tested for to detect errors etc.
+
+The memory, as seen by the CPU, is a large string of bytes starting with
+address 0 and increasing up to the maximum address. Physically it is made up,
+like a jigsaw puzzle, of many memory chips and control chips. mapped into the
+diagram shown. Normally, because of the hardware design of the CPU, not all
+of the memory is available to the user of the machine. Some of it is required 
+for the operation of the CPU.
+
+  The roughly distinguished areas in figure 2.1 are
+
+  * Zero page: The first t 'page' of the memory is often reserved for a special
+    purpose. It is often faster to write to the zero page because you don't
+    have to code the leading zero for the address - special instructions for the
+    zero page can leave the 'zero' implicit.
+
+  * Stack: Every CPU needs a stack for executing subroutines. The stack is 
+    explained in more detail below. 
+
+  * User programs: Space the user programs can 'grow into'.
+
+  * Screen memory: What you see on the screen of a computer is the image
+    of an area of memory, converted into colours and positons by a hardware
+    video-controller. The screen memory is the area of memory needed to
+    define the colour of every 'point' or 'unit' on the screen. Depending on
+    what kind of visual system a computer uses, this might be one byte per
+    character and it might be four bytes per pixel!
+
+  * Memory mapped I/O: Hardware devices like disks and video controllers
+    contain smaller microprocessors of their own. The CPU gives them instructions
+    by placing numbers into their registers. To make this process simpler,
+    these device registers (only a few bytes per device, perhaps) are
+    'wired' into the main memory map, so that writing to the device is the 
+    same as writing to the rest of the memory.
+
+  * Operating system: The operating system itself is a large program which 
+    often takes up a large part of the available memory
+
+Note that this figure is very simplified. It does not show, for instance, special
+memory which might be located inside the devices or CPU. Such memory is
+often used for caching. Also it does not show how the various components are
+connected together by means of a high speed data bus.
+
+Figure 2.1 A simple schematic memory map of a microcomputer.
+	Operating
+	Memory mapped I/O		-> Devices
+	Screen/display memory
+	User programs
+	Stack
+	Zero pages
+
+
+2.2 Stack
+
+A stack is a so-called last-in first-out (LIFO) data staructure. That is to say -
+the last thing to be placed on top of a stack, when making it, is the first item
+which gets removed when un-making it. Stacks are used by the CPU to store
+the current position within a program before jumping to subroutines, so that
+they remember where to return to after the subroutine is finished. Because of 
+the nature of the stack, the CPU can simply deposit the address of the next
+instruction to be executed (after the subroutine is finished) on top of the stack.
+When the subroutine is finished, the CPU pulls the first address it finds off the
+top of the stack and jumps to that location.
+
+Notice that the stack mechanism will continue to work even if the subroutine
+itself calls another subroutine, since the second subroutine causes another stack
+frame to be saved on the top of stack. When that is finished, it returns to
+the first subroutine and then to the original program in the correct order.
+
+On many older microcomputers and in many operating systems the stack is 
+allocated with a fixed size in advance. If too many levels of nested subroutines
+are called, the stack can overflow.
+
+
+2.3 Input/Output
+
+Input arrives at the computer at unpredictable intervals. The system must be
+able to detect its arrival and respond to it.
+
+
+2.3.1 Interrupts
+
+Interrupts are hardware triggered signals which cause the CPU to stop what
+it is doing and jump to a special subroutine. Interrupts normally arrive from
+hardware devices, such as when the user presses a key on the keyboard, or the
+disk device has fetched some data from the disk. They can also be generated 
+in software by errors like division by zero or illegal memory address.
+
+When the CPU receives an interrupt, it saves the contents of its registers
+on the hardware strack and jumps to a special routine which will determine
+the cause of the interrupt and respond to it appropriately. Interrupts occur
+at different levels. Low level interrupts can be interrupted by high level 
+nterrupts. Interrupt handling routines have to work quickly, or the computer
+will be drowned in the business of servicing interrupts. For certain critical 
+operations, low level interrupts can be ignored by setting a mask (See also the
+generalization of this for multiuser systems in chapter 4).
+
+There is no logical difference between what happens during the execution of
+an interrupt routine and a subroutine. The difference is that interrupt routines
+are triggered by events, whereas software subroutines follow a prearranged plan.
+
+An important area is the interrupt vector. This is a region of memory
+reserved by the hardware for servicing of interrupts. Each interrupt has a
+number from zero to the maximum number of interrupts supported on the
+CPU; for each interrupt, the interrupt vector must be programmed with the
+address of a routine which is to be executed when the interrupt occurs. i.e.
+when an interrupt occurs, the system examines the address in the interrupt
+vector for that interrupt and jumps to that location. The routine exits when it
+meets an RTI(return from interrupt) instruction.
+
+
+2.3.2 Buffers
+
+The CPU and the devices attached to it do not work at the same speed. Buffers
+are therefor needed to store incoming or outgoing information temporarily,
+while it is waiting to be picked up by the other party. A buffer is simply an 
+area of memory which works as a waiting area. It is a first-in first-out (FIFO)
+data structure of queue.
+
+
+2.3.3 Synchronous and asynchronous I/O
+
+To start an I/O operation, the CPU writes appropriate values into the registers
+of the device controller. The device controller acts on the values it finds in
+its registers. For example, if the operation is to read from a disk, the device
+controller fetches data from the disk and places it in its local buffer. It then
+signals the CPU by generating an interrupt. 
+
+While the CPU is waiting for the I/O to complete it may do one of two
+things. It can do nothing or idle until the device returns with the data 
+(synchronous I/O), or it can continue doing something else until the completion
+interrupt arrives (asynchronous I/O). The second of these possibilities is clearly
+much more efficient.
+
+
+2.3.4 DMA - Direct Memrory Access
+
+Very hight speed devices could place heavy demands on the CPU for I/O servicing
+if they relied on the CPU to copy data word by word. The DMA controller
+is a device which copies blocks of data at a time from one place to the other,
+without the intervention of the CPU. To use it, its registers must be loaded
+with the information about what it should copy and where it should copy to.
+Once this is done, it generates an interrupt to signal the completion of the task.
+The advantage of the DMA is that it transfers large amounts of data before
+generating an interrupt. Without it, the CPU would have to copy the data one 
+register-full at a time, using up hundreds or even thousands of interrupts and 
+possibly bringing a halt to the machine!
+
