@@ -40,3 +40,15 @@ In this chapter, we'll cover all these features, discuss how they interact, and 
 to manage scope. By the end, you should have a solid understanding of the module system and be 
 able to work with scopes like a pro!
 
+
+Summary
+
+Rust lets you organize your packages into crates and your crates into modules so you can refer to
+items defined in one module from another module. You can do this by specifying absolute or
+relative paths. These paths can be brought into scope with a use statment so you can use a 
+shorter path for multiple uses of the item in that scope. Module code is private by default, but you
+can make definitions public by adding the pub keyword.
+
+In the next chapter, we'll look at some collection data structures in the standard library that you can
+use in your neatly organized code.
+

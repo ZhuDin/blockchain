@@ -17,5 +17,32 @@ git rm [options] [path_file_or_directory]
 
 The options avaiable for the git rm command are -n or --dry-run.
 
+This option simulates the behavior of git rm for the
+specified files. -n and --dry-run do not do the actual 
+removal.
+
+-r
+
+This option is applicable when using the git rm command
+in a directory. It removes the directory's contents
+recursively. This means that the directory and its contents
+are removed.
+
+--cached
+
+This option remove the specified files from the index only.
+
+-f or --force
+
+git rm checks the files marked for removal for matches, 
+with the files in HEAD, at the tip of the current branch.
+This check is conducted before the file(s) are removed. The 
+-f option overrides this check.
+
+
+Exercise 15: Removing Files from the Working Tree and the Index
+
+To remove files from the index or the working tree.
+
 
 
