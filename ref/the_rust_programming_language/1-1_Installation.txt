@@ -1,7 +1,16 @@
-1.1. Installation
+Installation
 
 The first step is to install Rust. We'll download Rust through rustup, a command line tool for
 managing Rust versions and associated tools. You'll need an internet connection for the download.
+
+
+  Command Line Notation
+  
+  In this chapter and throughout the book, we'll show some commands used in the terminal.
+  Lines that you should enter in a terminal all start with $. You don't need to type in the $
+  character; it indicates the start of each command. Lines that don't start with $ typically show
+  the output of the previous commands. Additionally, PowerShell-specific examples will use >
+  rather than $.
 
 
 Installing rustup on Linux or macOS
@@ -44,7 +53,7 @@ has been released in the following format:
 rustc x.y.z (abcabcabc yyy-mm-dd)
 
 If you see this information, you have installed Rut successfully! If you don't see this information and
-you're on Windows, check that Rust is in your %PATH% system variable. If tht's all correct and Rust 
+you're on Windows, check that Rust is in your %PATH% system variable. If that's all correct and Rust 
 still isn't working, there are a number of places you can get help.
 
 

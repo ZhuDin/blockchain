@@ -1,0 +1,47 @@
+Paths for Referring to an Item in the Module Tree
+
+To show Rust where to find an item in a module tree, we use a path in the same way we use a path
+when navigating a filesystem. If we want to call a function, we need to know its path.
+
+A path can take two forms:
+
+  * An absolute path starts from a crate root by using a crate name or literal crate.
+  * A relative path starts from the current module and uses self, super, or an identifier in the
+    current module.
+
+Both ablolute and relative paths are followed by one or more identifiers separated by double colons
+(::).
+
+Let's return to the example in Listing 7-1. How do we call the add_to_waitlist function? This is the 
+same as asking, what's the path of the add_to_waitlist function? In Listing 7-3, we simplified our
+code a bit by removing some of the modules and functions. We'll show two ways to call the 
+add_to_waitlist function from a new function eat_at_restaurant defined in the crate root. The
+eat_at_restaurant function is part of our library crate's public API, so we mark it with the pub
+keyword. In the "Exposing Paths with the pub Keyword" section, we'll go into more detail about pub.
+
+Note that this example won't compile just yet; we'll explain why in a bit.
+
+Listing 7-3: Calling the add_to_waitlist function using absolute and relative paths
+mod front_of_house {
+    mod hosting {
+        fn add_to_waitlist() {}
+    }
+}
+
+pub fn eat_at_restaurant() {
+    // Absolute path
+    crate::front_of_house::hosting::add_to_waitlist();
+
+    // Relative path
+    front_of_house::hosting::add_to_waitlist();
+}
+
+The first time we call the add_to_waitlist function in eat_at_restaurant, we use an absolute
+path. The add_to_waitlist function is defined in the same crate as eat_at_restaurant, which
+means we can use the crate keyword to start an absolute path.
+
+After crate, we include each of the successive modules until we make our way to add_to_waitlist.
+You can imgine a filesystem with the same structure, and we'd specify the path
+/front_of_house/hosting/add_to_waitlist to run 
+
+

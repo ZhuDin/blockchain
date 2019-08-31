@@ -1,4 +1,4 @@
-1.2. Hello, World!
+Hello, World!
 
 Now that you've installed Rust, let's write your first Rust program. It's traditional when learning a new
 language to write a little program that prints the text Hello, world! to the screen, so we'll do the 
@@ -13,10 +13,12 @@ You'll start by making a directory to store your Rust code.
 Writing and Running a Rust Program
 
 Next, make a new source file and call it main.rs. Rust files always end with the .rs extension. If you're
-using more than one word in your filename, use an underscore to separate them.
+using more than one word in your filename, use an underscore to separate them. For example, use
+hello_world.rs rather than helloworld.rs.
+
+Now open the main.rs file you just created and enter the code in Listing 1-1.
 
 Listing 1-1: A program that prints Hello, world!
-
 fn main() {
     println!("Hello, world!");
 }
@@ -24,8 +26,8 @@ fn main() {
 Save the file and go back to terminal window. On Linux or macOS, enter the following
 commands to compile and run the file:
 
-$ rustc listing_1_1.rs
-$ ./lusting_1_1
+$ rustc 1-2.rs
+$ ./1-2
 
 Regardless of your operating system, the string Hello, world! should print to the terminal. 
 
@@ -49,7 +51,7 @@ declaratin, adding one space in between.
 
 Inside the main function is the following code:
 
-    println!("Hello, world!")'
+    println!("Hello, world!");
 
 This line does all the work in this little program: it prints text to the screen. There are four important
 details to notice here. First, Rust style is to indent with four spaces, not a tab.

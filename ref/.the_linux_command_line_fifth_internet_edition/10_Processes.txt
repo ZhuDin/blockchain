@@ -1,0 +1,29 @@
+10 - Processes
+
+Modern operating systems are usually multitasking, meaning they create the illusion of
+doing more than one thing at once by rapidly switching from one executing program to
+another. The Linux kernel manages this through the use of processes. Processes are how
+Linux organizes the different programs waiting for their turn at the CPU.
+
+Sometimes a computer will become sluggish or an application will stop responding. In
+this chapter, we will look at some of the tools available at the command line that let us
+examine what programs are doing and how to terminate processes that are misbehaving.
+
+This chapter will introduce the following commands:
+ 
+  * ps - Report a snapshot of current processes
+  * top - Display tasks
+  * jobs - List active jobs
+  * bg - Place a job in the background
+  * fg - Place a job in the foreground
+  * kill - Send a signal to a process
+  * killall - Kill processes by name
+  * shutdown - Shutdown or reboot the system
+
+
+How a Process Works
+
+When a system starts up, the kernel initiates a few of its own activities as processes and
+launches a program called init.init, in turn, runs a series of shell scripts (located in
+/etc) called init scripts, which start all the system services.
+ 

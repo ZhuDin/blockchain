@@ -85,6 +85,7 @@ talk more about that in Chapter 7, "Seeing the World As the Shell Sees It".
   with them because they will not produce the expected results unless properly 
   comfigured. For now, you should avoid using them and use character classes instead.
 
+
   Wildcards Work in the GUI Too
 
   Wildcards are especially valuable not only because they are used so frequently on

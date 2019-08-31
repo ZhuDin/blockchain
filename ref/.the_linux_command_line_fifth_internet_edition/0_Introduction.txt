@@ -13,7 +13,8 @@ No, I want to tell you the story of how you take back control of your computer.
 When I began working with computers as a college student in the late 1970s, there was a
 revolution going on. The invention of the microprocessor had made it possible for ordi-
 nary people like you and me to actually own a computer. It's hard for many people today
-to imagine what the world was like when only big business and big government ran all the computers. Let's just say, you couldn't get much done.
+to imagine what the world was like when only big business and big government ran all 
+the computers. Let's just say, you couldn't get much done.
 
 Today, the world is very different. Computers are everywhere, from tiny wristwatches to 
 giant data centers to everything in between. In addition to ubiquitous computers, we also
@@ -29,6 +30,7 @@ know what this freedom really means. Freedom is the power to decide what your co
 puter does, and the only way to have this freedom is to know what your computer is do-
 ing. Freedom is a computer that is without secrets, one where everything can be known if
 you care enough to find out.
+
 
 Why Use the Command Line?
 Have you ever noticed in the movies when the "super hacker,"--you know, the guy who
@@ -53,6 +55,7 @@ terface instead. In face, one of the strongest reasons early adopters of Linux c
 say Windows NT was the powerful command line interface that made the "difficult tasks 
 possible."
 
+
 What This Book Is About
 This book is a broad overview of "living" on the Linux command line. Unlike some
 books that concentrate on just a single program, such as the shell program, bash, this
@@ -72,7 +75,9 @@ contemporary Linux distributions. Ninety-five percent of the content is useful f
 other Unix-like systems, but this book is highly targeted at the modern Linux command
 line user.
 
+
 What's in This Book
+
 This material is presented in a carefully chosen sequence, much like a tutor sitting next to
 you guiding you along. Many authors treat this material in a "systematic" fashion, ex-
 haustively covering each topic in order. This makes sense from a writer's perspective, but 
@@ -102,5 +107,4 @@ Part 4 - Writing Shell Scripts introduces shell programming, an admittedly
 rundimentary, but easy to learn, technique for automating many common computing
 tasks. By learning shell programming, you will become familiar with concepts
 that can be applied to many other programming languages.
-
 

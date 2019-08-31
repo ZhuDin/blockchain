@@ -214,7 +214,19 @@ that a permission is to be added, a "-" indicating that a permission is to be ta
 a "=" indicating that only the specified permissions are to be applied and that all others
 are to be removed.
 
-Permissions are specified with the "r", "w", and "x" characters. 
+Permissions are specified with the "r", "w", and "x" characters. Table 9-6 provides some
+example of symbolic notation:
+
+Table 9-6: chmod Symbolic Notation Examples
+Notation	Meaning
+u+x		Add execute permission for the owner
+u-x		Remove execute permission for the owner
++x		Add execute permission for the owner, group and world. This is equivalent to a+x
+o-rw		Remove the read and write permission from anyone besides the owner and group owner.
+go=rw		Set the group owner and anyone besides the owner to have read and write permission.
+ 		If either the group owner or the world previously had execute permission, it is removed.
+u+x,go=rx	Add execute permission for the owner and set the permissions for the group and others
+		to read and execute. Multiple specifications may be separated by commas.
 
 
 Setting File Mode with the GUI
@@ -342,4 +354,41 @@ chown [owner][:[group]] file...
 
 chown can change the file owner and/or the file group owner depending on the first 
 argument of the command. 
+
+
+chgrp - Change Group Ownership
+
+In older versions of Unix, the chown command only changed file ownership, not group
+ownership. For that purpose, a separate command, chgrp was used. It work much the 
+same way as chown, except for being more limited.
+
+
+Changing Your Password
+
+The last topic we'll cover in this chapter is setting passwords for yourself (and for other
+users if you have access to superuser privileges). To set or change a password, the 
+password command is used. The command syntax looks like this:
+
+passwd [user]
+
+To change your password, just enter the passwd command. You will be prompted for
+your old password and your new password.
+
+The passwd command will try to enforce use of "strong" passwords. This means it will 
+refuse to accept passwords that are too short, are too similar to previous passwords, are
+dictionary words, or are too easily guessed.
+
+If you have superuser privileges, you can specify a username as an argument to the
+passwd command to set the password for another user. Other options are available to
+the superuser to allow account locking, password expiration, and so on. See the passwd
+man page for details.
+
+
+Summing Up
+
+In this chapter we saw how Unix-like systems such as Linux manage user permissions to
+allow the read, write, and execution access to files and directories. The basic ideas of this
+system of permissions data back to the early days of Unix and have stood up pretty well
+to the test of time. But the native permissions mechanism in Unix-like systems lacks the fine
+granularity of more modern system.
 

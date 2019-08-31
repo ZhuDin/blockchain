@@ -3,9 +3,9 @@
 The first thing we need to learn (besides how to type) is how to navigate the file system
 on our Linux system. In this chapter we will introduce the following commands:
 
-pwd - Print name of current working directory
-cd - Change directory
-ls - List directory contents
+  * pwd - Print name of current working directory
+  * cd - Change directory
+  * ls - List directory contents
 
 
 Understanding the File System Tree
@@ -36,6 +36,7 @@ think of it in a different way.
 Imagine that the file system is a maze shaped like an upside-down tree and we are able to
 stand in the middle of it. To display the current working directory, we use the pwd (print
 working directory) command.
+
 $ pwd
 
 When we first log in to our system (or start a terminal emulator session) our current 
@@ -46,6 +47,7 @@ directory and it is the only place a regular user is allowed to write files.
 Listing the Contents of a Directory
 
 To list the files and directories in the current working directory, we use the ls command.
+
 $ ls
 
 Actually, we can use the ls command to list the contents of any directory, not just the
@@ -89,27 +91,27 @@ cd -			Changes the working directory to the previous working directory.
 cd ~user_name		Changes the working directory to the home directory of user_name.
 
 
-Important Facts About Filenames
+  Important Facts About Filenames
 
-On Linux systems, files are named in a manner similar to other systems such as
-Windows, but there are some important differences.
+  On Linux systems, files are named in a manner similar to other systems such as
+  Windows, but there are some important differences.
 
-1. Filenames that begin with a period character are hidden. This only means that
-   ls will not list them unless you say ls -a. When your account was created,
-   several hidden files were placed in your home directory to configure things
-   for your account.
-2. Filenames and commands in Linux, like Unix, are case sensitive. The filenames
-   "File1" and "file1" refer to different files.
-3. Linux has no concept of a "file extension" like some other operating systems.
-   You may name files any way you like. The contents and/or purpose of a file is
-   determined by other means. Although Unix-like operating systems don't use
-   file extensions to determine the contents/purpose of files, many application
-   programs do.
-4. Though Linux supports long filenames that may contain embedded spaces and 
-   punctuation characters, limit the punctuation characters in the names of files
-   you create to period, dash, and underscore. Most importantly, do not embed 
-   spaces in filenames. If you want to represent spaces between words in a filename,
-   use underscore characters. You will thank yourself later.
+  1. Filenames that begin with a period character are hidden. This only means that
+     ls will not list them unless you say ls -a. When your account was created,
+     several hidden files were placed in your home directory to configure things
+     for your account.
+  2. Filenames and commands in Linux, like Unix, are case sensitive. The filenames
+     "File1" and "file1" refer to different files.
+  3. Linux has no concept of a "file extension" like some other operating systems.
+     You may name files any way you like. The contents and/or purpose of a file is
+     determined by other means. Although Unix-like operating systems don't use
+     file extensions to determine the contents/purpose of files, many application
+     programs do.
+  4. Though Linux supports long filenames that may contain embedded spaces and 
+     punctuation characters, limit the punctuation characters in the names of files
+     you create to period, dash, and underscore. Most importantly, do not embed 
+     spaces in filenames. If you want to represent spaces between words in a filename,
+     use underscore characters. You will thank yourself later.
 
 
 Summming Up
