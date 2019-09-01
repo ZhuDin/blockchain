@@ -44,5 +44,38 @@ Exercise 15: Removing Files from the Working Tree and the Index
 
 To remove files from the index or the working tree.
 
+1. Lanuch the Terminal and navigate to the location of the 
+   abacus repository.
 
+2. Create the scientific.py file in src/lib by using 
+   the following command:
+    echo '$ Scientific arithmetic module' > src/lib/scientific.py
+
+3. Track the added file by using the git add src/lib/scientific.py command
+
+4. Remove the file from the index by using the git rm -- cached src/lib/scientific.py command
+
+5. Remove the file from the index and the working tree by
+   using the following code:
+    git add src/lib/scientific.py
+    git commit -m "Add scientific module"
+    git rm src/lib/scientific.py
+    git status
+    git commit =m "Remove scientific module"
+    ls src/lib
+
+
+Outcome
+
+By completing this excise, you should be able to remove
+an undesired file from the index and the working tree.
+
+
+Note
+
+The rm command removes the specified file from the working
+tree only. The git rm command, on the other hand, removes
+the file from the index and the working tree. This provides a
+shorter process for deleting files, since with rm, you need to run
+git add to impact the deletion process in the index.
 

@@ -1,0 +1,144 @@
+History and Logs
+
+Take a look at the following command to access the history:
+git log
+
+The git log command lists the history of a branch and
+the repository, by extension. It uses options and a range to
+define the duration for which the logs should be retrieved:
+
+git log [options] [version range] [path_to_file_or_directory] [version range]
+
+The git log command can display the history of a 
+branch when given a range of version hashes
+
+git log [hash_1]..[hash_2]
+git log
+
+
+Options
+
+The --follow command retrieves and displays the history
+of a file, beyond rename events:
+
+git log --follow ./src/lib/advanced/advanced_compute.py
+
+The --decorate[=short or full or no] command display 
+the ref name of the listed commits as seen in the following screenshots:
+
+git log --decorate=short
+
+Note 
+The short option omits the ref/heads, ref/remotes/, 
+and ref/tags/ prefixes from the ref name that is displayed.
+
+git log --decorate=full
+
+Note
+The full option displays the full ref name. It includes the ref/heads/,
+ref/remotes/, and ref/tags/ prefixes in the ref name that is displayed.
+
+git log --decorate=no
+
+Note
+The no option omits the entire ref name from the commits.
+
+
+Note 
+
+As shown in the preceding screenshot, the commit with the 
+message Move scientific module does not include a ref
+name.
+
+The -L [start]:[end]:[path_to_file] command
+views the changes that have been made to a section of a file,
+from line number X to line number Y:
+
+git log -L 6:12:./src/lib/compute.py
+
+Note
+The preceding screenshot demonstrates the changes made to
+the source code in /src/lib/compute.py, for the content
+in line 6 to line 12, with each commit indicating the 
+alterations if represents.
+
+The --[number], -n [number], and --max-count=[number] 
+the specified number of commits only
+
+git log -3 or git log -n 3
+
+The --skip=[number] command skips the specified
+commits and displays the rest
+
+git log --skip=4
+
+
+The --since=[date] or --after=[date] commits
+that have been created after a given date:
+
+git log --after=25/08/2018
+
+
+The --unitl=[date] or --before[date] commit
+that precede a given date:
+
+git log --before=24/08/2018
+
+
+The --pretty=[format] command displays the history
+of a branch using a prescribed format:
+
+git log --pretty=oneline
+
+
+The following code displays the commit history details in 
+a reverse chronological order:
+
+[commit_hash] [commit title]
+git log --pretty=short
+
+
+The following code displays the commit history details in
+a reverse chronological order:
+
+[commit commit_hash]
+[Author:author_details]
+[commit title]
+
+
+Note 
+In the preceding screenshot, the commits are listed in the following 
+format:
+
+commit [commit_hash]
+Author: name <name@example.com>
+move scientific module
+git log --pretty=medium
+
+The format is a string that's in the form of %place-holder1 
+%placeholder2 %placeholderN.
+
+The supported placeholders include the following and are
+shown in the following screenshots:
+
+  %H: The commit hash
+  %h: The abbreviated commit hash
+  %T: A tree hash
+  %t: An abbreviated tree hash
+  %P: The parent hash
+  %p: The abbreviated parent hash
+  %an: Author name
+  %ae: Author email
+  %ad: Author date
+  %ar: A relative author date
+  %at: The Unix timestamp version of the author date
+  %s: The subject of the commit
+  %b: The body of the commit
+  %n: A newline
+
+git log --pretty=format:"%H %an"
+
+git log --pretty=format:"%H %an %ae"
+
+git log --pretty=format:"%H %an %ae %n %s %n %b"
+
