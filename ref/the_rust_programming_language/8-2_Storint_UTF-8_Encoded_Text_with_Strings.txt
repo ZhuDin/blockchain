@@ -75,4 +75,177 @@ Remember that strings are UTF-8 encoded, so we can include any properly encoded 
 
 Updating a String
 
+A String can grow in size and ite contents can change, just liek the contents of a Vec<T>, if you
+push more data into it. In addition, you can conveniently use the + operator or the format! macro
+to concatenate String values.
+
+
+Appending to a String with push_str and push
+
+We can grow a String by using the push_str method to append a string slice, as shown in Listing 8-15.
+
+Listing 8-15: Appending a string slice to a String using the push_str method
+let mut s = String::from("foo");
+s.push_str("bar");
+
+After these two line, s will contain foobar. The push_str method takes a string slice because we
+don't necessarily want to take ownership of the parameter. For example, the code in Listing 8-16
+shows that it would be unfortunate if we weren't able to use s2 after appending its contents to s1.
+
+Listing 8-16: Using a string slice after appending its contents to a String
+let mut s1 = String::from("foo");
+let s2 = "bar";
+s1.push_str(s2);
+println!(s2 is {}", s2);
+
+If the push_str method took ownership of s2, we wouldn't be able to print its value on the last line.
+However, this code works as we'd expect!
+
+The push method takes a single character as a parameter and adds it to the String. Listing 8-17
+shows code that adds the letter / to a String using the push method.
+
+Listing 8-17: Adding one character to a String value using push
+let mut s = String::from("lo");
+s.push('1');
+
+As a result of this code, s will contain lol.
+
+
+Concatenation with the + Operator or the format! Macro
+
+Often, you'll want to combine two existing strings. One way is to use the + operator, as shown in
+Listing 8-18.
+
+Listing 8-18: Using the + operator to combine two String values into a new String value
+let s1 = String::from("Hello, ");
+let s2 = String::from("world!");
+let s3 = s1 + &s2; // note s1 has been moved here and can no longer be used
+
+The string s3 will contain Hello, world! as a result of this code. The reason s1 is no longer valid
+after the addition and the reason we used a reference to s2 has to do with the signature of the 
+method that gets called when we use the + operator. The + operator uses the add method, whose
+signature looks something like this:
+
+fn add(self, s: &str) -> String {
+
+This isn't the exact signature that's in the standard library: in the standard library, add is defined
+using generics. Here, we're looking at the signature of add with concrete types substituted for the
+generic ones, which is what happens when we call this method with String values. We'll discuss
+generics in Chapter 10. This signature gives us the clues we need to understand the tricky bits of the
++ operator.
+
+First, s2 has an &, meaning that we're adding a reference of the second string to the first string
+because of the s parameter in the add function: we can only add a &str to a String; we can't add
+two String values together. But wait--the type of &s2 is &String, not &str, as specified in the
+second parameter to add. So why does Listing 8-18 compile?
+
+The reason we're able to use &s2 in the call to add is that the compiler can coerce the &String
+argument into a &str. When we call the add method, Rust uses a deref coericon, which here turns
+&s2 into &s2[..]. We'll discuss deref coercion in more depth in Chapter 15. Because add does not
+take ownership of the s parameter, s2 will still be a valid String after this operation.
+
+Second, we can see in the signature that add takes ownership of self, because self does not
+have an &. This means s1 in Listing 8-18 will be moved into the add call and no longer be valid
+after that. So although let s3 = s1 + &s2; looks like it will copy both strings and create a new one,
+this statement actually takes ownership of s1, appends a copy of teh contents of s2, and then
+returns ownership of the result. In other words, it looks like it's making a lot of copies but isn't; the
+implementation is more efficient than copying.
+
+If we need to concatenate multiple strings, the behavior of the + operator gets unwieldy:
+
+let s1 = String::from("tic");
+let s2 = String::from("tac");
+let s3 = String::from("toe");
+
+let s = s1 + "-" + &s2 + "-" + &s3;
+
+At this point, s will be tic-tac-toe. With all of the + and " characters, it's difficult to see what's
+going on. For more complicated string combining, we can use the format! macro:
+
+let s1 = String::from("tic");
+let s2 = String::from("tac");
+let s3 = String::from("toe");
+
+let s = format!("{}-{}-{}", s1, s2, s3);
+
+This code also sets s to tic-tac-toe. The format! macro works in the same way as println!,
+but instead of printing the output to the screen, it returns a String with the contents. The version
+of the code using format! is much easier to read and doesn't take ownerships of any of its
+parameters.
+
+
+Indexing into Strings
+
+In many other programming languages, accessing individual characters in a string by referencing
+them by index is a valid and common operation. However, if you try to access parts of a String
+using indexing syntax in Rust, you'll get an error. Consider the invalid code in Listing 8-19.
+
+Listing 8-19: Attempting to use indexing syntax with a String
+let s1 = String::from("hello");
+let h = s1[0];
+
+The error and note tell the story: Rust strings don't suppport indexing. But why not? To answer
+that question, we need to discuss how Rust stores strings in memory.
+
+
+Internal Representation
+
+A String is a wrapper over a Vec<u8>. Let's look at some of our properly encoded UTF-8 example
+strings from Listing 8-14. First, this one:
+
+let len = String::from("Hola").len();
+
+In this case, len will be 4, which means the vector storing the string "Hola" is 4 bytes long. Each of
+these letters takes 1 byte when encoded in UTF-8. But what about the following line? (Note that this
+string begins with the capital Cyrillic letter Ze, not the Arabic number 3.)
+
+let len = String::from("三12345678901").len();
+
+Asked how long the string is, you might say 12. However, Rust's answer is 24: that's the number of 
+bytes it takes to encode "三12345678901" in UTF-8, because each Unicode scalar avlue in that string
+takes 2 bytes of storage. Therefore, and index into the string's bytes will not always correlate to a valid
+Unicode scalar value. To demonstrate, consider this invalid Rust code:
+
+let hello =  "三12345678901";
+let answer = &hello[0];
+
+What should the value of answer be? Should it be 三, the first letter?
+Rust doesn't compile this code at all and prevents misunderstanding early in the development process.
+
+
+Bytes and Scalar Values and Grapheme Clusters! Oh My!
+
+Another point about UTF-8 is that there are actually three relevant ways to look at strings from Rust's
+perspective: as bytes, scalar values, and grapheme clusters (the closest thing to what we would call
+letters).
+
+
+Slicing Strings 
+
+Indexing into a string is often a bad idea because it's not clear what the return type of the string
+indexing operation should be: a byte value, a character, a grapheme cluster, or a string slice.
+Therefore, Rust asks you to be more specific if you really need to use indices to create string slices.
+To be more specific in your indexing and indicate that you want a string slice, rather than indexing 
+using [] with a single number, you can use [] with  a range to create a string slice containing
+particular bytes.
+
+
+Methods for Iterating Over Strings
+
+Fortunately, you can access elements in a string in other ways.
+
+If you need to perform operations on individual Unicode scalar values, the best way to do so is to
+use the chars method.
+
+
+Strings Are Not So Simple
+
+To summarize, strings are complicated. Different programming languages make different choice
+about how to present this complexity to the programmer. Rust has chosen to make the correct
+handling of String data the default behavior for all Rust programs, which means programmers
+have to put more thought into handling UTF-8 data upfront. This trade-off exposes more of the
+complexity of strings than is apparent in other programming language, but it prevents you from
+having to handle errors involving non-ASCII characters later in your development life cycle.
+
+Let's switch to something a bit less complex: hash maps!
 

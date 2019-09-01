@@ -1,0 +1,48 @@
+Converting an IPv4 address to different formats
+
+When you would like to deal with low-level network
+functions, sometimes, the usual string notation of IP
+addresses are not very useful. They need to be converted to
+the packed 32-bit binary formats.
+
+
+How to do it...
+
+The Python socket library has utilities to deal with the 
+various IP address formats. Here, we will use two of them:
+inet_aton() and inet_ntoa().
+
+Let us create the convert_ip4_address() function, where
+inet_aton() and inet_ntoa() will be used for the IP address
+conversion. We will use two sample IP addresses, 127.0.0.1
+and 192.168.0.1.
+
+Listing 1.3 shows ip4_address_conversion as follows:
+import socket
+from binascii import hexlify
+
+def convert_ip4_address():
+    for ip_addr in ['127.0.0.1', '192.168.0.1']:
+        packed_ip_addr = socket.inet_aton(ip_addr)
+        unpacked_ip_addr = socket.inet_ntoa(packed_ip_addr)
+        
+        print("IP Address: %s => Packed: %s, \
+                Unpacked: %s" % (ip_addr, hexlify(packed_ip_addr),\
+                unpacked_ip_addr))
+
+if __name__ == '__main__':
+    convert_ip4_address()
+
+Now, if you run this recipe, you will see the following output:
+IP Address: 127.0.0.1 => Packed: b'7f000001', Unpacked: 127.0.0.1
+IP Address: 192.168.0.1 => Packed: b'c0a80001', Unpacked: 192.168.0.1
+
+
+How it works...
+
+In this recipe, the two IP addresses have been converted 
+from a string to a 32-bit packed format using a for-in
+statment. Additionally, the Python hexlify function is 
+called from the binascii module. This helps to represent the
+binary data in a nexadecimal format.
+

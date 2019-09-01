@@ -73,4 +73,25 @@ interpreter is currently executing.
 
 How it works...
 
+The import socket statement imports one of Python's core
+networking libraries. Then, we use the two utility
+functions, gethostname() and gethostbyname(host_name). You
+can type help(socket.gethostname) to see the online help
+information from within the command line. Alternatively,
+you can type the following address in your web browser at 
+http://docs.python.org/3/library/socket.html. You can refer to the 
+following code:
+  
+    gethostname(...)
+	gethostname() -> string
+	Return the current host name.
+
+    gethostbyname(...)
+	gethostbyname(host) -> address
+	Return the IP address (a string of the form
+	'255.255.255.255') for a host.
+
+The first function takes no parameter and returns the 
+current or localhost name. The second function takes a
+sinple hostname parameter and returns its IP address.
 
