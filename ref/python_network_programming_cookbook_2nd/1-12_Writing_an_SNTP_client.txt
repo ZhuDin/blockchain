@@ -1,0 +1,15 @@
+Writing an SNTP client
+
+Unlike the previous recipe, sometimes, you don't need to
+get the precise time from the NTP server. You can use a
+simpler version of NTP called simple network time
+protocol.
+
+
+How to do it...
+
+Let us create a plain SNTP client without using an third-party
+library.
+
+Let us first define two constants: NTP_SERVER and TIME1970.
+

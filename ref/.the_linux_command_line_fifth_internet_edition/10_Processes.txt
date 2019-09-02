@@ -431,4 +431,79 @@ $ kill -l
 
 Sending Signals to Multiple Processes with killall
 
+It's also possible to send signals to multiple processes matching a specified program or
+username by using the killall command. Here is the syntax:
+
+killall [-u user] [-signal] name...
+
+To demonstrate, we will start a couple of instances of the xlogo program and then terminate
+them.
+
+$ xlogo &
+[1] 18801
+
+$ xlogo &
+[2] 18802
+
+$ killall xlogo
+[1]- Terminated		xlogo
+[2]+ Terminated		xlogo
+
+Remember, as with kill, we must have superuser privileges to send signals to processes
+that do not belong to us.
+
+
+Shutting Down the System
+
+The process of shutting down the system involves the orderly termination of all the 
+processes on the system, as well as performing some vital housekeeping chores (such as
+syncing all of the mounted file systems) before the system powers off. There are four
+commands that can perform this function. They are halt, poweroff, reboot, and shutdown.
+The first three are pretty self-explanatory and are generally used without any
+command line options. Here's an example:
+
+$ sudo reboot
+
+The shutdown command is a bit more interesting. With it, we can specify which of the
+actions to perform (halt, power down, or reboot) and provide a time delay to the shutdown
+event. Most often it is used like this to halt the system:
+
+$ sudo shutdown -h now
+
+or like this to reboot the system:
+
+$ sudo shutdown -r now
+
+The delay can be specified in a variety of ways. See the shutdown man page for details.
+Once the shutdown command is executed, a message is "broadcast" to all logged-in
+users warning them of the impending event.
+
+
+More Process-Related Commands
+
+Sincemonitoring processes is an important system administration task, there are a lot of
+commands for it. Table 10-6 lists some to play with:
+
+Table 10-6: Other Process Related Commands
+Command		Description
+pstree		Outputs a process list arranged in a tree-like pattern showing the 
+		parent-child relationships between processes.
+vmstat		Output a snapshot of system resource usage including, memory,
+		swap, and disk I/O. To see a continuous display, follow the
+		command with a time delay (in seconds) for updates. Here's an 
+		example: vmstat 5. Terminate the output with Ctrl-c.
+xload		A graphical program that draws a graph showing system load over time.
+tload		Similar to the xload program but draws the graph in the terminal.
+		Terminate the output with Ctrl-c.
+
+
+Summing Up
+
+Most modern systems feature a mechanism for managing multiple processes. Linux 
+provides a rich set of tools for this purpose. Given that Linux is the world's most deployed
+server operating system, this makes a lot of sense. However, unlike some other systems,
+Linux relies primarily on command line tools for process management. Thought there are
+graphical process tools for Linux, the command line tools are greatly preferred because of
+their speed and light footprint. While the GUI tools may look pretty, they often create a
+lot of system load themselves, which somewhat defeats the purpose.
 

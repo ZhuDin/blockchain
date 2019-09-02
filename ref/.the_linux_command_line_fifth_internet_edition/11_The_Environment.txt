@@ -1,0 +1,31 @@
+11 - The Environment
+
+As we discussed earlier, the shell maintains a body of information during our shell session
+called the environment. Programs use data stored in the environment to determine
+facts about the system's configuration. While most programs use configuration files to
+store program setting, some programs also look for values stored in the environment to
+adjust their behavior. Knowing this, we can use the environment to customize our shell
+experience.
+
+In this chapter, we will work with the following commands:
+
+  * printenv - Print part of all of the environment
+  * set - Set shell options
+  * export - Export environment to subsequently executed programs
+  * alias - Create an alias for a command
+
+
+What is Stored in the Environment?
+
+The shell stores two basic types of data in the envinroment; though, with bash, teh
+types are largely indistinguishable. They are environment variables and shell variables.
+Shell variables are bits of data placed there by bash, and environment variables are 
+everything else. In addition to variables, the shell stores some programmatic data, namely
+aliases and shell functions. We covered aliases in Chapter 5, "Working with Commands."
+and we will cover shell functions (which are related to shell scripting) in Part 4.
+
+
+Examining The Environment
+
+To see 
+
