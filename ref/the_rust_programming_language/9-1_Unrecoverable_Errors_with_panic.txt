@@ -23,4 +23,69 @@ some kind has been detected and it's not clear to the programmer how to handle t
 
 Let's try calling panic! in a simple program:
 
+fn main() {
+    panic!("crash and burn");
+}
+
+When you run the program, you'll see something like this:
+
+thread 'main' panicked at 'carsh and burn'
+
+The call to panic! causes the error message contained in the last two lines. The first line shows our
+panic message and the place in our source code where the panic occured.
+
+In this case, the line indicate is part of our code, and if we go to that line, we see the panic! macro
+call. In other case, the panic! call might be in code that our code calls, and the filename and line
+number reported by the error message will be someone else's code where the panic! macro is
+called, not the line of our code that eventually led to the panic! call. We can use the backtrace of
+the functions the panic! call came from to figure out the part of our code that is causing the 
+problem. We'll discuss what a backtrace is in more detail next.
+
+
+Using a panic! Backtrace
+
+Let's look at another example to see what it's like when a panic! call comes from a library because
+of a bug in our code instead of from our code calling the macro directly. Listing 9-1 has some code
+that attempts to access an element by index in a vector.
+
+Listing 9-1: Attempting to access an element beyond the end of a vecor, which will cause a call to panic!
+fn main() {
+    let v = vec![1, 2, 3];
+
+    v[99];
+}
+
+Here, we're attempting to access the 100th element of our vector (which is at index 99 because
+indexing starts at zero), but is has only 3 elements. In this situation, Rust will panic. Using [] is
+supposed to return an element, but if you pass an invalid index, there's no element that Rust could
+return here that would be correct.
+
+Other language, like C, will attempt to give you exactly what you asked for in this situation, even
+though it isn't what you want: you'll get whatever is at the location in memory that would correspond
+to that element in the vector, even though the memory doesn't belong to the vector. This is called a
+buffer overread and can lead to security vulnearabilities if an attacker is able to manipulate the inex
+in such a way as to read they shouldn't be allowed to that is stored after the array.
+
+To protect your program from this sort of vulnerability, if you try to read an element at an index that
+doesn't exist, Rust will stop execution and refuse to continue. Let's try it and see:
+thread 'main' panicked at 'index out of bounds: the len is 3 but the index is 99', 
+/usr/src/rustc-1.35.0/src/libcore/slice/mod.rs:2686:10
+note: Run with `RUST_BACKTRACE=1` environment variable to display a backtrace.
+
+This error points at a file we didn't write, libcore/slice/mod.rs. That's the implementation of slice in
+the Rust source code. The code that gets run when we use [] on our vector v is in
+libcore/slice/mod.rs, and that is where the panic! is actually happening.
+
+The next note line tells us that we can set the RUST_BACKTRACE environment variable to get a
+backtrace of exactly what happened to cause the error. A backtrace is a list of all the functions that
+have been called to get to this point. Backtraces in Rust work as they do in other languages: the key
+to reading the backtrace is to start from the top and read until you see files you wrote. That's the
+spot where the problem originated. The lines above the lines mentioning your files are code that
+your code called; the lines below are code that called your code. These lines might include core Rust
+code, standard library code, or crates that you're using. Let's try getting a backtrace by setting the 
+RUST_BACKTRACE environment variable to any value except 0. 
+
+We'll come back to panic! and when we should and should not use panic! to handle error
+conditions in the "To panic! or Not to panic!" section later in this chapter. Next, we'll look at how
+to recover from an error using Result.
  
