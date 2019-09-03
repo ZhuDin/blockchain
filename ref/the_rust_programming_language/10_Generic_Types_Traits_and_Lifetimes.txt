@@ -26,4 +26,114 @@ enabling the compiler to check that the references are valid.
 
 Removing Duplication by Extracting a Function
 
+Before diving into generics syntax, let's first look at how to remove duplication that doesn't involve
+generic types by extracting a function. Then we'll apply this technique to extract a gneric function!
+In the same way that you recognize duplicated code to extract into a function, you'll start to
+recognize duplicated code that can use generics.
+
+Consider a short program that finds the largest number in a list, as shown in Listing 10-1.
+
+Listing 10-1: Code to find the largest number in a list of numbers
+fn main() {
+    let number_list = vec![34, 50, 25, 100, 65];
+    let mut largest = number_list[0];
+
+    for number in number_list {
+	if number > largest {
+	    largest = number;
+	}
+    }
+
+    println!("The largest number is {}", largest);
+}
+
+This code stores a list of integers in the variable number_list and places the first number in the list
+in a variable named largest. Then it iterates through all the numbers in the list, and if the current 
+number is greater than the number stored in largest, it replaces the number in that variabel.
+However, if the current number is less than or equal to the largest number seen so far, the variable
+doesn't change, and the code moves on to the next number in the list. After considering all the 
+numbers in the list, largest should hold the largest number, which in this cae is 100.
+
+To find the largest number in two different lists of numbers, we can duplicate the code in Listing 10-1 
+and use the same logic at two different places in the program, as shown in Listing 10-2.
+
+Listing 10-2: Code to find the largest number in two lists of numbers
+fn main() {
+    let number_list = vec![34, 50, 25, 100, 65];
+    let mut largest = number_list[0];
+
+    for number in number_list {
+    	if number > largest {
+	    largest = number;
+	}
+    }
+
+    println!("The largest number is {}", largest);
+
+    let number_list = vec![102, 34, 6000, 89, 54, 2, 43, 8];
+    let mut largest = number_list[0];
+
+    for number in number_list {
+	if number > largest {
+	    largest = number;
+	}
+    }
+
+    println!("The largest number is {}", largest);    
+}
+
+Although this code works, duplicating code is tedious and error prone. We also have to update the
+code in multiple places when we want to change it.
+
+To eliminate this duplication, we can create an abstraction by defining a function that operates on 
+any list of integers given to it in a parameter. This solution makes our code clearer and lets us
+express the concept of finding the largest number in a list abstractly.
+
+In Listing 10-3, we extracted the code that finds the largest number into a function named largest.
+Unlike the code in Listing 10-1, which can find largest number in only one particular list, this
+program can find the largest number in two different lists.
+
+Listing 10-3: Abstracted code to find the largest number in two lists
+fn largest(list: &[i32]) -> i32 {
+    let mut largest = list[0];
+
+    for &item in list.iter() {
+	if item > largest {
+	    largest = item;
+	}
+    }
+
+    largest
+}
+
+fn main() {
+    let number_list = vec![34, 50, 25, 100, 65];
+
+    let result = largest(&number_list);
+    println!("The largest number is {}", result);
+
+    let number_list = vec![102, 34, 6000, 89, 54, 2, 43, 8];
+  
+    let result = largest(&number_list);
+    println!("The largest number is {}", result);
+}
+
+The largest function has a parameter called list, which represents any concrete slice of i32
+values that we might pass into the function. As a result, when we call the function, the code runs on
+the specific values that we pass in.
+
+In sum, here are the steps we took to change the code from Listing 10-2 to 10-3: 
+
+  1. Identify duplicate code.
+  2. Extract the duplicate code into the body of the function and specify the inputs and return
+     values of that code in the function signature.
+  3. Upate the two instances of duplicated code to call the function instead.
+
+Next, we'll use these same steps with generics to reduce code duplication in different ways. In the 
+same way that the function body can operate on an abstract list instead of specific values,
+generics allow code to operate on abstract types.
+
+For example, say we had two functions: one that finds the largest item in a slice of i32 values and
+one that finds the largest item in a slice of char value. How would we eliminate that duplication?
+Let's find out!
 
