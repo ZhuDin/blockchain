@@ -1,0 +1,14 @@
+Introduction
+
+This chapter focuses on improving the socket server
+performance using a few useful techniques. Unlike the
+previous chapter, here we consider multiple clients that 
+will be connected to the server and the communication can
+be asynchronous. Ther server does not need to process the 
+request from clients in a blocking manner; this can be done
+independently of each other. If one client takes more time
+to receive or process data, the server does not need to wait
+for that. It can talk to other clients using separate threads or
+processes.
+
+
