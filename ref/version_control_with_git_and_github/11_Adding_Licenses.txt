@@ -1,0 +1,149 @@
+Exercise 11: Adding Licenses
+
+To add the appropriate license to the document, follow
+these steps:
+
+0. Open your repository, choose Insights table.
+
+1. Click the Add button to the right of License on the
+   Community profile.
+
+2. Choose a preferred license. In this case, we shall choose
+   the MIT License.
+
+3. Click Review and submit once you have finished reviewing
+   the document.
+
+4. Commit the document. You can alter this document to
+   fit your project.
+
+Outcome
+
+You have successfully added the MIT license to a given
+repository.
+
+
+Wikis and Issues
+
+Take a look at the following definitions:
+
+
+Wiki
+
+Wikis provide an avenue for documenting processes and
+guides for the usage of a certain piece of software.
+
+You can use wikis to document conventions that should be
+applied in creating branches, reporting issues, and making
+feature requests.
+
+To access and/or create wikis, use the Wiki button on the
+top navigation bar.
+
+We shall use wikis to document best practices and conventions
+for the application we will be building in this book.
+
+
+Issues
+
+GitHub issues are suitable in reporting challenges or bugs
+that are encountered when using an application, as well
+as in making feature requests. Issues aid in tracking tasks
+that:
+
+ * Need to be undertaken as part of a products roadmap
+ * Respond to user requests and challenges reported
+
+To facilitate the filing of issues, we need to create templates
+that serves to ease the reporting process. You will
+need to click the Add button to the right of Issues template
+on the Community profile. Then, select the Bug report and
+Feature request templates.
+
+By clicking the Propose changes button and Commit
+changes thereafter to add the template to your repository,
+you will be able to file the issue request.
+
+Raising an Issue
+
+This is easily achieved by selecting the Issue tab on the
+top repository navigation bar.
+
+Then, click New issue to file an issue. On the next prompt,
+select the appropriate issue type, for example, Bug report.
+Lastly, you can provide details of your issue and click
+submit new issue to complete the process.
+
+
+Activity 1: Creating a Repository
+
+You have been instructed to build an application that
+enables its user to order food from a restaurant and have it
+delivered. To commence this piece of work, you need to
+build the application while leveraging version control. You
+need to create a repository that will host the application.
+This repository will be used to track task completion and
+the deployment of the application.
+
+To get started, you need to have the Git command-line tool
+installed on your computer. Additionally you need to have
+an account on https://github.com/ and be logged into your
+account on Github:
+
+1. Launch the Terminal.
+
+2. Create a directory named [dine-in] for the application
+   and navigate to the dine-in directory.
+
+3. Initialize the repository.
+
+4. Go to https://github.com/ to create a new repository
+   with the name dine-in.
+
+5. Obtain the HTTPS or SSH URL of the repository from
+   GitHub.
+
+6. Set the remote URL on the local repository:
+
+   git remote add origin [URL]
+
+7. Create a README file and a .gitignore file, both of
+   which are going to be added to the index.
+
+8. Commit the files and then push them to the remote
+   repository:
+
+   git push -u origin master
+
+
+Outcome
+
+You have successfully created a repository on your GitHub
+account with README.md and .gitignore files
+
+Note
+
+For detailed of this activity, refer to the Appendix section.
+
+Logistics
+
+Conduct a recap of the concepts that have been covered in
+this topic.
+
+
+Summary
+
+In this chapter, we defined version control and the various
+types of workflows that are used. Then, we looked at what
+Git and GitHub are, and how they relate to each other. Last,
+but not least, we reated a repository on GitHub, cloned it,
+and initialized a repository on a local environment before
+uploading (pushing) it to GitHub. Basic building blocks
+of version control and the application context were also
+introduced.
+
+In the next chapter, you will finally see how to version
+commits and file stages to track file increments. You will
+also raise a pull request and merge it to the primary branch
+of a repository.
+

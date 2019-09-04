@@ -21,11 +21,11 @@ these steps:
 1. Launch the Terminal and navigate to the location of the
    abacus repository.
 
-2. Create the scientific.py file in src/lib by using 
+2. Create the scientific.py file in src/lib by using
    the following command:
     echo '# Scientific arithmetic module' > src/lib/scientific.py
 
-3. Add the file to the index and commit it by using the following 
+3. Add the file to the index and commit it by using the following
    command:
     git add src/lib/scientific.py && git commit -C [commit_hash] --no-edit
 
@@ -40,6 +40,6 @@ these steps:
 
 Outcome
 
-By completing exercise, you should be able to rename 
+By completing exercise, you should be able to rename
 and move files and directories using git mv.
 

@@ -9,7 +9,7 @@ define the duration for which the logs should be retrieved:
 
 git log [options] [version range] [path_to_file_or_directory] [version range]
 
-The git log command can display the history of a 
+The git log command can display the history of a
 branch when given a range of version hashes
 
 git log [hash_1]..[hash_2]
@@ -23,13 +23,13 @@ of a file, beyond rename events:
 
 git log --follow ./src/lib/advanced/advanced_compute.py
 
-The --decorate[=short or full or no] command display 
+The --decorate[=short or full or no] command display
 the ref name of the listed commits as seen in the following screenshots:
 
 git log --decorate=short
 
-Note 
-The short option omits the ref/heads, ref/remotes/, 
+Note
+The short option omits the ref/heads, ref/remotes/,
 and ref/tags/ prefixes from the ref name that is displayed.
 
 git log --decorate=full
@@ -44,9 +44,9 @@ Note
 The no option omits the entire ref name from the commits.
 
 
-Note 
+Note
 
-As shown in the preceding screenshot, the commit with the 
+As shown in the preceding screenshot, the commit with the
 message Move scientific module does not include a ref
 name.
 
@@ -59,10 +59,10 @@ git log -L 6:12:./src/lib/compute.py
 Note
 The preceding screenshot demonstrates the changes made to
 the source code in /src/lib/compute.py, for the content
-in line 6 to line 12, with each commit indicating the 
+in line 6 to line 12, with each commit indicating the
 alterations if represents.
 
-The --[number], -n [number], and --max-count=[number] 
+The --[number], -n [number], and --max-count=[number]
 the specified number of commits only
 
 git log -3 or git log -n 3
@@ -91,7 +91,7 @@ of a branch using a prescribed format:
 git log --pretty=oneline
 
 
-The following code displays the commit history details in 
+The following code displays the commit history details in
 a reverse chronological order:
 
 [commit_hash] [commit title]
@@ -106,8 +106,8 @@ a reverse chronological order:
 [commit title]
 
 
-Note 
-In the preceding screenshot, the commits are listed in the following 
+Note
+In the preceding screenshot, the commits are listed in the following
 format:
 
 commit [commit_hash]
@@ -115,7 +115,7 @@ Author: name <name@example.com>
 move scientific module
 git log --pretty=medium
 
-The format is a string that's in the form of %place-holder1 
+The format is a string that's in the form of %place-holder1
 %placeholder2 %placeholderN.
 
 The supported placeholders include the following and are
@@ -141,4 +141,16 @@ git log --pretty=format:"%H %an"
 git log --pretty=format:"%H %an %ae"
 
 git log --pretty=format:"%H %an %ae %n %s %n %b"
+
+
+Amending Commits
+
+Consider a scenario where you have made changes and 
+persisted them through git commit, and you now
+need to reword a commit message or the files in a commit.
+How can you edit the commit messages and their
+respective contents? In this section, we will explore
+how Git allows you to edit commits.
+
+
 

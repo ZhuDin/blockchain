@@ -1,6 +1,6 @@
 git rm
 
-The git rm command performs two roles. These roles are 
+The git rm command performs two roles. These roles are
 used to remove files from the working directory and the index.
 
 
@@ -8,7 +8,7 @@ Removing Files From the Index
 
 What doesn't git rm do?
 
-git rm cannot remove a file from the working tree and 
+git rm cannot remove a file from the working tree and
 ratain the same file in the index.
 
 git rm follows the following syntax:
@@ -18,7 +18,7 @@ git rm [options] [path_file_or_directory]
 The options avaiable for the git rm command are -n or --dry-run.
 
 This option simulates the behavior of git rm for the
-specified files. -n and --dry-run do not do the actual 
+specified files. -n and --dry-run do not do the actual
 removal.
 
 -r
@@ -34,9 +34,9 @@ This option remove the specified files from the index only.
 
 -f or --force
 
-git rm checks the files marked for removal for matches, 
+git rm checks the files marked for removal for matches,
 with the files in HEAD, at the tip of the current branch.
-This check is conducted before the file(s) are removed. The 
+This check is conducted before the file(s) are removed. The
 -f option overrides this check.
 
 
@@ -44,10 +44,10 @@ Exercise 15: Removing Files from the Working Tree and the Index
 
 To remove files from the index or the working tree.
 
-1. Lanuch the Terminal and navigate to the location of the 
+1. Lanuch the Terminal and navigate to the location of the
    abacus repository.
 
-2. Create the scientific.py file in src/lib by using 
+2. Create the scientific.py file in src/lib by using
    the following command:
     echo '$ Scientific arithmetic module' > src/lib/scientific.py
 

@@ -1,0 +1,27 @@
+Exercise 9: Creating a Repository on GitHub
+
+To start a piece of work, you may, instead of initializing
+a repository locally, create the repository on GitHub, after
+which you can then clone it locally.
+
+1. Go to https://github.com/.
+
+2. Go to your account's repository listing by clicking Your
+   repositories and then click the New button.
+
+3. Specify the repository name and description.
+
+4. Click the Create repository button.
+
+5. Retrieve the SSH URL.
+
+6. Clone the repository on your local environment using
+   the following command:
+
+   git clone [repository_rul]
+
+outcome
+
+You have successfully create the repository on GitHub,
+which you can now clone locally.
+

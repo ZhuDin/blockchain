@@ -11,20 +11,20 @@ git diff command without specifying a path:
 
 This command supports examing the difference of a
 specific file or directory by accepting a path:
-  
+
   git diff -- [Path_to_a_file_or_directory]
-  
+
   1. git diff -- src/lib/
   2. git diff -- src/lib/compute.py
 
-(1) and (2) compare the version in the working directory 
-of the specified paths to the version that's present in the 
+(1) and (2) compare the version in the working directory
+of the specified paths to the version that's present in the
 index.
 
 
 Comparing the Working Tree to an Arbitrary Commit or Branch
 
-A comparison can be made between the working tree and 
+A comparison can be made between the working tree and
 a special commit on the same branch, or even the tip of a
 given branch. To compare the working tree to a given commit,
 use the following syntax:
@@ -34,16 +34,16 @@ git diff [commit_hash] -- [path_to_a_file_or_directory]
 1. git diff HEAD -- src/
 2. git diff [commit_hash] -- src/lib/
 3. git diff master
-   
+
 (1) Compare the version in the working directory of the
     src directory, to the version of the most recent commit
     on the current branch.
 
-(2) Compare the version in the working directory of the 
+(2) Compare the version in the working directory of the
     src directory to the version in the snapshot represented
     by the hash [commit_hash].
 
-(3) Compares the version in the working directory of the 
+(3) Compares the version in the working directory of the
     src directory to the version at the tip of the branch
     master.
 
@@ -83,13 +83,13 @@ git diff [commit_hash or branch_name].. [commit_hash or branch_name]
 2. git diff ft-add-encapsulating-class.. master
 3. git diff [commit_hash] [commit_hash]
 
-(1) and (2) compare the different between the tips of the 
+(1) and (2) compare the different between the tips of the
 special branches.
 
 (3) compares the different between the files at the point
 referenced by the specified hashes.
 
-Using the ... notation, git diff is capable of comparing 
+Using the ... notation, git diff is capable of comparing
 the changes that have been made on branch A to branch B.
 This occurs from the point where the two branches share
 an ancestor to the most recent commit of branch B.
@@ -132,29 +132,29 @@ these steps:
 4. Open compute.py in the text editor.
 
 5. Add the following lines to compute.py and save the changes:
-    
+
     def multiple(self):
       sum = 1
       for item in self.operands:
-	sum *= item
+        sum *= item
       print(sum)
 
-6. Compare the working tree to index by using the git diff command. 
+6. Compare the working tree to index by using the git diff command.
 
 7. Compare the working tree to the master branch by using the
    git diff master command:
 
-8. Compare the index to an arbitrary commit by using the 
+8. Compare the index to an arbitrary commit by using the
    following commands:
 
     git add src/lib/compute.py
     git diff --cached
     git diff --cached [commit_hash]
-  
+
   Note
   To retrive a commit hash, run the git log command
 
-9. You can compare different branches by using the following 
+9. You can compare different branches by using the following
    commands:
 
     git commit -m "Add support for multiplication"

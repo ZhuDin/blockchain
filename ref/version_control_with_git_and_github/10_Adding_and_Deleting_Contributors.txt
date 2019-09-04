@@ -1,0 +1,166 @@
+Navigating a Repository
+
+GitHub offers features on a repository level. These features
+provide an outlook of work and progress on a repository
+by offering insights related to velocity, adherence to
+community standards, and utilization of a repository by the
+community.
+
+
+Collaborators
+
+GitHub supports adding and removing contributors to/from
+a repository.
+
+
+Exercise 10: Adding and Deleting Contributors
+
+To add or remove contributors from a given repository,
+follow these steps:
+
+1. Go to a repository on your account.
+
+2. Click Settings and then click on Collaborators.
+
+3. Search for a user by their email address, username, or
+   full name.
+
+4. Select the resultant user and click Add collaborator as
+   seen in the following screenshots.
+
+   Note
+
+   Once the user to whom you've sent an invite accepts the
+   invite, they should be able to make contributions to hte
+   repository.
+
+Outcome
+
+You have successfully added contributors to a given repository.
+
+
+Navigating Branches, Commits, and Insights (Contributors, Pulse, Forks)
+
+Branches can be viewed and deleted in line with house
+keeping processes. This can be done by going to the repository
+on your account. Next, you have to click the
+Forked 1 Branch buttton on the top bar to view a list of
+branches. Then, you should be directed to a page with an
+overview of the branches present on a repository.
+
+Commits present the state of a repository at the time of
+their creation. You can browse a repository at a commit's
+point in history and explore files that have been altered
+by a commit. Then, go to a repository on your account,
+and click the 1 commit icon to view the commits on a
+repository. In order to view file alterations on a commit, click
+the commit hash.
+
+Then, to browse the state of a repository at a given point
+in time, click the double arrow icon. This can be found
+on the far right of each commit that's listed. Lastly, you
+can observe commits that have been organized in order of
+the respective contributors. This plays an impertive role
+of coordinating matters such as knowledge sharing across
+teams by leveraging the different strengths of the
+contributors. On a repository of your choice, click Insights
+and then click Contributors to view the contributors,
+along with details of the specific contributions.
+
+
+GitHub Etiquette
+
+A certain decorum is expected of repositories and users in
+using Version control and collaborating on GitHub. This
+propriety ensures that contributions are carried out in an
+orderly manner and promotes constructive working environments
+that focus on delivering value.
+
+GitHub provides a checklist through a Community profile
+that can be accessed through the Insights tab of a repository
+navigation.
+
+
+Repository Names, Tags, and Descriptions
+
+Take a look at the following definitions:
+
+
+Names
+
+A repository should bear a descriptive name that reltes to
+the functionality an application seeks to deliver.
+
+
+Tags
+
+These are used for the purpose of identifying specific
+significant points on a repository's history, for example,
+software releases, Git supports the creation of markers,
+referred to as tags, to correspond to software versions.
+
+Tags are of two types: lightweight and annotated.
+
+Lightweight tags act as pointers to a specific commit. It
+only stores the reference to the commit:
+
+git tag v2.5
+
+Annotated tags act as pointers to a specific commit and
+additionally store information about the creator of the tag,
+the email, and date of creation:
+
+git tag -a v2.6 -m "Support sdk version 3"
+
+Tags shall be further covered in detail later in this book.
+
+
+Descriptions
+
+A repository description is required as a best practice. This
+serves as the first point of introduction and sets the basis
+on which a repository's functionality is understood.
+
+Adding a Description
+
+This is done by clicking the Add button to the right of
+Description on the Community profile and then adding the
+description and clicking Save.
+
+
+README.md
+
+This document provides a brief on the project handled by
+a repository. It encompasses a getting started guide, references
+to wikis, and conduct and contribution guidelines.
+
+Adding a README.md, CODE_OF_CONDUCT.md and CONTRIBUTING.md
+
+This is achieved by clicking the Add button to the right of
+README on the community profile. From here, you
+should add the necessary details and commit the changes.
+
+This file will be altered as we add features to our application
+throughout the book.
+
+Then, click the add button to the right of Code of conduct
+on the Community profile. Next, select a preferred code of
+conduct guidd.
+
+Then, commit the document to your repository.
+
+Next, click the Add button to the right of Contributing on
+the Community profile. Lastly, you may commit the document
+and alter it to fit your project.
+
+
+LICENSE
+
+A license governs the utilization of an application by its
+users by dictating the obligations and responsibilities of
+the creator and user of a software application.
+
+Licenses are applicable, for example, in averting a creator
+from indemnifying a user when an application is used contrary
+to its terms of use.
+
