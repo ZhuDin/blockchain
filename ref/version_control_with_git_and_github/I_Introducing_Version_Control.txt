@@ -1,84 +1,10 @@
-About the book
-
-Version control refers to the tracking and traceability of 
-changes. It is, in a way, akin to the use of a bookmark in a
-book, to mark the point the reader should return to when
-they resume reading. In version control, this metaphorical
-bookmark marks a reference to a snapshot of the code
-base. Git is a version control tool. Using Git, you can make,
-track, retrieve, and share changes on a repository. GitHub
-is a hosting service where a repository resides.
-
-This book begins by providing you with a thorough understading 
-of what version control is, why it's necessary, and
-how it lends itself to application development and version
-management. With thorough explanations and interesting 
-activities, you will learn all about using Git and GitHub
-optimally. By the end of the book, you will have the skills to
-safeguard your application and ensure its speedy development.
-
-
-Objectives
-
- * Understand and implement best practices in versoin control
- * Explain the GitHub User Interface
- * Understand what the Feature-Branch Workflow is and implement
-   its features.
- * Use forking features, such as submodules and rebasing
- * Master commands for debugging and maintaining a repository
- * Implement continuous integration with CircleCI
- * Gain insight into release management and how Github enables
-   software releases
-
-
-Audience
-
-This book is meant for developers, who want to migrate
-from other version control tools, or want to learn more
-about Git. Prior experience in coding or familiarity with
-using the bash command-line interface will enable you to 
-easily grasp the concepts introduced.
-
-
-Approach
-
-This book thoroughly explains the technlogy in an easy-to-
-understand language, while perfectly balancing theory
-and exercises. Each chapter is designed to build on the 
-learnings of the previous chapter. The book also contains
-multiple activities that use real-life business scenarios for
-you to practice and apply your new skills in a highly relevant 
-context.
-
-
-Conventions
-
-Code words in text, database table names, folder names,
-filenames, file extensions, pathnames, dummy URLs, user
-input, and Twitter handles are shown as follows:"On macOS,
-edit ~/.ssh/config to enable the ssh-agent to
-automatically load keys and store passphrases in teh keychain."
-
-A block of code is set as follows:
-
- Host *
- AddKeysToAgent yes
- UseKeychain yes
- IdentityFile [location_of_the_generated_private_key]
-
-New terms and important words are shown in bold. Words
-that you see on the screen, for example, in menus or dialog
-boxes, appear in the text like this:"A license governs the 
-utilization of an application by its users..."
-
-
 Introducing Version Control
 
 
 Learning Objectives
 
 By the end of this chapter, you will be able to:
- 
+
  * Define version control and various types of workflows
  * Explain the GitHub User Interface
  * Set up various GitHub functions such as teams and SSH
@@ -91,10 +17,10 @@ workflows and setting up a local and GitHub repository.
 Introduction
 
 This chapter will cover the basic concepts of version
-control, using illustrative examples. This book draws 
+control, using illustrative examples. This book draws
 attention to the facets that make up version control, thus
 encompassing tracking of code base changes, how to host
-a code base to support remote access, managing contributors 
+a code base to support remote access, managing contributors
 and contributions, and best practices to adhere to. By
 implementing version control, the creation and enforcement
 of team-driven checks and controls for introduction,
@@ -126,7 +52,7 @@ used to refer to different snapshots of a code base.
 The result of this is derailed and delayed changes. This is
 due to the overhead of requiring the development team to
 constantly physically investigate files to integrate changes
-successfully, as well as the resources spent in rectifying 
+successfully, as well as the resources spent in rectifying
 incorrect integrations that result in unintended and unforeseen
 bugs in the production environment.
 
@@ -141,9 +67,9 @@ version control itself took an approach that was contrived
 and agreed upon by a team of developers working on a code base.
 
 To introduce and roll out a change to a product, a developer
-would, for instance, retrieve an archived version corresponding 
+would, for instance, retrieve an archived version corresponding
 to the version in the production environment.
-They would processed to make and test the change. To deploy 
+They would processed to make and test the change. To deploy
 the new version, a version number would be assigned
 to the release, and notes detailing a change would be annotated
 alongside the release. To revert changes, you would
@@ -165,11 +91,11 @@ the following categories:
  * User authentication
  * Ticket purchase
 
-This work can be assigned to different members of the 
+This work can be assigned to different members of the
 development team. Each member can focus their efforts
 on a task and share the work through a central repository
 on Github. Each feature can be rolled out incrementally in
-bits, before being tested and merged to the production 
+bits, before being tested and merged to the production
 environment for use by the residents of Tunis.
 
 Documentation maintainers use version control for collaboration
@@ -180,7 +106,7 @@ use by an organization.
 
 Software documentation may be maintained by the personnel
 responsible for managing information resources of
-an organization using version control. For example, a 
+an organization using version control. For example, a
 repository may be used to archive documents that are no
 longer in use.
 
@@ -189,7 +115,7 @@ documentation material such as release notes were lacking
 from a project. As you may have established by now, this is
 a process marred with frustrations, stress, and inefficacies.
 
-The advent of version control software was instigated by a 
+The advent of version control software was instigated by a
 need to address the issues that plagued the incorporation
 of the change and release of software. Version control
 software has seen an evolution of three generations.
@@ -197,10 +123,10 @@ software has seen an evolution of three generations.
 In the first generation, version control software utilized a
 locking mechanism on files to allow a change to occur on
 the file. A file could only be worked on by one individual
-at a given point in time. The lock put in place on a file 
+at a given point in time. The lock put in place on a file
 would be lifted once an individual who was working on
 the said file and persisted their changes by way of commits.
-Change management was conducted by managing a 
+Change management was conducted by managing a
 history on each file. During this period, SCCS (Source Code
 Control System) and RCS (Revision Control System) were
 the common version control software in use.
@@ -208,7 +134,7 @@ the common version control software in use.
 The second generation was characterized by the use of a
 merge-before-commit mechanism to support concurrent
 editing of a file by multiple users. To incorporate changes
-into a file, you would be are required to merge changes 
+into a file, you would be are required to merge changes
 made by others to teh same file. Once done, you would
 then proceed to commit your change to the file of interest.
 This generation of software introduced the use of centralized
@@ -225,7 +151,7 @@ before-merge mechanism is used. Here, you make changes
 to the local repository. To incorporate changes made to
 the remote repository, you commit the local changes, after
 which you are able to merge changes made by other individuals.
-This will be demonstrated in later sections. Git is a 
+This will be demonstrated in later sections. Git is a
 third-generation version control tool.
 
 Version control provides an integral part of work, that is,
@@ -253,12 +179,10 @@ Common Terminologies
 Let's take a look at some of the common terms that you
 will come across in this book:
 
-
 Repository
 
-A unit of storage and change tracking that represents a 
+A unit of storage and change tracking that represents a
 directory whose contents are tracked by Git.
-
 
 Branch
 
@@ -267,7 +191,6 @@ of the set of files that constitute a repository.
 
 In a repository, there exists a default or main branch that
 represents the single source of truch.
-
 
 Master
 
@@ -281,35 +204,30 @@ to the main stream, the branches rejoin the main stream,
 just like a tributary would. This process of joining the main
 stream is referred to as merging.
 
-
 Reference
 
 A Git ref or reference is a name corresponding to a commit
 hash. The references are stored in a files in the .git/refs
 directory, of a repository.
 
-
 HEAD
 
-A reference to the most recent commit on a branch. The 
+A reference to the most recent commit on a branch. The
 most recent commit is commonly referered to as the tip of
 the branch.
 
-
 Working Tree
 
-This refers to the section in which we view and make 
+This refers to the section in which we view and make
 changes to the files in a branch. The files that are changed
 are then moved to a staging area once they are ready for a
 commit.
-
 
 Index
 
 This is an area where Git holds that have been
 changed, added, or removed in readiness for a commit. It's
 a staging area from where you commit changes.
-
 
 Commit
 
@@ -318,7 +236,6 @@ made to a set of files at a given point in time. A commit
 references the files tha have been addd to the index and
 updates the HEAD to point to the new state of the branch.
 
-
 Merge
 
 Using the analogy of a river, a merge refers to the process
@@ -326,38 +243,35 @@ through which a tributary joins the main river.
 
 In Git, a merge is the process of incorporating changes
 from one branch to another. Here, the branch bringing in
-changes is the tributary, whereas the branch receiving the 
+changes is the tributary, whereas the branch receiving the
 changes is the main stream of a river.
-
 
 Workflows
 
 Workflows refer to the approach a team takes to introduce
-changes to a code base. A workflow is characterized by a 
+changes to a code base. A workflow is characterized by a
 distinct approach in the usage of branches (or lack thereof)
 to introduce changes into a repository.
 
-
 Gitflow workflow
 
-This uses two branches: master and develop. The master 
+This uses two branches: master and develop. The master
 branch is used to track release history, while the develop
 branch is used track feature integration into the product.
 
-
 Centralized workflow
 
-This approach uses the master branch as the default 
+This approach uses the master branch as the default
 development branch. The changes are committed to the
 master branch. It's a suitable workflow for small size teams
-and teams transitioning from Apache Subversion. In 
-Apache Subversion, the trunk is the equivalent of the master 
+and teams transitioning from Apache Subversion. In
+Apache Subversion, the trunk is the equivalent of the master
 branch.
 
 
 Feature branch workflow
 
-In this workflow, feture development is carried out in a 
+In this workflow, feture development is carried out in a
 dedicated branch. The branch is then merged to the master
 once the intended changes are approved.
 
@@ -373,11 +287,11 @@ the source repository through a pull request.
 
 Navigating GitHub
 
-Version control with Git takes on a distributed nature. The 
+Version control with Git takes on a distributed nature. The
 code resides on each local computer where the code base is
 being worked on, as well as on a central remote point where
 every individual who wishes to work on the code base can
 obtain it. GitHub is one such central remote point. GitHub
-hosts repositories and enables users to obtain, alter, and 
+hosts repositories and enables users to obtain, alter, and
 integrate changes to a code base through Git.
 

@@ -1,3 +1,35 @@
 Exercise 2: Utilizing Two-Factor Authentication
 
 
+You'll need to have Goole Authenticator installed on your phone.
+The app is available on Android and IOS.
+
+To enable two-factor authentication on the account so that you have
+enhanced security, follow these steps:
+
+1. Go to Settings and select Security.
+
+2. Click the Enable two-factor authentication button and enter your
+   password on the next prompt.
+
+3. Select the method you wish to use to set up two-factor authentication.
+
+4. Click Set up using an app.
+
+5. Download the recovery codes and stores them in your preferred location.
+
+6. Press Next to proceed to the next step.
+
+7. On your phone, select Set up an account.
+
+8. Select Scan a barcode to scan the QR code presented on your browser.
+
+9. Insert the six-digit code shown on the app into the text field below
+   the label that reads Enter the six-digit code from the application and
+   press Next.
+
+
+Outcome
+
+You have successfully configured two-factor authentication for your account.
+

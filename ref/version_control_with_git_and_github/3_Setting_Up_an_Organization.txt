@@ -1,2 +1,40 @@
+Organizations
+
+GitHub offers the ability to manage multiple projects and, be extension,
+repositories using a shared account that's referred to as an organization.
+Using an organization, you can arrange contributors in a project to reflect
+your organization's structure. This structure corresponds to the teams that
+work on the respective projects as well as the access rights assigned to the
+individual contributors on each team.
+
+Organizations spur seamless coordination of work through the following features
+availed by GitHub:
+
+1. Role-based membership. Three roles exist in role-based membership, that is,
+   owner, billing manager, and member. Each personal account that is added to
+   an organization can belong to one of teh aforementioned roles. The owner role
+   is the most superior and is used to conduct administrative procedures.
+
+2. Repository level permissions. Teams or their respective members can be assigned
+   read, write, or admin-level permissions to a repository. Each level dictates 
+   activities that the assigned members undertake, with a varying degree of limitations.
+   The following diagram shows the three levels of permission, in order of increasing
+   capabilities, that ar availabel in the respective levels:
+
+		Admin 	>	Write		>	Read
+
+3. Teams: These are members of an organization that can be grouped into teams, with 
+   option of nesting the teams to match an organization's structure.
+
+4. Multi-factor authentication: Organizations support the enforcement of two-factor
+   as well as business-specific single sign-on approaches such as Security Assertion
+   Markup language (SAML) and System for Cross-domain Identity Management (SCIM).
+
+
 Exercise 3: Setting Up an Organization
 
+To create an organization, you may convert your personal account to an organization
+or create an organization which you can then associate with your personal account.
+
+1. On
+  

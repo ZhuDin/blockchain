@@ -1,2 +1,24 @@
 Exercise 1: Setting Up a GitHub Account
 
+
+To capture how GitHub serves as a hosting utility,
+we shall now proceed to explore the features that are
+offered by exploring the user interface:
+
+1. Enter your user details
+
+2. Choose a plan and set the preferences that best indicate
+   your utilization of GitHub.
+
+3. With account registration completed.
+
+4. To further configure your account.
+
+
+Outcome
+
+You have successfully set up a GitHub account as a hosting utility.
+
+We shall now look at using the Setting menu to enable two-factor
+authentication and create an organization.
+ 

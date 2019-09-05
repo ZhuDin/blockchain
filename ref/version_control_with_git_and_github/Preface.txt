@@ -1,0 +1,73 @@
+About the book
+
+Version control refers to the tracking and traceability of 
+changes. It is, in a way, akin to the use of a bookmark in a
+book, to mark the point the reader should return to when
+they resume reading. In version control, this metaphorical
+bookmark marks a reference to a snapshot of the code
+base. Git is a version control tool. Using Git, you can make,
+track, retrieve, and share changes on a repository. GitHub
+is a hosting service where a repository resides.
+
+This book begins by providing you with a thorough understading 
+of what version control is, why it's necessary, and
+how it lends itself to application development and version
+management. With thorough explanations and interesting 
+activities, you will learn all about using Git and GitHub
+optimally. By the end of the book, you will have the skills to
+safeguard your application and ensure its speedy development.
+
+
+Objectives
+
+ * Understand and implement best practices in versoin control
+ * Explain the GitHub User Interface
+ * Understand what the Feature-Branch Workflow is and implement
+   its features.
+ * Use forking features, such as submodules and rebasing
+ * Master commands for debugging and maintaining a repository
+ * Implement continuous integration with CircleCI
+ * Gain insight into release management and how Github enables
+   software releases
+
+
+Audience
+
+This book is meant for developers, who want to migrate
+from other version control tools, or want to learn more
+about Git. Prior experience in coding or familiarity with
+using the bash command-line interface will enable you to 
+easily grasp the concepts introduced.
+
+
+Approach
+
+This book thoroughly explains the technlogy in an easy-to-
+understand language, while perfectly balancing theory
+and exercises. Each chapter is designed to build on the 
+learnings of the previous chapter. The book also contains
+multiple activities that use real-life business scenarios for
+you to practice and apply your new skills in a highly relevant 
+context.
+
+
+Conventions
+
+Code words in text, database table names, folder names,
+filenames, file extensions, pathnames, dummy URLs, user
+input, and Twitter handles are shown as follows:"On macOS,
+edit ~/.ssh/config to enable the ssh-agent to
+automatically load keys and store passphrases in teh keychain."
+
+A block of code is set as follows:
+
+ Host *
+ AddKeysToAgent yes
+ UseKeychain yes
+ IdentityFile [location_of_the_generated_private_key]
+
+New terms and important words are shown in bold. Words
+that you see on the screen, for example, in menus or dialog
+boxes, appear in the text like this:"A license governs the 
+utilization of an application by its users..."
+
