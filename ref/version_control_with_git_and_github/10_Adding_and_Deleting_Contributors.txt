@@ -153,14 +153,3 @@ Next, click the Add button to the right of Contributing on
 the Community profile. Lastly, you may commit the document
 and alter it to fit your project.
 
-
-LICENSE
-
-A license governs the utilization of an application by its
-users by dictating the obligations and responsibilities of
-the creator and user of a software application.
-
-Licenses are applicable, for example, in averting a creator
-from indemnifying a user when an application is used contrary
-to its terms of use.
-

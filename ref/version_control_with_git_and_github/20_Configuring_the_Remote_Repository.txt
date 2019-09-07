@@ -1,0 +1,60 @@
+git remote
+
+With the terminology having been covered, we will proceed to look at the git remote utility,
+to explore how we can manage the connection between the local and upstream repositories.
+
+The git remote utility includes commands that help with managing the remote/upstream
+repositories that are associated with a local repostitory.
+
+
+Exercise 20: Configuring the Remote Repository
+
+To set up, view, and modify the tracked repository, follow these steps:
+
+1. Launch the Terminal.
+
+2. Create a directory for the application by using the mkdir remote-demo command.
+
+3. Change the working directory to the project directory by using the cd remote-demo command.
+
+4. Initialize the repository by using the git init command.
+
+5. Go to https://github.com/ and create a repository with the name remote-demo.
+
+6. Run git remote to view the currently tracked remote repository.
+
+7. Retrieve the repository URL, and add the remote tracked repository by using the 
+    git remote add origin git@github.com:kifeh-polyswarm/remote-demo.git command.
+
+8. View the remote configuration by using the git remote -V command.
+
+9. Rename the remote configuration from origin to source-truth by using the 
+    git remote rename origin sourcee-truth command.
+
+10.Add a README.md file by using the echo "# remote-demo" >> README.md command.
+
+11.Commit the change and push the files to GitHub by using the following code:
+    git add README.md
+    git commit -m 'Initial commit'
+    git push -u source-truth master
+
+12.View the specifics of the source-truth remote by using the 
+    git remote show source-truth command.
+
+
+Outcome
+
+By following the steps outlined in this section, you should be able to use git remote 
+to comfigure a remote repository for a given local repository.
+
+
+Note
+
+The prune command removes local branches that correspond to branches that have been 
+deleted from the remote repository:
+
+  git remote prune source-truth
+
+The configured remote can be removed by using the remove command. For example, to remove
+the source-truth remote, run git remote remove source-truth.
+

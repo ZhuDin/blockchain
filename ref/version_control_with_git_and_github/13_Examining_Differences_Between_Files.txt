@@ -1,3 +1,10 @@
+git diff
+
+The git diff command is used to compare one snapshot
+of changes to another. As the name suggests, this utility
+supports evaluating the differences between two snapshots
+of a respsitory.
+
 In this section, we will explore some use cases of the git diff
 command.
 
@@ -104,7 +111,9 @@ git diff [branch_A]...[branch_B] --[path_to_a_file_or_directory]
     since the ft-add-encapsulating-class branch was created
     from the branch master.
 
+
 Note
+
 When .. or ... are used with the git diff command, it implies
 the comparision of two points in history, and not a range.
 
@@ -161,7 +170,6 @@ these steps:
     git diff ft-support-multiplication-arithmetic..ft-add-encapsulating-class
 
 10.Push the changes to a remote branch by using the following command:
-
     git push origin ft-support-multiplication-arithmetic
 
 Outcome

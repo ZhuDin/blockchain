@@ -1,0 +1,42 @@
+Exercise 19: Editing Commits Using the edit Command
+
+To edit a message using the edit command, follow these steps:
+
+1. Launch the terminal and navigate to the location of the abacus 
+   repository.
+
+2. Retrieve the last three commits by using the git rebase -i HEAD~3 
+   command.
+
+3. Press i to switch to INSERT mode.
+
+4. Pick the desired message accordingly.
+
+5. Press Esc to exit INSERT mode.
+
+6. Press: and type wq to save the changes and exit the editor.
+
+7. Press Return to execute the wq command.
+
+8. The rebase process pauses to allow for edits.
+
+9. Change the file in src/lib/advanced/advanced_compute.py.
+
+10.Add the file to the index and commit the changes by using the 
+   following commands:
+    git add src/lib/advanced/advanced_compute.py
+    git commit --amend
+
+11.In thed editor, in the next prompt, press Esc to exit editing.
+
+12.Press: and type wq to save the changes and exit teh editor. 
+
+13.Proceed with the rebase process and finish making any changes:
+    git rebase --continue
+
+
+Outcome
+
+The change to the commit has been reflected in the output via the use 
+of the edit command.
+ 

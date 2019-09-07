@@ -1,3 +1,78 @@
 Fetching and Delivering Code
 
 
+Learning Objectives
+
+By the end of this chapter, you will be able to:
+
+  * Configure connections to hosted repositories
+  * Configure branch access and protection rules
+  * Retrieve and incorporate change into a repository
+  * Reverse changes in a repository
+
+This chapter describes the configuring of branches and 
+handling changes in the repository.
+
+
+Introduction
+
+In the previous chapter, we covered the conept of versioning commits.
+Then, we compared commits, branches, indexes, and working tress, and how
+they related to each other. Finally, we demonstrated how to amend commits,
+such as arbitrary commits.
+
+Through exploring workflow terminology, the GitHub UI, and Git toolkit
+commands, you developed skills for the implementation of version control
+using Git and GitHub. You established the strates that a file exists in,
+from the point that it's created and untracked in the working directory 
+to when it's tracked and all of the changes in the file that are monitored 
+and persisted through a commit.
+
+In this chapter, we'll explore how to configure local repositories to
+communicate with the hosted repository. To regulate the process of accepting
+local changes, we'll implement restrictions that enforece benchmarks
+that, once achieved, will ensure the prevention of error causing changes.
+We'll look at how we can utilize the connection setup to retrieve changes
+from the shared hosted repository and make local changes available to the
+hosted repository.
+
+
+Fetching the Code
+
+As we discussed in the previous chapter, in distributed version control,
+the code base in hosted at a central point from which contributors can 
+retrieve the code, make local changes to the code base on their computers,
+and pulish the changes to the central host.
+
+To develop a sound grasp of the distributed fashion in which Git implements 
+version control, we will look at some terms that are commonly used to describe 
+the link between the code that is modified locally and the source code that 
+is hosted on GitHub:
+
+Upstream
+
+Upsteam refers to the hosted repository. This is hte repository (and the subsequent 
+branch that is hosted on GitHub) from which contributors can clone the repository 
+to their local environments, make changes, and publish changes to it.
+
+In regard to forking, upstream refers to the repository that originates from a forked 
+repository. This is the repository from which you create a fork to your account.
+
+Downstream
+
+This refers to the repository that is situated in your local environment. The downstream
+repository is obtained through the git clone command, which creates a copy of the 
+hosted repository.
+
+Remote
+
+Remote refers to a named reference to a hosted repository. The remote connection is configured
+at the local repository level in order to enable pushing and pulling information to and from
+the hosted repository. Remote branches are prefixed by the remote they belong to, so that
+they don't mix with local branches.
+
+Origin
+
+This is the default remote that's configured on a repository. The origin is created when a 
+repository is cloned by executing the git clone commnad.
+

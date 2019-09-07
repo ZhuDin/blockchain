@@ -1,0 +1,43 @@
+Amending Multiple Commits
+
+The git rebase command provides the reword and edit options to 
+edit the commits. The reword option allows you to edit a message, 
+while the edit option supports editing a commit message, as well as
+the contents of a commit.
+
+
+Exercise 18: Editing Commits Using the reword Command
+
+To edit a message using a reword command, follow these steps:
+
+1. Launch the terminal and navigate to the location of the abacus
+   repository.
+
+2. Retrieve the last four commits by using the git re-base i HEAD~4
+   command.
+
+   Note
+   The commits and listed from the earliest/oldest (at the top of the 
+   list) to the most recent (the last on the list).
+
+3. Press i to switch to INSERT mode.
+ 
+4. Pick the desired message accordingly.
+
+5. Press Esc to exit INSERT mode.
+
+6. Press: and type wq to save teh changes and exit the editor.
+
+7. Press return to execute the wq command.
+
+8. Edit the message in the next prompt.
+
+9. Make sure that these changes were made by using the git log -4 
+   command.
+
+
+Outcome
+
+Through following this exercise, the changes to the commit should now
+be reflected in the output.
+

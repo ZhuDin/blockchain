@@ -29,7 +29,20 @@ enhanced security, follow these steps:
    press Next.
 
 
+Note
+
+With two-factor authentication configured for your account
+, you should be able log in using your password and the 
+code priovided by the app. You can configure your account
+to use a registered SIM card by using the callback SMS number
+option. Additionally, you can change your account to use SMS
+as the default login method for receiving the authentication
+code instead of the app. This can be achieved using Delivery
+options.
+
+
 Outcome
 
-You have successfully configured two-factor authentication for your account.
+You have successfully configured two-factor authentication for 
+your account.
 

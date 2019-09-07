@@ -26,15 +26,30 @@ availed by GitHub:
 3. Teams: These are members of an organization that can be grouped into teams, with 
    option of nesting the teams to match an organization's structure.
 
-4. Multi-factor authentication: Organizations support the enforcement of two-factor
-   as well as business-specific single sign-on approaches such as Security Assertion
-   Markup language (SAML) and System for Cross-domain Identity Management (SCIM).
+4. Multi-factor authentication: Organizations support the 
+   enforcement of two-factor as well as business-specific 
+   single sign-on approaches such as Security Assertion
+   Markup language (SAML) and System for Cross-domain 
+   Identity Management (SCIM).
 
 
 Exercise 3: Setting Up an Organization
 
-To create an organization, you may convert your personal account to an organization
-or create an organization which you can then associate with your personal account.
+To create an organization, you may convert your personal 
+account to an organization or create an organization which 
+you can then associate with your personal account.
 
-1. On
+1. On GitHub, go to Settings and select Organizations.
+   Then, click New organization.
+
+2. Enter the organization's details, choose a plain, and
+   click create organization.
+
+3. Search and add user, or click Finish to conclude the 
+   process on the next prompt.
+
+
+Outcome
+
+You have successfully set up an organization for your account.
   

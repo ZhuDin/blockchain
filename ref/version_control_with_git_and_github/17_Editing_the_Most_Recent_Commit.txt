@@ -153,4 +153,37 @@ respective contents? In this section, we will explore
 how Git allows you to edit commits.
 
 
+Amending Single Most Recent Commit
+
+The most recent commit can be edited by using --amend in the 
+git commit command.
+
+
+Exercise 17: Editing the Most Recent Commit
+
+To edit the commit referenced by HEAD, that is, the most recent 
+commit on a branch, follow these steps:
+
+1. Launch the terminal and navigate to the location of the 
+   abacus repository.
+
+2. Open the last commit message for editing by using the 
+   following command:
+    git commit --amend
+
+3. Press i to switch to INSERT mode.
+ 
+4. Edit the message accordingly.
+  
+5. Press Esc to exit INSERT mode.
+
+6. Press: and type wq to save the changes and exit the editor.
+
+7. Press Return to execute the wq command.
+
+
+Outcome
+
+Through following this exercise, the most recent commit message 
+should have been updated.
 

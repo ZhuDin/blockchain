@@ -1,2 +1,38 @@
 Exercise 4: Setting Up a Team
 
+With GitHub organization, you can, as stated previously,
+organiza contributors in teams and manage permissions and 
+restrictions at a team level and repository level.
+
+To create a team under the versioncontrolgithub organization,
+follow these steps:
+
+1. Go the https://github.com.
+
+2. On your left, you should find a drop-down menu with
+   your username. Click on the dropdown to reveal the
+   organization that you belong to.
+
+3. Click Manage organization and then click the versioncontrolgithub
+   organization on the next prompt.
+
+4. Click on the Teams tab on the organization's dashboard.
+
+5. Click on the New team button on the next prompt.
+
+6. Set the team details and click Create team.
+
+
+Outcome
+
+You have successfully created a team under the versioncontrolgithub
+organization.
+
+As seen from the preceding steps, a team can:
+
+  * Be utilized to manage pieces of work organized under repositories.
+  * Have memebers assigned to it to collaborate on specific repositories.
+  * Be assigned task-tracking boards under Projects.
+  * Have nested or child teams created under it. This can be achieved from
+    the Team tab, which is shown in the preceding screenshot.
+

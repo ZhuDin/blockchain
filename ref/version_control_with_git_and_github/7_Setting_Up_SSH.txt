@@ -1,2 +1,76 @@
+SSH Configuration
+
+To interact with a repository and/or conduct tasks on GitHub from
+your local environment, you need to assert you are who you say you are.
+Git supports this by using a combination of a username and password,
+or using a SSH key to authenticate a connection or requests made on 
+GitHub from your local environment.
+
+The use of SSH keys ensures enhanced security and averts the need to
+provide a username and password for each request.
+
+
 Exercise 7: Setting Up SSH
+
+To set up the SSH key for the account, follow these steps:
+
+1. Launch the Terminal or command prompt.
+
+2. Generate a SSH key using the following command:
+   ssh-keygen -t rsa -b 4096 -C "[email_address]"
+   Example: ssh-keygen -t rsa -b 4096 -C "kifeh@poly-swarm.com"
+
+3. Specify the location where the generated key is to be stored. You may
+   press Enter to instruct the key generator to use the default location.
+
+4. Type a passphrase to secure the generated key.
+
+The key is sotred in the specified location.
+
+1. Start the SSH agent using the following command 
+   eval "$(ssh-agent -s)".
+
+2. On macOS, edit ~/.ssh/config to enable the ssh-agent to automatically
+   load keys and store passphrases in the keychain:
+    Host *
+    AddKeysToAgent yes
+    UseKeychain yes
+    IdentityFile [location_of_the_generated_private_key]
+
+   Example: Host *:
+    AddKeysToAgent yes
+    UseKeychain yes
+    IdentityFile ~/.ssh/version_control_git/id_rsa
+
+3. Add the SSH private key to the ssh-agent.
+
+   Note
+   -k adds the passphrase to the keychain when a private key is added
+   to the ssh-agent.
+
+    ssh-add -K [location_of_the_generated_private_key]
+
+   Example: ssh-add -K ~/.ssh/version_control_git/id_rsa
+
+4. Add the public SSH key to your GitHub account. Go to 
+   https://github.com/, and then go to Setting.
+
+5. Click SSH and GPG keys as shown in the following screenshot.
+
+6. Click New SSH key and set a title for your public SSH key.
+
+7. Launch the Terminal and copy the contents of the public SSH key 
+   to the clipboard using the following command:
+   pbcopy < ~/.ssh/version_control_git/id_rsa.pub.
+
+8. Paste the contents of the public key into the field under the 
+   label Key.
+
+9. Click Add SSH key to add the public key to your GitHub account.
+
+10.Test that the SSH key has been set up properly by making a request
+   to GitHub using the following command:
+    ssh -T git@github.com
+
+You have successfully set up the SSH key for the account.
 

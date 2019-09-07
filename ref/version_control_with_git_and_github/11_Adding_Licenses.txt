@@ -1,3 +1,14 @@
+LICENSE
+
+A license governs the utilization of an application by its
+users by dictating the obligations and responsibilities of
+the creator and user of a software application.
+
+Licenses are applicable, for example, in averting a creator
+from indemnifying a user when an application is used contrary
+to its terms of use.
+
+
 Exercise 11: Adding Licenses
 
 To add the appropriate license to the document, follow
@@ -16,6 +27,7 @@ these steps:
 
 4. Commit the document. You can alter this document to
    fit your project.
+
 
 Outcome
 
@@ -63,6 +75,7 @@ Feature request templates.
 By clicking the Propose changes button and Commit
 changes thereafter to add the template to your repository,
 you will be able to file the issue request.
+
 
 Raising an Issue
 
@@ -121,9 +134,11 @@ Outcome
 You have successfully created a repository on your GitHub
 account with README.md and .gitignore files
 
+
 Note
 
 For detailed of this activity, refer to the Appendix section.
+
 
 Logistics
 

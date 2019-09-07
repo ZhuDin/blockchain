@@ -1,0 +1,18 @@
+Default and Protected Branches
+
+GitHub supports the enforcement of restrictions with respect to merging and pushing code
+to the branches that are protected.
+
+These restrictions ensure that the code that is held in a particular branch remains void 
+of as many errors as possible.
+
+Additionally, to ensure and promote correctness, GitHub allows you to set a certain 
+repository as the default branch. The default branch serves the prupose of providing 
+a single source of truth on a repository. Pull requests are merged to this branch by default.
+
+
+Exercise 21: Configuring the Base Branch and Branch Protection
+
+To set up branch access restrictions, follow these steps:
+
+

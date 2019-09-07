@@ -124,7 +124,9 @@ The syntax of this command is as follows:
 
 git commit [options].
 
+
 NOTE
+
 The git commit command requires that a message be provided for
 each commit operation.
 

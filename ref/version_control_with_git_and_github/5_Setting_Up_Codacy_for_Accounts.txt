@@ -1,2 +1,38 @@
+Marketplace
+
+GitHub offers the ability to integrate applications with your account.
+These applications serve a range of roles such as continuous integration,
+code quality analysis, and dependency management analysis. Next, we shall
+set up Codacy for our accounts. Coday is used to analyze code that's 
+introduced into a project to identify areas of improvements where action
+can be taken before changes are merged.
+
+
 Exercise 5: Setting Up Codacy for Accounts
+
+Consider using the following text as the description text for the exercise.
+
+To set-up Codacy follow the steps below.
+
+1. Go to https://github.com/.
+
+2. Click Marketplace on the top navigation bar.
+
+3. Click Code quality from the categories list.
+
+4. Click Codacy, which is listed on the right.
+
+5. From there, click Set up a plan and Install it for free.
+
+6. Click Complete order and begin installation.
+
+7. Authorize the application by clicking the Authorize qumine button.
+
+8. Enter your password and click Confirm password to complete
+   the setup process.
+
+
+Outcome
+
+You have integrated Codacy into your account for use in quality control code.
 

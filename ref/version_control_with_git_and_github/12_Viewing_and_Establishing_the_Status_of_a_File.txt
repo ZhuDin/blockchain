@@ -1,62 +1,3 @@
-Versioning Commits
-
-
-Learning Objectives
-
-By the end of this chapter, you will be able to:
-
-  * Explain the need for versioning commits
-  * Compare commits, branches, indexes, and working trees
-  * Define the various Git commands and state their functions
-  * Amend commits
-
-This chapter describes the comparison and editing of commits
-
-
-Introduction
-
-In the previous chapter, we covered the concept of version
-control and various types of workflows. We then analyzed
-the GitHub UI and GitHub functions, such as teams and SSH.
-Finally, we created a repository by using GitHub etiquette.
-
-In this chapter, we will explain the logic behind the need
-for versioning commits. Additionally, we will compare
-commits, branches, index, and working trees. By teh end of
-this chapter, you'll be able to demonstrate how to amend
-commits.
-
-
-Introduction  to Versioning Commits
-
-We have already discussed version control, and we have
-established that it aids in tracking changes. In this topic,
-we will address the following question:
-
-How can we make Git track and monitor the changes in a file?
-
-Our aim is to examine demonstrate the various stages
-that a file passes through to become a candidate for a commit.
-
-In Git, files can have the following statuses:
-
-1. Untracked: This a file that exists in the working tree
-   whose changes are not being monitored by Git and aren't
-   listed in the gitignore file.
-
-2. Unstaged: This a file whose changes are being tracked
-   by Git; the file has been changed since the last commit
-   and has yet to be moved to the index.
-
-3. Staged: This is a file whose changes are being tracked by
-   Git; the file has been changed since the last commit and
-   has been moved to the index. This file is a file that is
-   ready for the Git commit. Staged files are the files in the
-   index that are different from their corresponding files in
-   the HEAD, that is, the version of the file in the most
-   recent commit.
-
-
 git status
 
 git status is a utility that is used by Git. It's used to retrieve
@@ -150,12 +91,4 @@ Outcome
 By following the steps that we have outlined, you should be
 able to use git status to view untracked, unstaged, and
 staged files.
-
-
-git diff
-
-The git diff command is used to compare one snapshot
-of changes to another. As the name suggests, this utility
-supports evaluating the differences between two snapshots
-of a respsitory.
 
