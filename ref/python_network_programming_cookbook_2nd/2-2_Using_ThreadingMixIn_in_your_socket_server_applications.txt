@@ -1,0 +1,24 @@
+Using ThreadingMixIn in your socket server applications
+
+Perhaps you prefer writing a multi-thread application over a process-based one due to any 
+particular reason, for example, sharing the states of that application across threads, 
+avoiding the complexity of inter-process communication, or something else, In such a situation, 
+if you want to write an asynchronous network server using SocketServer library, you will
+need ThreadMixIn.
+
+
+Getting ready
+
+By making a few minor changes to our previous recipe, you can get a working version of 
+socket server using ThreadMixIn.
+
+
+How to do it...
+
+As seen in the previous socket server based on ForkingMixIn, ThreadingMixIn socket server 
+will follow the same coding pattern of an echo server except for a few things. First, our
+ThreadTCPServer will inherit from TCPServer and ThreadingMixIn. This multi-threaded version
+will launch a new thread when a client connects to it. Some more details can be found at
+http://docs.python.org/2/library/socketserver.html.
+
+

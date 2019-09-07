@@ -1,0 +1,143 @@
+Using ForkingMixIn in your socket server applications
+
+You have decided to write an asynchronous Python socket server application. The server 
+will not block in processing a client request. So the server need a mechanism to deal with 
+each client independently.
+
+Python SocketServer class comes with two utility classes: ForkingMixIn and ThreadingMixIn.
+The ForkingMixIn class will spawn a new process for each client request. This class is
+discussed in this section. The ThreadingMixIn class will be discussed in the next section.
+For more information, you can refer to the relevant Python 2 documentation at 
+http://docs.python.org/2/library/socketserver.html and Python3 documentation at
+https://docs.python.org/3/library/socketserver.html.
+
+
+How to do it...
+
+Let us rewrite our echo server, previously described in Chapter 1, Sockets, IPv4, and Simple
+Client/Server Programming. We can utilize the subclasses of the SocketServer class family. It
+has ready-made TCP, UDP, and other protocol servers. We can create a ForkingServer class 
+inherited from TCPServer and ForkingMixIn. The former parent will enable our ForkingServer
+class to do all the necessary server operations that we did manually before, such as creating
+a socket, binding to an address, and listening for incoming connections. Our server also 
+needs to inherit from ForkingMinIn to handle clients asynchronously.
+
+The ForkingServer class also needs to set up a request handler that dicates how to handle a 
+client request. Here our server will echo back the text string received from the client. Our
+request handler class, ForkingServerRequestHandler, is inherited from the BaseRequestHandler 
+provided with the SocketServer library.
+
+We can code the client of our echo server, ForkingClient, in an object-oriented fashion. In 
+Python, the constructor method of a class is called __init__(). By convention, it takes a 
+self-argument to attach attributes or properties of that particular class. The ForkingClient
+echo server will be initialized at __init__() and sends the message to the server at the run()
+method respectively.
+
+If you are not familiar with object-oriented programming (OOP) at all, it might be helpful to
+review the basic concepts of OOP while attempting grasp this recipe.
+
+In order to test our ForkingServer class, we can launch multiple echo clients and see how server
+responds back to the clients.
+
+Listing 2.1 shows a sample code using ForkingMixIn in a socket server application as follows:
+import os
+import socket
+import threading
+import socketserver
+
+SERVER_HOST = 'localhost'
+SERVER_PORT = 0 # tells the kernel to pickup a port dynamically
+BUF_SIZE = 1024 
+ECHO_MSG = 'Hello echo server!'
+
+class ForkedClient():
+    """ A client to test forking server """
+    def __init__(self, ip, port):
+	# Create a socket
+        self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        # Connect to the server
+        self.sock.connect((ip, port))
+
+    def run(self):
+        """ Client playing with the server """
+        # Send the data to server
+        current_process_id = os.getpid()
+        print('PID %s Sending echo message to the server : "%s"' % \
+		(current_process_id, ECHO_MSG))
+        sent_data_length = self.sock.send(bytes(ECHO_MSG, 'utf-8'))
+        print("Sent: %d characters, so far.." % sent_data_length)
+
+        # Display server response
+        response = self.sock.recv(BUF_SIZE)
+        print("PID %s received: %s" % (current_process_id, response[5:]))
+
+    def shutdown(self):
+        """Cleanup the client socket """
+        self.sock.close()
+
+class ForkingServerRequestHandler(socketserver.BaseRequestHandler):
+    def handler(self):
+        # Send the echo back to the client
+
+        # received = str(sock.recv(1024), "utf-8")
+        data = str(self.request.recv(BUF_SIZE), 'utf-8')
+
+        current_process_id = os.getpid()
+        response = '%s: %s' % (current_process_id, data)
+        print("Server sending response [current_process_id: data] = [%s]" % response)
+        self.request.send(bytes(response, 'utf-8'))
+        return
+
+class ForkingServer(socketserver.ForkingMixIn, socketserver.TCPServer,):
+    """ Nothing to add here, inherited everything necessary from parents """
+    pass
+
+def main():
+    # Launch the server 
+    server = ForkingServer((SERVER_HOST, SERVER_PORT), ForkingServerRequestHandler)
+    ip, port = server.server_address # Retrieve the port number
+    server_thread = threading.Thread(target=server.serve_forever)
+    server_thread.setDaemon(True) # don't hang on exit 
+    server_thread.start()
+    print("Server loop running PID: %s" % os.getpid())
+
+    # Launch the client(s)
+    client1 = ForkedClient(ip, port)
+    client1.run()
+
+    print("First client running")
+
+    client2 = ForkedClient(ip, port)
+    client2.run()
+
+    print("Second client running")
+
+    # Clean them up
+    server.shutdown()
+    client1.shutdown()
+    client2.shutdown()
+    server.socket.close()
+
+if __name__ == '__main__':
+    main()
+
+
+How it works...
+
+An instance of ForkingServer is lanuched in the main thread, which has been daemonized
+to run in the background. Now, the two clients have started interacting with the server.
+
+If you run the script, it will show the following output: 
+Server loop running PID: 1160
+PID 1160 Sending echo message to the server : "Hello echo server!"
+Sent: 18 characters, so far..
+PID 1160 received: b''
+First client running
+PID 1160 Sending echo message to the server : "Hello echo server!"
+Sent: 18 characters, so far..
+PID 1160 received: b''
+Second client running
+
+The server port number might be different in your machine since this is dynamically chosen 
+by the operating system kernel.
+
