@@ -1,0 +1,65 @@
+Building a Node web application
+
+Node.js underpins any MEAN application, so that’s where we’ll start.
+Throughout part 2 we’ll build a data-driven web application using Node.js,
+Express, and MongoDB. We’ll learn the individual technologies as we go, steadily
+building up the application to a point where we have a fully functioning Node
+web application.
+
+In chapter 3 we’ll get going by creating and setting up a MEAN project, getting 
+acquainted with Express, before getting a much deeper understanding of
+Express by building out a static version of the application in chapter 4. Taking
+what we’ve learned about the application so far, in chapter 5 we’ll work with
+MongoDB and Mongoose to design and build the data model we’ll need.
+
+Good application architecture should include a data API rather than tightly
+coupling the database interactions with the application logic. In chapter 6 we’ll
+create a REST API using Express, MongoDB, and Mongoose, before tying this
+back into the application by consuming the REST API from our static application. 
+As we get to the end of part 2 we’ll have a data-driven website using
+Node.js, MongoDB, and Express, and also a fully functioning REST API.
+
+
+Creating and setting up a MEAN project
+
+This chapter covers
+■ Managing dependencies by using a package.json file
+■ Creating and configuring Express projects
+■ Setting up an MVC environment
+■ Adding Twitter Bootstrap for layout
+■ Publishing to a live URL and using Git and Heroku
+
+Now we’re really ready to get underway, and in this chapter we’ll get going on
+building our application. Remember from chapters 1 and 2 that throughout this
+book we’re going to build an application called Loc8r. This is going to be a 
+locationaware web application that will display listings near users and invite 
+people to login and leave reviews.
+
+In the MEAN stack Express is the Node web application framework. Together
+Node and Express underpin the entire stack, so let’s start here. In terms of building
+up the application architecture, figure 3.1 shows where we’ll be focusing in this chapter. 
+We’ll be doing two things:
+  
+  1 Creating the project and encapsulating the Express application that will house
+	everything else except the database
+  
+  2 Setting up the main Express application
+
+We’ll start with a bit of groundwork by looking at Express and seeing how we can manage 
+dependencies and modules using npm and a package.json file. We’ll need this
+background knowledge to get going and set up an Express project.
+
+Before we can really do anything we’ll make sure that you have everything you
+need installed on your machine. When that’s all done we’ll look at creating new
+Express projects from the command line, and the various options we can specify at
+this point.
+
+Express is great, but you can make it better—and get to know it better—by tinkering 
+a little and changing some things around. This ties into a quick look at 
+modelview-controller (MVC) architecture. Here’s where we’ll get under the hood of Express
+a little, and see what it’s doing by modifying it to have a very clear MVC setup.
+
+When the framework of Express is set up as we want it, we’ll next include Twitter’s
+Bootstrap framework, and make the site responsive by updating the Jade templates. In
+the final step of this chapter we’ll push the modified, responsive MVC Express application 
+to a live URL using Heroku and Git.

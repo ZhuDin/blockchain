@@ -1,0 +1,166 @@
+2.3 Designing a flexible MEAN architecture
+
+If AngularJS is like having a Porsche then the rest of the stack is like also having an
+Audi RS6 in the garage. A lot of people may be focusing on your sports car out front
+and not give a second glance to the estate car in your garage. But if you do go into the
+garage and have a poke around, you’ll find that there’s a Lamborghini V10 engine
+under the hood. There’s a lot more to that estate car than you might first think!
+
+Only ever using MongoDB, Express, and Node.js together to build a REST API is
+like only ever using the Audi RS6 to do the school drop-off runs. They’re all extremely
+capable and will do the job very well, but they have a lot more to offer.
+
+We talked a little about what the technologies can do in chapter 1, but here are a
+few starting points:
+
+■ MongoDB can store and stream binary information.
+■ Node.js is particularly good for real-time connections using web sockets.
+■ Express is a web application framework with templating, routing, and session management built in.
+
+There’s also a lot more, and I’m certainly not going to be able to address the full 
+capabilities of all of the technologies in this book. I’d need several books to do that! What
+I can do here is give you a simple example and show you how you can fit together the
+pieces of the MEAN stack to design the best solution.
+
+
+2.3.1 Requirements for a blog engine
+
+Let’s take a look at the familiar idea of a blog engine, and see how you could best
+architect the MEAN stack to build one.
+
+A blog engine typically has two sides to it. There’s a public-facing side serving up
+articles to readers, and hopefully being syndicated and shared across the internet. A
+blog engine will also have an administrator interface where blog owners log in to write
+new articles and manage their blogs. Figure 2.2 shows some of the key characteristics
+for these two sides.
+
+Looking at the lists in figure 2.2, it’s quite easy to see a high level of conflict
+between the characteristics of the two sides. You’ve got content-rich, low interaction
+for the blog articles, but a feature-rich, highly interactive environment for the admin
+interface. The blog articles should be quick to load to reduce bounce rates, whereas
+the admin area should be quick to respond to user input and actions. Finally, users
+typically stay on a blog entry for a short time, but may share it with others, whereas
+the admin interface is very private and an individual user could be logged in for a
+long time.
+
+Taking what we’ve discussed about potential issues with SPAs, and looking at the
+characteristics of blog entries, you’ll see quite a lot of overlap. It’s quite likely that
+bearing this in mind you’d choose not to use an SPA to deliver your blog articles to
+readers. On the other hand, the admin interface is a perfect fit for an SPA.
+
+So what do you do? Arguably the most important thing is to keep the blog readers
+coming—if they get a bad experience they won’t come back and they won’t share. If a
+blog doesn’t get readers then the writer will stop writing or move to another platform.
+Then again, a slow and unresponsive admin interface will also see your blog owners
+jumping ship. So what do you do? How do you keep everybody happy and keep the
+blog engine in business?
+
+
+2.3.2 A blog engine architecture
+
+The answer lies in not looking for a one-size-fits-all solution. You effectively have two
+applications. You have public-facing content that should be delivered direct from the
+server and an interactive private admin interface that you want to build as an SPA.
+Let’s start by looking at each of the two applications separately, starting with the
+admin interface.
+
+ADMIN INTERFACE: AN ANGULARJS SPA
+We’ve already discussed that this would be an ideal fit for an SPA built in AngularJS. So
+the architecture for this part of the engine will look very familiar: a REST API built with
+MongoDB, Express, and Node.js with an AngularJS SPA upfront. Figure 2.3 shows how
+this looks.
+
+There’s nothing particularly new shown in figure 2.3. The entire application is
+built in AngularJS and runs in the browser, with JSON data being passed back and
+forth between the AngularJS application and the REST API.
+
+BLOG ENTRIES: WHAT TO DO?
+Looking at the blog entries, things get a little more difficult.
+
+If you only think of the MEAN stack as an AngularJS SPA calling a REST API then
+you’re going to get a bit stuck. You could build the public-facing site as an SPA anyway,
+because you want to use JavaScript and the MEAN stack. But it’s not the best solution.
+You could decide that the MEAN stack isn’t appropriate in this case and choose a different 
+technology stack. But you don’t want to do that! You want end-to-end JavaScript.
+
+So let’s take another look at the MEAN stack, and think about all of the components.
+You know that Express is a web application framework. You know that Express can use
+template engines to build HTML on the server. You know that Express can use URL routing 
+and MVC patterns. You should start to think that perhaps Express has the answer!
+
+BLOG ENTRIES: MAKING GOOD USE OF EXPRESS
+In this blog scenario, delivering the HTML and content directly from the server is
+exactly what you want to do. Express does this particularly well, even offering a choice
+of template engines right from the get-go. The HTML content will require data from
+the database, so you’ll use a REST API again for that (more on why it’s best to take this
+approach in section 2.3.3). Figure 2.4 lays out the basis for this architecture.
+
+This gives you an approach where you can use the MEAN stack, or part of it at least, to
+deliver database-driven content directly from the server to the browser. But it doesn’t
+have to stop there. The MEAN stack is yet again more flexible.
+
+BLOG ENTRIES: USING MORE OF THE STACK
+You’re looking at an Express application delivering the blog content to the visitors.
+If you want visitors to be able to log in, perhaps to add comments to articles, you
+need to track user sessions. You could use MongoDB with your Express application
+to do just this.
+
+You might also have some dynamic data in the sidebar of your posts, such as
+related posts or a search box with type-ahead auto-completion. You could implement
+these in AngularJS. Remember, AngularJS isn’t only for SPAs; it can also be used to add
+some rich data interactivity to an otherwise static page.
+
+Now you have the possibility of a full MEAN application delivering content to visitors 
+interacting with your REST API.
+
+BLOG ENGINE: A HYBRID ARCHITECTURE
+At this point there are two separate applications, each using a REST API. With a little
+bit of planning this can be a common REST API, used by both sides of the application.
+
+Figure 2.6 shows what this looks like as a single architecture, with the one REST API
+interacting with the two front-end applications.
+
+This is just a simple example to show how you can piece together the various parts
+of the MEAN stack into different architectures to answer the questions that your 
+projects ask of you. Your options are only limited by your understanding of the components
+and your creativity in putting them together. There’s no one correct architecture for
+the MEAN stack.
+
+
+2.3.3 Best practice: Build an internal API for a data layer
+
+You’ve probably noticed that every version of the architecture includes an API to surface 
+the data, and allows interaction between the main application and the database.
+There’s a good reason for this.
+
+If you were to start off by building your application in Node.js and Express, serving
+HTML directly from the server, it would be really easy to talk to the database directly
+from the Node.js application code. With a short-term view this is the easy way. But with
+a long-term view this becomes the difficult way, as it will tightly couple your data to
+your application code in a way that nothing else could use it.
+
+The other option is to build your own API that can talk to the database directly and
+output the data you need. Your Node.js application can then talk with this API instead
+of directly with the database. Figure 2.7 shows a comparison of the two setups.
+
+Looking at figure 2.7 you could well be wondering why you’d want to go to the effort
+of creating an API just to sit in between your application and your database. Isn’t it 
+creating more work? At this stage, yes, it’s creating more work—but you want to look
+further down the road here. What if you want to use your data in a native mobile
+application a little later? Or, for example, in an AngularJS front end?
+
+You certainly don’t want to find yourself in the position where you have to write
+separate but similar interfaces for each. If you’ve built your own API upfront that 
+outputs the data you need, you can avoid all of this. If you have an API in place, when you
+want to integrate the data layer into your application you can simply make it reference
+your API. It doesn’t matter if your application is Node.js, AngularJS, or iOS. It doesn’t
+have to be a public API that anyone can use, so long as you can access it. Figure 2.8
+shows a comparison of the two approaches when you have Node.js, AngularJS, and iOS
+applications all using the same data source.
+
+As figure 2.8 shows, the previously simple integrated approach is now becoming
+fragmented and complex. You’ll have three data integrations to manage and maintain, 
+so any changes will have to be made in multiple places to retain consistency. If
+you have a single API you don’t have any of these worries. So with a little bit of extra
+work at the beginning, you can make life much easier for yourself further down the
+road. We’ll look at creating internal APIs in chapter 6.

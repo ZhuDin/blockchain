@@ -1,0 +1,123 @@
+1.4 Introducing MongoDB: The database
+
+The ability to store and use data is vital for most applications. In the MEAN stack the database of choice is MongoDB, the M in MEAN. MongoDB fits into the stack incredibly well. Like Node.js, it’s renowned for being fast and scalable.
+
+
+1.4.1 Relational versus document databases
+
+If you’ve used a relational database before, or even a spreadsheet, you’ll be used to the concept of columns and rows. Typically, a column defines the name and data type and each row would be a different entry. See table 1.1 for an example of this.
+
+Table 1.1 How rows and columns can look in a relational database table
+firstName 		middleName		lastName		maidenName		nickname
+Simon 			David 			Holmes 							Si
+Sally 			June 			Panayiotou
+Rebecca 						Norman 			Holmes 			Bec
+
+MongoDB is not like that! MongoDB is a document database. The concept of rows still
+exists but columns are removed from the picture. Rather than a column defining what
+should be in the row, each row is a document, and this document both defines and
+holds the data itself. See table 1.2 for how a collection of documents might be listed
+(the indented layout is for readability, not a visualization of columns).
+
+Table 1.2 Each document in a document database defines and holds the data, in no particular order.
+firstName:"Simon"	middleName:"David"	lastName:"Holmes"	nickname:"Si"
+lastName:"Panayiotou"	middleName:"June"	firstName:"Sally"	
+maidenName:"Holmes"		firstName:"Rebecca"		lastName:"Norman"	nickname:"Bec"
+
+This less-structured approach means that a collection of documents could have a wide
+variety of data inside. Let’s take a look at a sample document so that you’ve got a 
+better idea of what I’m talking about.
+
+
+1.4.2 MongoDB documents: JavaScript data store
+
+MongoDB stores documents as BSON, which is binary JSON (JavaScript Serialized
+Object Notation). Don’t worry for now if you’re not fully familiar with JSON—check
+out the relevant section in appendix D, which can be found online at https://www
+.manning.com/books/getting-mean-with-mongo-express-angular-and-node. In short,
+JSON is a JavaScript way of holding data, hence why MongoDB fits so well into the
+JavaScript-centric MEAN stack!
+
+The following code snippet shows a very simple sample MongoDB document:
+{
+ "firstName" : "Simon",
+ "lastName" : "Holmes",
+ _id : ObjectId("52279effc62ca8b0c1000007")
+}
+
+Even if you don’t know JSON that well, you can probably see that this document stores
+the first and last names of me, Simon Holmes! So rather than a document holding a
+data set that corresponds to a set of columns, a document holds name and value pairs.
+This makes a document useful in its own right, as it both describes and defines the data.
+
+A quick word about _id. You most likely noticed the _id entry alongside the names
+in the preceding example MongoDB document. The _id entity is a unique identifier
+that MongoDB will assign to any new document when it’s created.
+
+We’ll look at MongoDB documents in more detail in chapter 5 when we start to
+add the data into our application.
+
+
+1.4.3 More than just a document database
+
+MongoDB sets itself apart from many other document databases with its support for
+secondary indexing and rich queries. This means that you can create indexes on more
+than just the unique identifier field, and querying indexed fields is much faster. You
+can also create some fairly complex queries against a MongoDB database—not to the
+level of huge SQL commands with joins all over the place, but powerful enough for
+most use cases.
+
+As we build an application through the course of this book, we’ll get to have some
+fun with this, and you’ll start to appreciate exactly what MongoDB can do.
+
+
+1.4.4 What is MongoDB not good for?
+
+MongoDB isn’t a transactional database, and shouldn’t be used as such. A transactional 
+database can take a number of separate operations as one transaction. If any
+one of the operations in a transaction should fail the entire transaction fails, and none
+of the operations complete. MongoDB does not work like this. MongoDB will take each
+of the operations independently; if one fails then it alone fails and the rest of the
+operations will continue.
+
+This is important if you need to update multiple collections or documents at once.
+If you’re building a shopping cart, for example, you need to make sure that the 
+payment is made and recorded, and also that the order is marked as confirmed to be 
+processed. You certainly don’t want to entertain the possibility that a customer might have
+paid for an order that your system thinks is still in the checkout. So these two operations 
+need to be tied together in one transaction. Your database structure might allow
+you to do this in one collection, or you might code fallbacks and safety nets into your
+application logic in case one fails, or you might choose to use a transactional database.
+
+
+1.4.5 Mongoose for data modeling and more
+
+MongoDB’s flexibility about what it stores in documents is a great thing for the database. 
+But most applications need some structure to their data. Note that it’s the application 
+that needs the structure, not the database. So where does it make most sense to
+define the structure of your application data? In the application itself!
+
+To this end, the company behind MongoDB created Mongoose. In their own
+words, Mongoose provides “elegant MongoDB object modeling for Node.js” (http://
+mongoosejs.com/).
+
+WHAT IS DATA MODELING?
+Data modeling, in the context of Mongoose and MongoDB, is defining what data can
+be in a document, and what data must be in a document. When storing user information 
+you might want to be able to save the first name, last name, email address, and
+phone number. But you only need the first name and email address, and the email
+address must be unique. This information is defined in a schema, which is used as the
+basis for the data model.
+
+WHAT ELSE DOES MONGOOSE OFFER?
+As well as modeling data, Mongoose adds an entire layer of features on top of MongoDB 
+that are useful when building web applications. Mongoose makes it easier to
+manage the connections to your MongoDB database, as well as to save data and read
+data. We’ll use all of this later. We’ll also discuss how Mongoose enables you to add
+data validation at the schema level, making sure that you only allow valid data to be
+saved in the database.
+
+MongoDB is a great choice of database for most web applications because it provides 
+a balance between the speed of pure document databases and the power of relational 
+databases. That the data is effectively stored in JSON makes it the perfect data
+store for the MEAN stack.

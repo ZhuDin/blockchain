@@ -1,0 +1,59 @@
+2.6 Hardware architecture
+
+No discussion about architecture would be complete without a section on hardware.
+You’ve seen how all of the software and code components can be put together, but
+what type of hardware do you need to run it all?
+
+
+2.6.1 Development hardware
+
+The good news is that you don’t need anything particularly special to run a development 
+stack. Just a single laptop, or even a virtual machine (VM), is enough to develop
+a MEAN application. All components of the stack can be installed on Windows, Mac
+OS X, and most Linux distributions.
+
+I’ve successfully developed applications on Windows and Mac OS X laptops, and
+also on Ubuntu VMs. My personal preference is native development in OS X, but I
+know of others who swear by using Linux VMs.
+
+If you have a local network and a number of different servers you can run different
+parts of your application across them. For example, it’s possible to have one machine
+as a database server, another for the REST API, and a third for the main application
+code itself. So long as the servers can talk to each other this isn’t a problem.
+
+
+2.6.2 Production hardware
+
+The approach to production hardware architecture isn’t all that different from development 
+hardware. The main difference is that production hardware is normally higher
+spec, and is open to the internet to receive public requests.
+
+STARTER SIZE
+It’s quite possible to have all parts of your application hosted and running on the same
+server. You can see a basic diagram of this in figure 2.22.
+
+This architecture is okay for applications with low amounts of traffic, but isn’t generally 
+advised as your application grows, because you don’t want your application and
+database fighting over the same resources.
+
+GROWING UP: A SEPARATE DATABASE SERVER
+One of the first things to be moved onto a separate server is often the database. So
+now you have two servers: one for the application code and one for the database. 
+Figure 2.23 illustrates this approach.
+
+This is quite a common model, particularly if you choose to use a platform as a service
+(PaaS) provider for your hosting. We’ll be using this approach in this book.
+
+GOING FOR SCALE
+Much like we talked about in the development hardware, you can have a different
+server for the different parts of your application—a database server, an API server, and
+an application server. This will allow you to deal with more traffic as the load is spread
+across three servers, as illustrated in figure 2.24.
+
+But it doesn’t stop there. If your traffic starts to overload your three servers, you can
+have multiple instances—or clusters—of these servers, as shown in figure 2.25.
+
+Setting up this approach is a little more involved than the previous methods
+because you need to ensure that your database remains accurate, and that the load is
+balanced across the servers. Once again, PaaS providers offer a convenient route into
+this type of architecture.

@@ -1,0 +1,60 @@
+1.1 Why learn the full stack?
+
+So, indeed, why learn the full stack? It sounds like an awful lot of work! Well yes, it is quite a lot of work, but it’s also very rewarding. And with the MEAN stack it isn’t as hard as you might think.
+
+
+1.1.1 A very brief history of web development
+
+Back in the early days of the web, people didn’t have high expectations of websites. Not much emphasis was given to presentation; it was much more about what was going on behind the scenes. Typically, if you knew something like Perl and could string together a bit of HTML then you were a web developer.
+
+As use of the internet spread, businesses started to take more of an interest in how their online presence portrayed them. In combination with the increased browser support of Cascading Style Sheets (CSS) and JavaScript, this desire started to lead to more complicated front-end implementations. It was no longer a case of being able to string together HTML; you needed to spend time on CSS and JavaScript, making sure it looked right and worked as expected. And all of this needed to work in different browsers, which were much less compliant than they are today.
+
+This is where the distinction between front-end developer and back-end developer came in. Figure 1.1 illustrates this separation over time.
+
+While the back-end developers were focused on the mechanics behind the scenes, the front-end developers focused on building a good user experience. As time went on, higher expectations were made of both camps, encouraging this trend to continue. Developers often had to choose an expertise and focus on it.
+
+HELPING DEVELOPERS WITH LIBRARIES AND FRAMEWORKS
+During the 2000s libraries and frameworks started to become popular and prevalent for the most common languages, on both the front and back ends. Think Dojo and jQuery for front-end JavaScript, and CodeIgniter for PHP and Ruby on Rails. These frameworks were designed to make your life as a developer easier, lowering the barriers to entry. A good library or framework abstracts away some of the complexities of development, allowing you to code faster and requiring less in-depth expertise. This trend toward simplification has resulted in a resurgence of full-stack developers who build both the front end and the application logic behind it, as figure 1.2 shows.
+
+Figure 1.2 illustrates a trend rather than proclaiming a definitive “all web developers should be full-stack developers” maxim. There have been, of course, full-stack developers throughout the entire history of the web, and moving forward it’s most likely that some developers will choose to specialize on either front-end or back-end development. The intention is to show that through the use of frameworks and modern tools you no longer have to choose one side or the other to be a good web developer. 
+
+A huge advantage of embracing the framework approach is that you can be incredibly productive, as you’ll have an all-encompassing vision of the application and how it ties together.
+
+MOVING THE APPLICATION CODE FORWARD IN THE STACK
+Continuing with the trend for frameworks, the last few years have seen an increasing tendency for moving the application logic away from the server and into the front end. Think of it as coding the back end in the front end. Some of the more popular JavaScript frameworks doing this are AngularJS, Backbone, and Ember.
+
+Tightly coupling the application code to the front end like this really starts to blur the lines between traditional front-end and back-end developers. One of the reasons that people like to use this approach is that it reduces the load on the servers, thus reducing cost. What you’re in effect doing is crowd-sourcing the computational power required for the application by pushing that load into the users’ browsers.
+
+I’ll discuss the pros and cons of this approach later in the book, and cover when it may or may not be appropriate to use one of these technologies.
+
+
+1.1.2 The trend toward full-stack developers
+
+As discussed, the paths of front-end and back-end developers are merging, and it’s entirely possible to be fully proficient in both disciplines. If you’re a freelancer, consultant, or part of a small team, being multiskilled is extremely useful, increasing the value that you can provide for your clients. Being able to develop the full scope of a website or application gives you better overall control and can help the different parts work seamlessly together, as they haven’t been built in isolation by separate teams.
+
+If you work as part of a large team then chances are that you’ll need to specialize in (or at least focus on) one area. But it’s generally advisable to understand how your component fits with other components, giving you a greater appreciation of the requirements and goals of other teams and the overall project.
+
+In the end, building on the full stack by yourself is very rewarding. Each part comes with its own challenges and problems to solve, keeping things interesting. The technology and tools available today enhance this experience, and empower you to build great web applications relatively quickly and easily.
+
+
+1.1.3 Benefits of full-stack development
+
+There are many benefits to learning full-stack development. For starters, there’s the enjoyment of learning new things and playing with new technologies, of course. Then Licensed to Mark Watson <nordickan@gmail.com> www.it-ebooks.info Introducing Node.js: The web server/platform 7 there’s also the satisfaction of mastering something different and the thrill of being able to build and launch a full data-driven application all by yourself.
+
+The benefits when working in a team include
+■ You’re more likely to have a better view of the bigger picture by understanding the different areas and how they fit together.
+■ You’ll form an appreciation of what other parts of the team are doing and what they need to be successful.
+■ Team members can move around more freely.
+
+The additional benefits when working by yourself include
+■ You can build applications end-to-end by yourself with no dependencies on other people.
+■ You have more skills, services, and capabilities to offer customers.
+
+All in all, there’s a lot to be said for full-stack development. A majority of the most accomplished developers I’ve met have been full-stack developers. Their overall understanding and ability to see the bigger picture is a tremendous bonus.
+
+
+1.1.4 Why the MEAN stack specifically?
+
+The MEAN stack pulls together some of the “best-of-breed” modern web technologies into a very powerful and flexible stack. One of the great things about the MEAN stack is that it not only uses JavaScript in the browser, it uses JavaScript throughout. Using the MEAN stack, you can code both the front end and back end in the same language.
+
+The principle technology allowing this to happen is Node.js, bringing JavaScript to the back end.

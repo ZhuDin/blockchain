@@ -1,0 +1,72 @@
+1.2 Introducing Node.js: The web server/platform
+
+Node.js is the N in MEAN. Being last doesn’t mean that it’s the least important—it’s actually the foundation of the stack! 
+
+In a nutshell, Node.js is a software platform that allows you to create your own web server and build web applications on top of it. Node.js isn’t itself a web server, nor is it a language. It contains a built-in HTTP server library, meaning that you don’t need to run a separate web server program such as Apache or Internet Information Services (IIS). This ultimately gives you greater control over how your web server works, but also increases the complexity of getting it up and running, particularly in a live environment.
+
+With PHP, for example, you can easily find a shared-server web host running Apache, send some files over FTP, and—all being well—your site is running. This works because the web host has already configured Apache for you and others to use. With Node.js this isn’t the case, as you configure the Node.js server when you create your application. Many of the traditional web hosts are behind the curve on Node.js support, but a number of new platform as a service (PaaS) hosts are springing up to Licensed to Mark Watson <nordickan@gmail.com> www.it-ebooks.info 8 CHAPTER 1 Introducing full-stack development address this need, including Heroku, Nodejitsu, and OpenShift. The approach to deploying live sites on these PaaS hosts is different from the old FTP model, but is quite easy when you get the hang of it. We’ll be deploying a site live to Heroku as we go through the book.
+
+An alternative approach to hosting a Node.js application is to do it all yourself on a dedicated server onto which you can install anything you need. But production server administration is a whole other book! And while you could independently swap out any of the other components with an alternative technology, if you take Node.js out then everything that sits on top of it would change.
+
+
+1.2.1 JavaScript: The single language through the stack
+
+One of the main reasons that Node.js is gaining broad popularity is that you code it in a language that most web developers are already familiar with: JavaScript. Until now, if you wanted to be a full-stack developer you had to be proficient in at least two languages: JavaScript on the front end and something else like PHP or Ruby on the back end.
+
+Microsoft’s foray into server-side JavaScript
+In the late 1990s Microsoft released Active Server Pages (now known as Classic ASP). ASP could be written in either VBScript or JavaScript, but the JavaScript version didn’t really take off. This is largely because, at the time, a lot of people were familiar with Visual Basic, which VBScript looks like. The majority of books and online resources were for VBScript, so it snowballed into becoming the “standard” language for Classic ASP.
+
+With the release of Node.js you can leverage what you already know and put it to use on the server. One of the hardest parts of learning a new technology like this is learning the language, but if you already know some JavaScript then you’re one step ahead!
+
+There is, of course, a learning curve when taking on Node.js, even if you’re an experienced front-end JavaScript developer. The challenges and obstacles in serverside programming are different from those in the front end, but you’ll face those no matter what technology you use. In the front end you might be concerned about making sure everything works in a variety of different browsers on different devices. On the server you’re more likely to be aware of the flow of the code, to ensure that nothing gets held up and that you don’t waste system resources.
+
+
+1.2.2 Fast, efficient, and scalable
+
+Another reason for the popularity of Node.js is, when coded correctly, it’s extremely fast and makes very efficient use of system resources. This enables a Node.js application to serve more users on fewer server resources than most of the other mainstream server technologies. So business owners also like the idea of Node.js because it can reduce their running costs, even at a large scale.
+
+How does it do this? Node.js is light on system resources because it’s singlethreaded, whereas traditional web servers are multithreaded. Let’s take a look at what that means, starting with the traditional multithreaded approach.
+
+TRADITIONAL MULTITHREADED WEB SERVER
+Most of the current mainstream web servers are multithreaded, including Apache and IIS. What this means is that every new visitor (or session) is given a separate “thread” and associated amount of RAM, often around 8 MB.
+
+Thinking of a real-world analogy, imagine two people going into a bank wanting to do separate things. In a multithreaded model they’d each go to a separate bank teller who would deal with their requests, as shown in figure 1.3.
+
+You can see in figure 1.3 that Simon goes to bank teller 1 and Sally goes to bank teller 2. Neither side is aware of or impacted by the other. Bank teller 1 deals with Simon throughout the entirety of the transaction and nobody else; the same goes for bank teller 2 and Sally.
+
+This approach works perfectly well as long as you have enough tellers to service the customers. When the bank gets busy and the customers outnumber the tellers, that’s when the service starts to slow down and the customers have to wait to be seen. While banks don’t always worry about this too much, and seem happy to make you queue, the same isn’t true of websites. If a website is slow to respond you’re likely to leave and never come back.
+
+This is one of the reasons why web servers are often overpowered and have so much RAM, even though they don’t need it 90% of the time. The hardware is set up in such a way as to be prepared for a huge spike in traffic. It’s like the bank hiring an additional 50 full-time tellers and moving to a bigger building because they get busy at lunchtime.
+
+Surely there’s a better way, a way that’s a bit more scalable? Here’s where a singlethreaded approach comes in.
+
+
+A SINGLE-THREADED WEB SERVER
+A Node.js server is single-threaded and works differently than the multithreaded way. Rather than giving each visitor a unique thread and a separate silo of resources, every visitor joins the same thread. A visitor and thread only interact when needed, when the visitor is requesting something or the thread is responding to a request.
+
+Returning to the bank teller analogy, there would be only one teller who deals with all of the customers. But rather than going off and managing all requests end-to-end, the teller delegates any time-consuming tasks to “back office” staff and deals with the next request. Figure 1.4 illustrates how this might work, using the same two requests from the multithreaded example.
+
+In the single-threaded approach shown in figure 1.4, Sally and Simon both give their requests to the same bank teller. But instead of dealing with one of them entirely before the next, the teller takes the first request and passes it to the best person to deal with it, before taking the next request and doing the same thing. When the teller is told that the requested task is completed, the teller then passes this straight back to the visitor who requested it.
+
+  Blocking versus nonblocking code
+
+  With the single-threaded model it’s important to remember that all of your users use the same central process. To keep the flow smooth you need to make sure that nothing in your code causes a delay, blocking another operation. An example would be if the bank teller has to go to the safe to deposit the money for Simon, Sally would have to wait to make her request.
+
+  Similarly, if your central process is responsible for reading each static file (such as CSS, JavaScript, or images) it won’t be able to process any other request, thus blocking the flow. Another common task that’s potentially blocking is interacting with a database. If your process is going to the database each time it’s asked, be it searching for data or saving data, it won’t be able to do anything else.
+
+  So for the single-threaded approach to work you must make sure your code is nonblocking. The way to achieve this is to make any blocking operations run asynchronously, preventing them from blocking the flow of your main process.
+
+Despite there being just a single teller, neither of the visitors is aware of the other, and neither of them is impacted by the requests of the other. This approach means that the bank doesn’t need a large number of tellers constantly on hand. This model isn’t infinitely scalable, of course, but it’s more efficient. You can do more with fewer resources. This doesn’t mean that you’ll never need to add more resources.
+
+This particular approach is possible in Node.js due to the asynchronous capabilities of JavaScript. You’ll see this in action throughout the book, but if you’re not sure on the theory, check out appendix D, particularly the section on callbacks.
+
+
+1.2.3 Using prebuilt packages via npm
+
+npm is a package manager that gets installed when you install Node.js. npm gives you the ability to download Node.js modules or “packages” to extend the functionality of your application. At the time of writing there are more than 46,000 packages available through npm, giving you an indication of just how much depth of knowledge and experience you can bring into the application.
+
+Packages in npm vary widely in what they give you. We’ll use some throughout this book to bring in an application framework and database driver with schema support. Other examples include helper libraries like Underscore, testing frameworks like Mocha, and other utilities like Colors, which adds color support to Node.js console logs.
+
+We’ll look more closely at npm and how it works when we get started building an application in chapter 3.
+
+As you’ve seen, Node.js is extremely powerful and flexible, but it doesn’t give you much help when trying to create a website or application. Express has been created to give you a hand here. Express is installed using npm.

@@ -1,0 +1,45 @@
+1.7 Putting it together with a practical example
+
+As already mentioned a few times, throughout the course of this book we’ll build a
+working application on the MEAN stack. This will give you a good grounding in each
+of the technologies, as well as showing how they all fit together. 
+
+
+1.7.1 Introducing the example application
+
+So what are we actually going to be building as we go through the book? We’ll be
+building an application called Loc8r. Loc8r will list nearby places with WiFi where
+people can go and get some work done. It will also display facilities, opening times, a
+rating, and a location map for each place. Users will be able to log in and submit 
+ratings and reviews.
+
+This application has some grounding in the real world. Location-based applications 
+themselves are nothing particularly new and come in a few different guises.
+Foursquare and Facebook Check In list everything nearby that they can, and crowdsource 
+data for new places and information updates. UrbanSpoon helps people find
+nearby places to eat, allowing a user to search on price bracket and type of cuisine.
+Even companies like Starbucks and McDonald’s have sections of their applications to
+help users find the nearest one.
+
+REAL OR FAKE DATA?
+Okay, so we’re going to fake the data for Loc8r in this book, but you could collate the
+data, crowd-source it, or use an external source if you wanted. For a rapid prototype
+approach you’ll often find that faking data for the first private version of your 
+application speeds up the process.
+
+END PRODUCT
+We’ll use all layers of the MEAN stack to create Loc8r, including Twitter Bootstrap to
+help us create a responsive layout. Figure 1.7 shows some screenshots of what we’re
+going to be building throughout the book.
+
+
+1.7.2 How the MEAN stack components work together
+
+By the time you’ve been through this book you’ll have an application running on the
+MEAN stack, using JavaScript all of the way through. MongoDB stores data in binary
+JSON, which through Mongoose is exposed as JSON. The Express framework sits on
+top of Node.js, where the code is all written in JavaScript. In the front end is 
+AngularJS, which again is JavaScript. Figure 1.8 illustrates this flow and connection.
+
+We’re going to explore various ways you can architect the MEAN stack and how we’re
+going to build Loc8r in chapter 2.

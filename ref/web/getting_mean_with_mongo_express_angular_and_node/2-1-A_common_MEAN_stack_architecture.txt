@@ -1,0 +1,34 @@
+2.1 A common MEAN stack architecture
+
+A common way to architect a MEAN stack application is to have a representational
+state transfer (REST) API feeding a single-page application. The API is typically built
+with MongoDB, Express, and Node.js, with the SPA being built in AngularJS. This
+approach is particularly popular with those who come to the MEAN stack from an
+AngularJS background and are looking for a stack that gives a fast, responsive API. 
+Figure 2.1 illustrates the basic setup and data flow.
+
+  What is a REST API?
+  REST stands for REpresentational State Transfer, which is an architectural style
+  rather than a strict protocol. REST is stateless—it has no idea of any current user
+  state or history.
+
+  API is an abbreviation for application program interface, which enables applications
+  to talk to each other.
+
+  So a REST API is a stateless interface to your application. In the case of the MEAN
+  stack the REST API is used to create a stateless interface to your database, enabling
+  a way for other applications to work with the data.
+
+Figure 2.1 is a great setup, ideal if you have, or intend to build, an SPA as your 
+userfacing side. AngularJS is designed with a focus on building SPAs, pulling in data from a
+REST API, as well as pushing it back. MongoDB, Express, and Node.js are also extremely
+capable when it comes to building an API, using JSON all the way through the stack
+including the database itself.
+
+This is where many people start with the MEAN stack, looking for an answer to the
+question, “I’ve built an application in AngularJS; now where do I get the data?”
+
+Having an architecture like this is great if you have an SPA, but what if you don’t
+have or want to use an SPA? If this is the only way you think of the MEAN stack, you’re
+going to get a bit stuck and start looking elsewhere. But the MEAN stack is very flexible. 
+All four components are very powerful and have a lot to offer.
