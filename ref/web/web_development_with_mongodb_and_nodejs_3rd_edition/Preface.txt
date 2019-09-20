@@ -1,0 +1,82 @@
+Preface
+
+With the advent of ECMAscript 6, the usability of Node.JS has a great scope for future and has
+already been implemented today. The need of learning es6 syntactic sugar and inclusion of most
+of the cross-technology features inspires different technological communities to learn JavaScript.
+
+The high performance and scalability of Node.js and open source NoSQL database solution
+called MongoDB cater to building fast, scalable network applications easily. This combination
+makes managing any form of data easy and ensures its delivery speed.
+
+This book aims to provide different facets of web application development with Node.JS and
+MongoDB that is used to build an isomorphic server-side rendering web application. This books
+also guides us in creating a configurable Node.JS server using hapi.js and learning to develop a
+single-page frontend app using Angular 4.
+
+This book will begin by introducing you to the groundwork needed to set up the development
+environment and a comparative study on how the new ECMAscript is different from the
+traditional JavaScript. Once the base is ready, we will quickly run through the steps necessary to
+get the main application server up and running and to learn the Node.JS core.
+
+Further, we will move toward advanced coding techniques using controllers and ViewModels to
+generate reusable code that reduces development time. The development ends with learning
+proper testing concepts and how to automate them for reusability and maintainability.
+
+By the end of the book, you will be connected with JavaScript ecosystem and will go through the
+trendy JavaScript frontend and backend frameworks.
+
+
+What this book covers
+
+Chapter 1, Welcome to JavaScript in the Full stack, provides an introduction on Node.js and
+MongoDB. In addition to this, it will explain the overall architecture of the application you will
+build using this book.
+
+Chapter 2, Getting Up and Running, explains how to set up the development environments for
+Node.js and MongoDB. You will also verify that everything is set up properly by writing a
+sample app and running it.
+
+Chapter 3, Node and MongoDB Basics, is about learning JavaScript at base. Further, going
+through need to know concepts of NodeJS and basic CRUD operations on MongoDB.
+
+Chapter 4, Introducing Express, introduces you to the Express framework and its various
+components. It also walks you through organizing the basic application that you are building
+with this framework. It will also give you a detailed overview of the MVC components of
+Express.
+
+Chapter 5, Templating with Handlebars, introduces you to the concept of using a templating
+engine and handlebars. Also, it shows you how to use handlebars in your application as a
+templating engine.
+
+Chapter 6, Controllers and View Models, shows you how to organize the code for the sample
+application you build into the controllers and view of the Express framework. It will introduce
+you to the MVS concepts indirectly via introducing the need of separating the code into various
+modules and utilizing the Express framework.
+
+Chapter 7, Persisting Data with MongoDB, shows you how to connect to the MongoDB server
+from the Node.js application you are building. It will also introduce you to the concept of ODM,
+the most popular one being Mongoose.
+
+Chapter 8, Creating a RESTful API, introduces you to RESTful APIs. Also, it shows you the
+importance of RESTful wrapper for the application. Then, it will teach you how to change the
+current application to a REST API-based application.
+
+Chapter 9, Testing Your Code, shows you why you need testing incorporated with your
+application and also what you should keep in mind for the testability of the code written in the
+chapter.
+
+Chapter 10, Deploying with Cloud-Based Services, discusses the options for hosting the Node.js
+MongoDB application that you are building. It also compares the various PaaS solutions
+available in the market.
+
+Chapter 11, Popular Node.js Web Frameworks, covers the various web frameworks available on
+Node.js, other than Express, which you will use to build the application in this book. You will
+analyze various web frameworks, such as Meteor, Sails, Koa, Hapi, and Flatiron. You will also
+learn one of the distinct type of framework, that is, hapi.js, in more detail by creating an API
+server.
+
+Chapter 12, Single page Applications with Popular Frontend Frameworks, provides a
+comparative study of single-pages applications with popular frontend frameworks, such as
+backbone.js, ember.js, react.js, and Angular. You will learn one of the trending framework--
+Angular4--in detail. Also, you will analyze popular frontend aspects, such as the automation
+tools and transpilers available.

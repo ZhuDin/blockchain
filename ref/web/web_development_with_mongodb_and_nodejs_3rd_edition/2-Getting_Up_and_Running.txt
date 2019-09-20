@@ -1,0 +1,388 @@
+Chapter 2 Getting Up and Running
+
+In this chapter, we will cover the necessary steps to set up your development environment. These
+will include the following:
+	Installing Node.js on your machine
+	Installing MongoDB on your machine
+	Verifying that everything is set up properly
+
+Follow these sections carefully, as we need the development environment to be up and running
+before we jump into the chapters where we dive into actual coding. For the remainder of this
+book, it's going to be assumed that you are using either a Mac with OS X, Linux, or Windows
+7/Windows 8. You will also need super user and/or administrator privileges on the computer, as
+you will be installing the Node and MongoDB server. The code and examples after this chapter
+will all be OS agnostic and should work in any environment, assuming you have taken the steps I
+outlined earlier to be prepared ahead of time.
+
+You will need a proper text editor to write and edit the code. While any text editor you choose
+will serve this purpose, choosing a better text editor will hugely improve your productivity.
+Sublime Text 3 appears to be the most popular text editor, regardless of the platform, at this
+moment. It is a simple, lightweight editor with unlimited plugins made available by developers
+around the world. If you are on a Windows machine, then Notepad++ is also a good candidate.
+Also, there are JavaScript-based open source editors such as Atom and Brackets, which are also
+worth a try.
+
+Finally, you're going to need access to the command line. Linux and Mac have access to the
+command line via the terminal program. A great alternative on the Mac is iTerm2
+(http://iterm2.com). For Windows, the default command-line program works but isn't the best. A
+great alternative there is ConEmu (http://conemu.codeplex.com).
+
+For the remainder of this book, any time I reference a command line or command prompt, it will
+look like the following:
+	
+	$ command -parameters -etc
+
+
+Installing Node.js
+
+The Node.js installer can be easily obtained by visiting the official Node website and accessing
+the downloads section. Once there, be sure to download the correct version depending on your
+OS and CPU (32-bit or 64-bit). As an alternative, you can also use OS-specific package
+managers to install this. Depending on the OS you are using, just jump into the specific
+subsection to get more details on the steps to be followed.
+
+You can jump into the Node.js download sections by following this link:
+https://nodejs.org/en/download.
+
+
+Testing that Node.js is installed properly
+
+Now that Node has been installed on your system, let's run a quick test to ensure everything is
+working properly.
+
+Access a command line via your terminal program and execute the following command:
+
+	$ node --version
+	v8.4.3
+	$ npm --version
+	5.3.0
+
+Assuming that your Node installation was successful, you should see the version number that
+was installed as an output on the screen, right under the command you executed.
+
+Your version numbers will most likely be more recent than those printed earlier.
+
+You can also launch the Node repl, a command-line shell that lets you execute JavaScript
+directly:
+
+	$ node
+	> console.log('Hello world!')
+	Hello World!
+	Undefined
+	[press Ctrl-C twice to exit] 
+
+
+Online documentation
+
+You'll want to be sure to point your browser to the online documentation for Node and bookmark
+it, as it will undoubtedly become a resource that you will want to access on a regular basis. It is
+not mandatory that you should go through each and every section of it, but once you start writing
+code in Node.js, you will need to refer to this document frequently to understand more on the
+APIs exposed by Node.js. The document is available at http://nodejs.org/api/.
+
+Also, check out the npm registry available at http://npmjs.com, where you can find tens of
+thousands of modules available for Node developers.
+
+
+Installing MongoDB
+
+MongoDB can also be easily downloaded by visiting the official MongoDB website and
+accessing the downloads section from http://www.MongoDB.org/downloads. Once there, be sure
+to download the correct version depending on your OS and CPU (32-bit or 64-bit).
+
+For Windows users, you can opt to download the MSI installer file, which will make the
+installation much simpler.
+
+Depending on the version of MongoDB you downloaded, you will want to replace <version> in
+the following sections with the appropriate version number that matches your file.
+
+
+Linux installation instructions
+
+Once again, we will face a slightly more challenging installation process with Linux versus
+Windows or Mac. The official website http://docs.MongoDB.org/manual/administration/installon-linux/ 
+has great instructions on how to install MongoDB on a number of different Linux distributions.
+
+We will continue to use Ubuntu as our flavor of choice and use the APT package manager for the
+installation:
+
+	$ sudo apt-get install MongoDB-10gen
+
+Once these steps are completed, MongoDB should be installed and ready to run on your system.
+Execute the following command in the terminal to be sure. This gets the MongoDB daemon up
+and running, listening for connections:
+
+	$ mongod
+
+Success! Your MongoDB server is up and running. You can type Ctrl-C to cancel and shut down
+the server.
+
+As you are performing local development on your development machine and not a production
+server, you don't need the MongoDB server to always be up and running. This will be an
+unnecessary strain on your machine for the majority of the time you're not developing against the
+server. Because of this, throughout the remainder of this book, it will always be a requirement
+that you manually launch the server every time you launch code that expects to connect to a
+MongoDB server. If you want, you can certainly configure MongoDB to run locally as a service
+and always be up, but the instructions to do so are beyond the scope of this chapter.
+
+
+Confirming successful MongoDB installation
+
+Now that MongoDB has been installed on your system, let's run a quick test to ensure everything
+is working properly.
+
+Access a command line via your terminal program and execute the following command:
+
+	$ mongod --version
+	db version v3.4.4
+	$ mongo --version
+	MongoDB shell version v3.4.4 
+
+Assuming that your MongoDB installation was successful, you should see the version number
+that was installed as an output on the screen, right under the command you executed.
+
+Your version numbers will most likely be more recent than those printed earlier.
+
+
+Bookmarking the online documentation
+
+You'll want to be sure to point your browser to the online documentation for MongoDB available
+at http://docs.MongoDB.org/manual/ and bookmark it, as it will undoubtedly become a resource
+that you will want to access on a regular basis.
+
+
+Writing your first app
+
+Now that you have everything installed and confirmed that it's all working, you can write your
+first quick app that will use both Node and MongoDB. This will prove that your environment is
+good to go, and that you're ready to get started. In addition, it will give you a brief taste of the
+world of Node and MongoDB development! Don't worry if a lot of the following is confusing or
+just doesn't make sense to you, it will all be made clear throughout the rest of the book!
+
+To begin with, we need to create a folder for our application where this application's specific
+code will reside, as follows:
+
+	$ mkdir testapp
+	$ cd testapp
+
+
+Creating the sample application
+
+The testapp folder that we just created will be the root of our sample Node application. Even
+though it's not necessary, it's important and also best practice that we should create the
+package.json file for our Node app, which will hold the necessary data regarding the application
+such as its version, name, description, development, and runtime dependencies. This can be done
+by issuing the following command from the testapp folder root:
+
+	$ npm init
+
+This command will follow up by asking you a few questions, such as the name and version
+number of your newly created application. It is not necessary that you fill in all the details in one
+go, and you can skip the steps by pressing Enter and the default values will be entered, which
+you may update later.
+
+
+Getting the dependent modules in place
+
+Before we start to write any Node.js code, we need to get our dependencies in place by using npm.
+Since this is a basic app, we will be using it to test our Node.js connectivity with the MongoDB
+server. So, the only dependent module that we need is the native MongoDB client for Node.js.
+We can easily install that by executing the following command:
+
+	$ npm install MongoDB --save
+
+After npm installs the MongoDB driver, you can list the contents of the directory and you will
+notice that a new folder was created, node_modules. This is where, surprisingly enough, all Node
+modules are stored whenever you install them from npm. Inside the node_modules folder, there
+should be a single folder named MongoDB. Also, you will notice that the package.json file of our
+sample application will be updated by this new dependency entry.
+
+
+Adding the application code
+
+Now, let's write the simple application code to test things out. This app is going to basically
+connect to our locally running MongoDB server, insert a few records as seed data, and then
+provide the output on whether or not the data was inserted properly into MongoDB. You can
+download a Gist of the code via this URL: http://bit.ly/1JpT8QL.
+
+Using your editor of choice, create a new file named app.js and save it to the application root,
+which is the testapp folder. Just copy the content of the preceding Gist on to the app.js file.
+
+
+Understanding the code
+
+Now, let's go through and explain what each section of the code is doing.
+
+	//require the mongoClient from MongoDB module
+	var MongoClient = require('MongoDB').MongoClient; 
+
+The preceding line requires the MongoDB Node driver that we installed via npm. This is the
+required convention used in Node.js for bringing in external file dependencies to the current file
+in context.
+
+We will explain more about this in the coming chapters.
+
+	//MongoDB configs
+	var connectionUrl = 'MongoDB://localhost:27017/myproject',
+		sampleCollection = 'chapters'; 
+
+In the preceding code, we declare the variables for the database server information and collection
+we want to work with. Here, myproject is the database we want to use and chapters is the
+collection. In MongoDB, if you reference and try to use a collection that doesn't exist, it will
+automatically be created.
+
+The next step would be to define some data that we can insert into MongoDB to verify that
+everything is fine. So, we create an array of chapters here, which can be inserted into the
+database and collections we set up in the previous steps:
+
+	//We need to insert these chapters into MongoDB
+	var chapters = [{
+	 'Title': 'Snow Crash',
+	 'Author': 'Neal Stephenson'
+	},{
+	 'Title': 'Snow Crash',
+	 'Author': 'Neal Stephenson'
+	}]; 
+
+Now, we can take a look at the rest of the code where we insert this data into the MongoDB
+database:
+
+	MongoClient.connect(connectionUrl, function(err, db) {
+	 console.log("Connected correctly to server");
+	 // Get some collection
+	 const mydb = db.db('bcdata');
+	 var collection = mydb.collection(sampleCollection);
+	 collection.insert(chapters,function(error,result){
+	 //here result will contain an array of records inserted
+	 if(!err) {
+	 console.log("Success :"+result.ops.length+" chapters
+	 inserted!");
+	 } else {
+	 console.log("Some error was encountered!");
+	 }
+	 db.close();
+	 });
+	}); 
+
+Here, we initiate a connection with the MongoDB server, and if the connection was proper, the
+db variable will have the connection object that we can use for further operations:
+
+	MongoClient.connect(url, function(err, db) { 
+
+Look at the preceding code closely - do you remember something that we learned in Chapter 1,
+Welcome to JavaScript in the Full Stack? We are using a callback for the connection call that we
+are making here. As discussed in the first chapter, this function will be registered as a callback to
+trigger once the connection attempt is completed. Upon connection completion, this will be
+triggered by either an error or a db object, depending on whether we were able to make proper
+connectivity or not. So, if you look at the code in the callback function, we are not checking
+whether any error was raised in the connection attempt before logging connected correctly to the
+server. Now, that's your task to add and check while we try to run this app! Take a look at the
+following code block in this section:
+
+	var collection = db.collection(sampleCollection);
+	collection.insert(chapters,function(error,result){ 
+
+This does nothing but use the db object we got in the connection call and get the collection
+named chapters. Remember, we set that value to sampleCollection at the beginning of the code.
+Once we get the collection, we make an insert call to put the chapters we have defined in the
+array chapters. As you can see, this insert call is also done via an asynchronous call by attaching
+the callback function. This callback function will be triggered once the insert operation is
+completed by the code residing inside the MongoDB native client, which we required as a
+dependency.
+
+Next, we will take a look at the code inside the callback function, which we passed to the insert
+function call:
+
+	if(!error) {
+	 console.log("Success :"+result.ops.length+" chapters
+	 inserted!");
+	} else {
+	 console.log("Some error was encountered!");
+	}
+	db.close(); 
+
+Here, we process the values passed via the callback to find out whether the insert operation
+succeeded or not and if the data related to the records that have been inserted. So, we check
+whether there was an error, and, if not, proceed to print the number of records that got inserted.
+Here, the result array will contain the records that we inserted into MongoDB if the operation
+was a success.
+
+Now we can go ahead and try to run this code, as we have understood what it does.
+
+
+Launching the sample app
+
+Once you have the complete code saved to app.js, it's time to execute it and see what happens.
+However, before you can launch an app that clearly relies on a connection to MongoDB, you
+need to first boot up the MongoDB daemon instance:
+
+	$ mongod
+
+In Windows, if you haven't set a PATH variable for mongod, you may need to use the full path while
+executing MongoDB, which is c:\MongoDB\bin\mongod.exe. For your needs, the remainder of this
+book will refer to the mongod command, but you may always need to execute the full path in each
+instance.
+
+Now, to launch the app itself, execute the following command after moving to the root folder
+where app.js is located:
+
+	$ node app.js
+
+When the app first executes, you should see the following:
+
+	Connected correctly to server
+	Success :2 chapters inserted! 
+
+
+Checking the actual database
+
+Let's take a quick look at the database itself to see what happened during the execution of the
+app. Since the server is currently up and running, we can connect to it using the Mongo shell-a
+command line interface to the MongoDB server. Execute the following commands to connect to
+the server using Mongo and run a query against the chapter's collection. As you can see in the
+upcoming code, Mongo shell connects to a default database named test initially. We need to
+manually specify the database name to switch to if it's something other than test:
+
+	$ mongo
+	MongoDB shell version: 2.4.8
+	connecting to: test
+	> use myproject
+	> show collections
+	chapters
+	system.indexes
+	> db.chapters.find().pretty() 
+
+Here, pretty is used as part of the command to format the result from the find command. This is
+used only in a shell context. It does more of a prettification task for the JSON.
+
+You should see something similar to the following output:
+	{
+	 'id' : ObjectId("5547e734cdf16a5ca59531a7"),
+	 'Title': 'Snow Crash',
+	 'Author': 'Neal Stephenson'
+	},
+	{
+	 'id' : ObjectId("5547e734cdf16a5ca59531a7"),
+	 'Title': 'Snow Crash',
+	 'Author': 'Neal Stephenson'
+	}
+
+If you run the Node app again, the records will be inserted into the Mongo server again. So, if
+you repeat the command multiple times, the result will have more records in the output. We are
+not handling this case in this chapter as we intend to have only specific code, that will be simple
+enough to understand.
+
+
+Summary
+
+In this chapter, we took time to make sure your development environment was properly
+configured with both the Node runtime environment and the MongoDB server. After making
+sure both were properly installed, we wrote a basic app that utilized both technologies. The app
+connected to a locally running MongoDB server, and inserted sample records.
+
+Now that the tedious but necessary tasks of setup and installation are out of the way, we can
+move on to some fun and start learning!
+
+In the next chapter, we will review a primer on the JavaScript language and understand the basics
+of Node. Then, we will review the basic CRUD (create, read, update, delete) operations with
+MongoDB using the Mongo shell.
