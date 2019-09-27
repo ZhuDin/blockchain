@@ -1,7 +1,16 @@
+
+
+
+
+
+#ifndef BITCOIN_CONSENSUS_PARAMS_H
+#define BITCOIN_CONSENSUS_PARAMS_H
+
 #include <uint256.h>
 
 #include <limits>
-
+#include <map>
+#include <string>
 namespace Consensus {
 
 enum DeploymentPos
@@ -71,5 +80,6 @@ struct Params {
     uint256 nMinimumChainWork;
     uint256 defaultAssumeValid;
 };
-
 } // namespace Consensus
+
+#endif // BITCOIN_CONSENSUS_PARAMS_H

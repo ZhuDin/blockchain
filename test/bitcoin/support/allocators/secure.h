@@ -1,6 +1,10 @@
 #ifndef BITCOIN_SUPPORT_ALLOCATORS_SECURE_H
 #define BITCOIN_SUPPORT_ALLOCATORS_SECURE_H
 
+#include <support/cleanse.h>
+
+#include <string>
+
 //
 // Allocator that locks its contents from being paged
 // out of memory and clears its contents before deletion.

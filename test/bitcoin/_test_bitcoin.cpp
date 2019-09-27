@@ -19,9 +19,17 @@ static const std::string strAddressBad = "1HV9Lc3sNHZxwj4Zk6fB38tEmBryq2cBiF";
 
 int main()
 {
+// #0 node run
+
+// #1 test key DecodeSecret
 	printf("strSecret1 = %s\n", strSecret1.c_str());
 	CKey key1 = DecodeSecret(strSecret1);
+	printf("%d\n", key1.IsValid());
+	printf("%d\n", !key1.IsCompressed());
 	printf("\nGetPubKey from DecodeSecret(strSecret1)\n");
 	CPubKey pubkey1  = key1. GetPubKey();
+
+// test
+
 	return 0;
 }

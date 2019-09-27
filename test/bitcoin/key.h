@@ -64,6 +64,7 @@ public:
     template <typename T>
     void Set(const T pbegin, const T pend, bool fCompressedIn)
     {
+        printf("key.h::Set() running\n");
         if (size_t(pend - pbegin) != keydata.size()) {
             fValid = false;
         } else if (Check(&pbegin[0])) {

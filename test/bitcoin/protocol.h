@@ -1,25 +1,45 @@
 
+
+
+
+
+#ifndef __cplusplus
+#error This header can only be compiled as C++.
+#endif
+
+#ifndef BITCOIN_PROTOCOL_H
+#define BITCOIN_PROTOCOL_H
+
+
+#include <serialize.h>
+#include <uint256.h>
+#include <version.h>
+
+#include <atomic>
+#include <stdint.h>
+#include <string>
+
 /**
  * Used to acquire a non-const pointer "this" to generate bodies
  * of const serialization operations from a template
  */
-template<typename T>
-inline T* NCONST_PTR(const T* val)
-{
-    return const_cast<T*>(val);
-}
+// template<typename T>
+// inline T* NCONST_PTR(const T* val)
+// {
+//     return const_cast<T*>(val);
+// }
 
 /**
  * Support for ADD_SERIALIZE_METHODS and READWRITE macro
  */
-struct CSerActionSerialize
-{
-    constexpr bool ForRead() const { return false; }
-};
-struct CSerActionUnserialize
-{
-    constexpr bool ForRead() const { return true; }
-};
+// struct CSerActionSerialize
+// {
+//     constexpr bool ForRead() const { return false; }
+// };
+// struct CSerActionUnserialize
+// {
+//     constexpr bool ForRead() const { return true; }
+// };
 
 
 /**
@@ -38,16 +58,16 @@ struct CSerActionUnserialize
         SerializationOp(s, CSerActionUnserialize());                  \
     }
 
-template<typename Stream>
-void SerializeMany(Stream& s)
-{
-}
+// template<typename Stream>
+// void SerializeMany(Stream& s)
+// {
+// }
 
-template<typename Stream, typename... Args>
-inline void SerReadWriteMany(Stream& s, CSerActionSerialize ser_action, const Args&... args)
-{
-    ::SerializeMany(s, args...);
-}
+// template<typename Stream, typename... Args>
+// inline void SerReadWriteMany(Stream& s, CSerActionSerialize ser_action, const Args&... args)
+// {
+//     ::SerializeMany(s, args...);
+// }
 
 #define READWRITE(...) (::SerReadWriteMany(s, ser_action, __VA_ARGS__))
 
@@ -92,3 +112,5 @@ public:
     uint32_t nMessageSize;
     uint8_t pchChecksum[CHECKSUM_SIZE];
 };
+
+#endif // BITCOIN_PROTOCOL_H

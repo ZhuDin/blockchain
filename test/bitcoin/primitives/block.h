@@ -1,7 +1,14 @@
 
-#include <primitives/transaction.h>
 
-#include <memory>
+
+
+
+#ifndef BITCOIN_PRIMITIVES_BLOCK_H
+#define BITCOIN_PRIMITIVES_BLOCK_H
+
+#include <primitives/transaction.h>
+#include <serialize.h>
+#include <uint256.h>
 
 /** Nodes collect new transactions into a block, hash them into a hash tree,
  * and scan through nonce values to make the block's hash satisfy proof-of-work
@@ -61,7 +68,6 @@ public:
     }
 };
 
-typedef std::shared_ptr<const CTransaction> CTransactionRef;
 
 class CBlock : public CBlockHeader
 {
@@ -85,11 +91,11 @@ public:
 
     ADD_SERIALIZE_METHODS;
 
-    // template <typename Stream, typename Operation>
-    // inline void SerializationOp(Stream& s, Operation ser_action) {
-    //     READWRITEAS(CBlockHeader, *this);
-    //     READWRITE(vtx);
-    // }
+    template <typename Stream, typename Operation>
+    inline void SerializationOp(Stream& s, Operation ser_action) {
+        READWRITEAS(CBlockHeader, *this);
+        READWRITE(vtx);
+    }
 
     void SetNull()
     {
@@ -112,3 +118,38 @@ public:
 
     std::string ToString() const;
 };
+
+/** Describes a place in the block chain to another node such that if the
+ * other node doesn't have the same branch, it can find a recent common trunk.
+ * The further back it is, the further before the fork it may be.
+ */
+struct CBlockLocator
+{
+    std::vector<uint256> vHave;
+
+    CBlockLocator() {}
+
+    explicit CBlockLocator(const std::vector<uint256>& vHaveIn) : vHave(vHaveIn) {}
+
+    ADD_SERIALIZE_METHODS;
+
+    template <typename Stream, typename Operation>
+    inline void SerializationOp(Stream& s, Operation ser_action) {
+        int nVersion = s.GetVersion();
+        if (!(s.GetType() & SER_GETHASH))
+            READWRITE(nVersion);
+        READWRITE(vHave);
+    }
+
+    void SetNull()
+    {
+        vHave.clear();
+    }
+
+    bool IsNull() const
+    {
+        return vHave.empty();
+    }
+};
+
+#endif // BITCOIN_PRIMITIVES_BLOCK_H
