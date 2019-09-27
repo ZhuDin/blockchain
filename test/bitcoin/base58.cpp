@@ -38,11 +38,13 @@ bool DecodeBase58Check(const char* psz, std::vector<unsigned char>& vchRet)
     }
     // re-calculate the checksum, ensure it matches the included 4-byte checksum
     uint256 hash = Hash(vchRet.begin(), vchRet.end() - 4);
+    printf("\tHash(vchRet[:-4]) result = %s\n", hash.GetHex().c_str());
     if (memcmp(&hash, &vchRet[vchRet.size() - 4], 4) != 0) {
         vchRet.clear();
         return false;
     }
     vchRet.resize(vchRet.size() - 4);
+    printf("\tthe last four of Hash(vchRet[:-4]) result is checksum, it equal vchRet[-4:] reverse)\n");
     return true;
 }
 
@@ -70,20 +72,22 @@ bool DecodeBase58(const char* psz, std::vector<unsigned char>& vch)
     }
     // Allocate enough space in big-endian base256 representation.
     int size = strlen(psz) * 733 /1000 + 1; // log(58) / log(256), rounded up.
+    printf("\tlength of %s --> %zd\n", psz, strlen(psz));
     std::vector<unsigned char> b256(size);
     // Process the characters.
     static_assert(sizeof(mapBase58)/sizeof(mapBase58[0]) == 256, "mapBase58.size() should be 256"); // guarantee not out of range
     while (*psz && !IsSpace(*psz)) {
         // Decode base58 character
-        int carry = mapBase58[(uint8_t)*psz];
+        int carry = mapBase58[(uint8_t)*psz];   printf("\t%c=%d --> ", *psz, carry);
         if (carry == -1)  // Invalid b58 character
             return false;
         int i = 0;
         for (std::vector<unsigned char>::reverse_iterator it = b256.rbegin(); (carry != 0 || i < length) && (it != b256.rend()); ++it, ++i) {
             carry += 58 * (*it);
-            *it = carry % 256;
+            *it = carry % 256;  printf("%d ", *it);
             carry /= 256;
         }
+        printf("\n");
         assert(carry == 0);
         length = i;
         psz++;
@@ -102,5 +106,11 @@ bool DecodeBase58(const char* psz, std::vector<unsigned char>& vch)
     vch.assign(zeroes, 0x00);
     while (it != b256.end())
         vch.push_back(*(it++));
+    printf("\thex result of DecodeBase58() is vchRet = \n\t  ");
+    for (std::vector<unsigned char>::iterator it = vch.begin(); it != vch.end(); ++it) {
+        printf("%x ", *it);
+    }
+    printf("\n");
+    printf("\tsize of vchRet --> %zd\n", vch.size());
     return true;
 }

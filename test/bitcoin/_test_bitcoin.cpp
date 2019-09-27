@@ -21,7 +21,7 @@ int main()
 {
 	printf("strSecret1 = %s\n", strSecret1.c_str());
 	CKey key1 = DecodeSecret(strSecret1);
-	printf("GetPubKey from DecodeSecret(strSecret1)\n");
+	printf("\nGetPubKey from DecodeSecret(strSecret1)\n");
 	CPubKey pubkey1  = key1. GetPubKey();
 	return 0;
 }

@@ -3,8 +3,6 @@
 
 #include <uint256.h>
 
-#include <assert.h>
-
 
 typedef uint256 ChainCode;
 
