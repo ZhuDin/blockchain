@@ -1,7 +1,7 @@
-
-
-
-
+// Copyright (c) 2009-2010 Satoshi Nakamoto
+// Copyright (c) 2009-2018 The Bitcoin Core developers
+// Distributed under the MIT software license, see the accompanying
+// file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef BITCOIN_SCRIPT_SCRIPT_H
 #define BITCOIN_SCRIPT_SCRIPT_H
@@ -375,7 +375,7 @@ private:
 
     int64_t m_value;
 };
-// line 378
+
 /**
  * We use a prevector for the script to reduce the considerable memory overhead
  *  of vectors in cases where they normally contain a small number of small elements.
@@ -383,9 +383,9 @@ private:
  *  and made an initial sync 13% faster.
  */
 typedef prevector<28, unsigned char> CScriptBase;
-// line 386
+
 bool GetScriptOp(CScriptBase::const_iterator& pc, CScriptBase::const_iterator end, opcodetype& opcodeRet, std::vector<unsigned char>* pvchRet);
-// line 388
+
 /** Serialized script, used inside transaction inputs and outputs */
 class CScript : public CScriptBase
 {
@@ -566,7 +566,7 @@ public:
         shrink_to_fit();
     }
 };
-// line 569
+
 struct CScriptWitness
 {
     // Note that this encodes the data elements being pushed, rather than

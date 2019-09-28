@@ -1,4 +1,17 @@
+
+
+
+
+
 #include <util/strencodings.h>
+
+#include <tinyformat.h>
+
+#include <algorithm>
+#include <cstdlib>
+#include <cstring>
+#include <errno.h>
+#include <limits>
 
 
 // line 36
@@ -25,6 +38,33 @@ signed char HexDigit(char c)
     return p_util_hexdigit[(unsigned char)c];
 }
 
+
+// line 82
+std::vector<unsigned char> ParseHex(const char* psz)
+{
+    // convert hex dump to vector
+    std::vector<unsigned char> vch;
+    while (true)
+    {
+        while (IsSpace(*psz))
+            psz++;
+        signed char c = HexDigit(*psz++);
+        if (c == (signed char)-1)
+            break;
+        unsigned char n = (c << 4);
+        c = HexDigit(*psz++);
+        if (c == (signed char)-1)
+            break;
+        n |= c;
+        vch.push_back(n);
+    }
+    return vch;
+}
+// line 103
+std::vector<unsigned char> ParseHex(const std::string& str)
+{
+    return ParseHex(str.c_str());
+}
 
 // line 406
 int64_t atoi64(const char* psz)
