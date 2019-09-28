@@ -153,7 +153,7 @@ void ArgsManager::SelectConfigNetwork(const std::string& network)
 	printf("system.cpp::SelectConfigNetwork(%s) running\n", network.c_str());
     LOCK(cs_args);
     m_network = network;
-    printf("\tSelectConfigNetwork() ok\n");
+    printf("  SelectConfigNetwork() ok\n");
 }
 
 // line 471
@@ -212,7 +212,7 @@ std::string ArgsManager::GetChainName() const
     if ((int)is_chain_arg_set + (int)fRegTest + (int)fTestNet > 1) {
         throw std::runtime_error("Invalid combination of -regtest, -testnet and -chain. Can use at most one.");
     }
-    printf("\tGetChainName() ok\n");
+    printf("  GetChainName() ok\n");
     if (fRegTest)
         return CBaseChainParams::REGTEST;
     if (fTestNet)

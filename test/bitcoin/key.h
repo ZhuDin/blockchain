@@ -1,11 +1,20 @@
+// Copyright (c) 2009-2010 Satoshi Nakamoto
+// Copyright (c) 2009-2018 The Bitcoin Core developers
+// Copyright (c) 2017 The Zcash developers
+// Distributed under the MIT software license, see the accompanying
+// file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
 #ifndef BITCOIN_KEY_H
 #define BITCOIN_KEY_H
 
 #include <pubkey.h>
+#include <serialize.h>
 #include <support/allocators/secure.h>
+#include <uint256.h>
 
 #include <stdexcept>
 #include <vector>
+
 
 /**
  * secure_allocator is defined in allocators.h
@@ -64,7 +73,6 @@ public:
     template <typename T>
     void Set(const T pbegin, const T pend, bool fCompressedIn)
     {
-        printf("key.h::Set() running\n");
         if (size_t(pend - pbegin) != keydata.size()) {
             fValid = false;
         } else if (Check(&pbegin[0])) {
@@ -132,5 +140,56 @@ public:
     //! Load private key and check that public key matches.
     bool Load(const CPrivKey& privkey, const CPubKey& vchPubKey, bool fSkipCheck);
 };
+
+struct CExtKey {
+    unsigned char nDepth;
+    unsigned char vchFingerprint[4];
+    unsigned int nChild;
+    ChainCode chaincode;
+    CKey key;
+
+    friend bool operator==(const CExtKey& a, const CExtKey& b)
+    {
+        return a.nDepth == b.nDepth &&
+            memcmp(&a.vchFingerprint[0], &b.vchFingerprint[0], sizeof(vchFingerprint)) == 0 &&
+            a.nChild == b.nChild &&
+            a.chaincode == b.chaincode &&
+            a.key == b.key;
+    }
+
+    void Encode(unsigned char code[BIP32_EXTKEY_SIZE]) const;
+    void Decode(const unsigned char code[BIP32_EXTKEY_SIZE]);
+    bool Derive(CExtKey& out, unsigned int nChild) const;
+    CExtPubKey Neuter() const;
+    void SetSeed(const unsigned char* seed, unsigned int nSeedLen);
+    template <typename Stream>
+    void Serialize(Stream& s) const
+    {
+        unsigned int len = BIP32_EXTKEY_SIZE;
+        ::WriteCompactSize(s, len);
+        unsigned char code[BIP32_EXTKEY_SIZE];
+        Encode(code);
+        s.write((const char *)&code[0], len);
+    }
+    template <typename Stream>
+    void Unserialize(Stream& s)
+    {
+        unsigned int len = ::ReadCompactSize(s);
+        unsigned char code[BIP32_EXTKEY_SIZE];
+        if (len != BIP32_EXTKEY_SIZE)
+            throw std::runtime_error("Invalid extended key size\n");
+        s.read((char *)&code[0], len);
+        Decode(code);
+    }
+};
+
+/** Initialize the elliptic curve support. May not be called twice without calling ECC_Stop first. */
+void ECC_Start();
+
+/** Deinitialize the elliptic curve support. No-op if ECC_Start wasn't called first. */
+void ECC_Stop();
+
+/** Check that required EC support is available at runtime. */
+bool ECC_InitSanityCheck();
 
 #endif // BITCOIN_KEY_H

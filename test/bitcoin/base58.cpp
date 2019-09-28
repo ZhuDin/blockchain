@@ -1,8 +1,12 @@
+
+
+
+
 #include <base58.h>
 
-#include <uint256.h>
 #include <hash.h>
-#include <crypto/sha256.h>
+#include <uint256.h>
+#include <util/strencodings.h>
 
 #include <string>
 #include <assert.h>
@@ -27,35 +31,6 @@ static const int8_t mapBase58[256] = {
     -1,-1,-1,-1,-1,-1,-1,-1, -1,-1,-1,-1,-1,-1,-1,-1,
     -1,-1,-1,-1,-1,-1,-1,-1, -1,-1,-1,-1,-1,-1,-1,-1,
 };
-
-bool DecodeBase58Check(const char* psz, std::vector<unsigned char>& vchRet)
-{
-    printf("base58.cpp::DecodeBase58Check(%s) running\n", psz);
-    if (!DecodeBase58(psz, vchRet) ||
-        (vchRet.size() < 4)) {
-        vchRet.clear();
-        return false;
-    }
-    // re-calculate the checksum, ensure it matches the included 4-byte checksum
-    uint256 hash = Hash(vchRet.begin(), vchRet.end() - 4);
-    printf("\tHash(vchRet[:-4]) result = %s\n", hash.GetHex().c_str());
-    if (memcmp(&hash, &vchRet[vchRet.size() - 4], 4) != 0) {
-        vchRet.clear();
-        return false;
-    }
-    vchRet.resize(vchRet.size() - 4);
-    printf("\tthe last four of Hash(vchRet[:-4]) result is checksum, it equal vchRet[-4:] reverse)\n");
-    return true;
-}
-
-bool DecodeBase58Check(const std::string& str, std::vector<unsigned char>& vchRet)
-{
-    return DecodeBase58Check(str.c_str(), vchRet);
-}
-
-constexpr inline bool IsSpace(char c) noexcept {
-    return c == ' ' || c == '\f' || c == '\n' || c == '\r' || c == '\t' || c == '\v';
-}
 
 bool DecodeBase58(const char* psz, std::vector<unsigned char>& vch)
 {
@@ -114,3 +89,30 @@ bool DecodeBase58(const char* psz, std::vector<unsigned char>& vch)
     printf("\tsize of vchRet --> %zd\n", vch.size());
     return true;
 }
+
+bool DecodeBase58Check(const char* psz, std::vector<unsigned char>& vchRet)
+{
+    printf("base58.cpp::DecodeBase58Check(%s) running\n", psz);
+    if (!DecodeBase58(psz, vchRet) ||
+        (vchRet.size() < 4)) {
+        vchRet.clear();
+        return false;
+    }
+    // re-calculate the checksum, ensure it matches the included 4-byte checksum
+    uint256 hash = Hash(vchRet.begin(), vchRet.end() - 4);
+    printf("\tHash(vchRet[:-4]) result = %s\n", hash.GetHex().c_str());
+    if (memcmp(&hash, &vchRet[vchRet.size() - 4], 4) != 0) {
+        vchRet.clear();
+        return false;
+    }
+    vchRet.resize(vchRet.size() - 4);
+    printf("\tthe last four of Hash(vchRet[:-4]) result is checksum, it equal vchRet[-4:] reverse)\n");
+    return true;
+}
+
+bool DecodeBase58Check(const std::string& str, std::vector<unsigned char>& vchRet)
+{
+    return DecodeBase58Check(str.c_str(), vchRet);
+}
+
+

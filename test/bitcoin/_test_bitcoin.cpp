@@ -23,19 +23,20 @@ static const std::string strAddressBad = "1HV9Lc3sNHZxwj4Zk6fB38tEmBryq2cBiF";
 int main()
 {
 // #0 node run
-	printf("run node ...\n");
+	printf("run _test_bitcoin.cpp ...\n");	printf("\tsystem.h define : extern ArgsManager gArgs\n");
 	std::string network = gArgs.GetChainName();
 	SelectParams(network);
 	// MakeNode();
 	printf("\n");
 
+	printf("test key ...\n");
+	std::string strSecret = strSecret1;
+	CKey key1 = DecodeSecret(strSecret);
+	printf("\n");
 
-// #1 test key DecodeSecret
-	printf("strSecret1 = %s\n", strSecret1.c_str());
-	CKey key1 = DecodeSecret(strSecret1);
-	printf("%d\n", key1.IsValid());
-	printf("%d\n", !key1.IsCompressed());
-	printf("\nGetPubKey from DecodeSecret(strSecret1)\n");
+	printf("GetPubKey of DecodeSecret(strSecret) ...\n");
+	printf("\tNow the strSecret Valid ? %d\n", key1.IsValid());
+	printf("\tNow the strSecret UnCompressed ? %d\n", !key1.IsCompressed());
 	CPubKey pubkey1  = key1. GetPubKey();
 
 // test

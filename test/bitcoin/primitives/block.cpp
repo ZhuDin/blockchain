@@ -10,7 +10,7 @@
 #include <crypto/common.h>
 
 uint256 CBlockHeader::GetHash() const
-{	printf("block.cpp::GetHash() running\n");
+{	
     return SerializeHash(*this);
 }
 
