@@ -35,18 +35,21 @@ const CBaseChainParams& BaseParams()
 
 std::unique_ptr<CBaseChainParams> CreateBaseChainParams(const std::string& chain)
 {
+    printf("chainparamsbase.cpp::CreateBaseChainParams(%s) running\n", chain.c_str());
     if (chain == CBaseChainParams::MAIN)
-        return MakeUnique<CBaseChainParams>("", 8332);
+        return MakeUnique<CBaseChainParams>("default", 8332);
     else if (chain == CBaseChainParams::TESTNET)
         return MakeUnique<CBaseChainParams>("testnet3", 18332);
     else if (chain == CBaseChainParams::REGTEST)
         return MakeUnique<CBaseChainParams>("regtest", 18443);
     else
-        ;// throw std::runtime_error(strprintf("%s: Unknown chain %s.", __func__, chain));
+        throw std::runtime_error(strprintf("%s: Unknown chain %s.", __func__, chain));
 }
-
+// line 47
 void SelectBaseParams(const std::string& chain)
 {
+    printf("chainparamsbase.cpp::SelectBaseParams(%s) running\n", chain.c_str());
     globalChainBaseParams = CreateBaseChainParams(chain);
-    // gArgs.SelectConfigNetwork(chain);
+    printf("\tglobalChainBaseParasm --> strDataDir:%s nRPCPort:%d\n", (*globalChainBaseParams).DataDir().c_str(), (*globalChainBaseParams).RPCPort());
+    gArgs.SelectConfigNetwork(chain);
 }

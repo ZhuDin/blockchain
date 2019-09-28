@@ -1,5 +1,7 @@
 #include <util/strencodings.h>
 
+
+// line 36
 const signed char p_util_hexdigit[256] =
 { -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
   -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
@@ -17,8 +19,33 @@ const signed char p_util_hexdigit[256] =
   -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
   -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
   -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, };
-
+// line 54
 signed char HexDigit(char c)
 {
     return p_util_hexdigit[(unsigned char)c];
+}
+
+
+// line 406
+int64_t atoi64(const char* psz)
+{
+#ifdef _MSC_VER
+    return _atoi64(psz);
+#else
+    return strtoll(psz, nullptr, 10);
+#endif
+}
+
+int64_t atoi64(const std::string& str)
+{
+#ifdef _MSC_VER
+    return _atoi64(str.c_str());
+#else
+    return strtoll(str.c_str(), nullptr, 10);
+#endif
+}
+// line 424
+int atoi(const std::string& str)
+{
+    return atoi(str.c_str());
 }

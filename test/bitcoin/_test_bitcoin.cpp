@@ -1,6 +1,9 @@
-#include <key.h>
+#include <interfaces/node.h>
+#include <util/system.h>
 
+#include <key.h>
 #include <key_io.h>
+
 #include <pubkey.h>
 
 #include <string>
@@ -20,6 +23,12 @@ static const std::string strAddressBad = "1HV9Lc3sNHZxwj4Zk6fB38tEmBryq2cBiF";
 int main()
 {
 // #0 node run
+	printf("run node ...\n");
+	std::string network = gArgs.GetChainName();
+	SelectParams(network);
+	// MakeNode();
+	printf("\n");
+
 
 // #1 test key DecodeSecret
 	printf("strSecret1 = %s\n", strSecret1.c_str());

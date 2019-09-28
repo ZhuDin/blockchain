@@ -5,6 +5,11 @@
 
 
 
+
+
+#include <tinyformat.h>
+
+
 // line 19
 static CBlock CreateGenesisBlock(const char* pszTimestamp, const CScript& genesisOutputScript, uint32_t nTime, uint32_t nNonce, uint32_t nBits, int32_t nVersion, const CAmount& genesisReward)
 {
@@ -155,13 +160,13 @@ public:
 
 
 // line 378
-static std::unique_ptr<const CChainParams> globalChainParams;
+static std::unique_ptr<const CChainParams> globalChainParams; 
 // line 388
 const CChainParams &Params() {
     assert(globalChainParams);
     return *globalChainParams;
 }
-
+// line 385
 std::unique_ptr<const CChainParams> CreateChainParams(const std::string& chain)
 {
     if (chain == CBaseChainParams::MAIN)
@@ -169,12 +174,13 @@ std::unique_ptr<const CChainParams> CreateChainParams(const std::string& chain)
     // else if (chain == CBaseChainParams::TESTNET)
     //     return std::unique_ptr<CChainParams>(new CTestNetParams());
     // else if (chain == CBaseChainParams::REGTEST)
-        // return std::unique_ptr<CChainParams>(new CRegTestParams(gArgs));
+    //     return std::unique_ptr<CChainParams>(new CRegTestParams(gArgs));
     // throw std::runtime_error(strprintf("%s: Unknown chain %s.", __func__, chain));
 }
-
+// line 396
 void SelectParams(const std::string& network)
 {
+    printf("chainparams.cpp::SelectParams(%s) running\n", network.c_str());
     SelectBaseParams(network);
     globalChainParams = CreateChainParams(network);
 }
