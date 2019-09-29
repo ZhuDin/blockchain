@@ -1,36 +1,36 @@
-#define EXHAUSTIVE_TEST_ORDER 13
-#include <secp256k1/scalar_low.h>
+
+
 
 
 
 
 #include <secp256k1.h>
 
-#include <secp256k1/util.h>
-// #include <secp256k1/num_impl.h>
-// #include <secp256k1/field_impl.h>
-// #include <secp256k1/scalar_impl.h>
-// #include <secp256k1/group_impl.h>
-// #include <secp256k1/ecmult_impl.h>
-// #include <secp256k1/ecmult_const_impl.h>
-// #include <secp256k1/ecmult_gen_impl.h>
-// #include <secp256k1/ecdsa_impl.h>
-// #include <secp256k1/eckey_impl.h>
-// #include <secp256k1/hash_impl.h>
-// #include <secp256k1/scratch_impl.h>
+// #include "secp256k1/util.h"
+// #include "secp256k1/num_impl.h"
+// #include "secp256k1/field_impl.h"
+// #include "secp256k1/scalar_impl.h"
+// #include "secp256k1/group_impl.h"
+// #include "secp256k1/ecmult_impl.h"
+// #include "secp256k1/ecmult_const_impl.h"
+// #include "secp256k1/ecmult_gen_impl.h"
+// #include "secp256k1/ecdsa_impl.h"
+// #include "secp256k1/eckey_impl.h"
+// #include "secp256k1/hash_impl.h"
+// #include "secp256k1/scratch_impl.h"
 
-#define ARG_CHECK(cond) do { \
-    if (EXPECT(!(cond), 0)) { \
-        // secp256k1_callback_call(&ctx->illegal_callback, #cond); \
-        return 0; \
-    } \
-} while(0)
+// #define ARG_CHECK(cond) do { \
+//     if (EXPECT(!(cond), 0)) { \
+//         secp256k1_callback_call(&ctx->illegal_callback, #cond); \
+//         return 0; \
+//     } \
+// } while(0)
 
-static void default_illegal_callback_fn(const char* str, void* data) {
-    (void)data;
-    fprintf(stderr, "[libsecp256k1] illegal argument: %s\n", str);
-    abort();
-}
+// static void default_illegal_callback_fn(const char* str, void* data) {
+//     (void)data;
+//     fprintf(stderr, "[libsecp256k1] illegal argument: %s\n", str);
+//     abort();
+// }
 
 // static const secp256k1_callback default_illegal_callback = {
 //     default_illegal_callback_fn,
@@ -413,9 +413,9 @@ static void default_illegal_callback_fn(const char* str, void* data) {
 // }
 
 int secp256k1_ec_seckey_verify(const secp256k1_context* ctx, const unsigned char *seckey) {
-    printf("secp256k1.c::secp256k1_ec_seckey_verify(%p, ", ctx);
-    for(int size = 0; size < 32; size++) printf("%x", *(seckey+size)); printf(") running\n");
-    secp256k1_scalar sec;
+    // printf("secp256k1.c::secp256k1_ec_seckey_verify(%p, ", ctx);
+    // for(int size = 0; size < 32; size++) printf("%x", *(seckey+size)); printf(") running\n");
+    // secp256k1_scalar sec;
     int ret;
     int overflow;
     // VERIFY_CHECK(ctx != NULL);
