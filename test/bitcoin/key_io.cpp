@@ -34,6 +34,9 @@ CKey DecodeSecret(const std::string& str)
             std::equal(privkey_prefix.begin(), privkey_prefix.end(), data.begin())) {
             bool compressed = data.size() == 33 + privkey_prefix.size();
             key.Set(data.begin() + privkey_prefix.size(), data.begin() + privkey_prefix.size() + 32, compressed);
+            printf("\tnow CKey:keydata value --> ");
+            for(int size = 0; size < key.size(); size++) printf("%x ", *(key.begin()+size));
+            printf("\n");
         }
     }
     if (!data.empty()) {

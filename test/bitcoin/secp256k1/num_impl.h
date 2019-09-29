@@ -12,13 +12,13 @@
 #endif
 
 #include <secp256k1/num.h>
-
-#if defined(USE_NUM_GMP)
 #include <secp256k1/num_gmp_impl.h>
-#elif defined(USE_NUM_NONE)
-/* Nothing. */
-#else
-#error "Please select num implementation"
-#endif
+// #if defined(USE_NUM_GMP)
+// #include <secp256k1/num_gmp_impl.h>
+// #elif defined(USE_NUM_NONE)
+// /* Nothing. */
+// #else
+// #error "Please select num implementation"
+// #endif
 
 #endif /* SECP256K1_NUM_IMPL_H */

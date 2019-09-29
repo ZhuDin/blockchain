@@ -106,7 +106,7 @@ bool DecodeBase58Check(const char* psz, std::vector<unsigned char>& vchRet)
         return false;
     }
     vchRet.resize(vchRet.size() - 4);
-    printf("\tthe last four of Hash(vchRet[:-4]) result is checksum, it equal vchRet[-4:] reverse)\n");
+    printf("\tthe last four of Hash(vchRet[:-4]) result is checksum --> %s\n", hash.GetHex().c_str() + (hash.size()-4)*2);
     return true;
 }
 

@@ -13,14 +13,14 @@
 
 #include <secp256k1/util.h>
 #include <secp256k1/num.h>
-
-#if defined(USE_FIELD_10X26)
 #include <secp256k1/field_10x26_impl.h>
-#elif defined(USE_FIELD_5X52)
-#include <secp256k1/field_5x52_impl.h>
-#else
-#error "Please select field implementation"
-#endif
+// #if defined(USE_FIELD_10X26)
+// #include <secp256k1/field_10x26_impl.h>
+// #elif defined(USE_FIELD_5X52)
+// #include <secp256k1/field_5x52_impl.h>
+// #else
+// #error "Please select field implementation"
+// #endif
 
 SECP256K1_INLINE static int secp256k1_fe_equal(const secp256k1_fe *a, const secp256k1_fe *b) {
     secp256k1_fe na;
@@ -227,9 +227,9 @@ static void secp256k1_fe_inv(secp256k1_fe *r, const secp256k1_fe *a) {
 }
 
 static void secp256k1_fe_inv_var(secp256k1_fe *r, const secp256k1_fe *a) {
-#if defined(USE_FIELD_INV_BUILTIN)
-    secp256k1_fe_inv(r, a);
-#elif defined(USE_FIELD_INV_NUM)
+// #if defined(USE_FIELD_INV_BUILTIN)
+    // secp256k1_fe_inv(r, a);
+// #elif defined(USE_FIELD_INV_NUM)
     secp256k1_num n, m;
     static const secp256k1_fe negone = SECP256K1_FE_CONST(
         0xFFFFFFFFUL, 0xFFFFFFFFUL, 0xFFFFFFFFUL, 0xFFFFFFFFUL,
@@ -258,9 +258,9 @@ static void secp256k1_fe_inv_var(secp256k1_fe *r, const secp256k1_fe *a) {
     secp256k1_fe_mul(&c, &c, r);
     secp256k1_fe_add(&c, &negone);
     CHECK(secp256k1_fe_normalizes_to_zero_var(&c));
-#else
-#error "Please select field inverse implementation"
-#endif
+// #else
+// #error "Please select field inverse implementation"
+// #endif
 }
 
 static void secp256k1_fe_inv_all_var(secp256k1_fe *r, const secp256k1_fe *a, size_t len) {

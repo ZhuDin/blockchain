@@ -12,14 +12,12 @@
 #if defined HAVE_CONFIG_H
 #include <secp256k1/libsecp256k1-config.h>
 #endif
-
+#include <secp256k1/num_gmp.h>
 // #if defined(USE_NUM_GMP)
 // #include <secp256k1/num_gmp.h>
 // #else
 // #error "Please select num implementation"
 // #endif
-
-#include <secp256k1/num_gmp.h>
 
 /** Copy a number. */
 static void secp256k1_num_copy(secp256k1_num *r, const secp256k1_num *a);

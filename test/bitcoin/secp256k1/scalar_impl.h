@@ -13,16 +13,16 @@
 #if defined HAVE_CONFIG_H
 #include <secp256k1/libsecp256k1-config.h>
 #endif
-
-#if defined(EXHAUSTIVE_TEST_ORDER)
 #include <secp256k1/scalar_low_impl.h>
-#elif defined(USE_SCALAR_4X64)
-#include <secp256k1/scalar_4x64_impl.h>
-#elif defined(USE_SCALAR_8X32)
-#include <secp256k1/scalar_8x32_impl.h>
-#else
-#error "Please select scalar implementation"
-#endif
+// #if defined(EXHAUSTIVE_TEST_ORDER)
+// #include <secp256k1/scalar_low_impl.h>
+// #elif defined(USE_SCALAR_4X64)
+// #include <secp256k1/scalar_4x64_impl.h>
+// #elif defined(USE_SCALAR_8X32)
+// #include <secp256k1/scalar_8x32_impl.h>
+// #else
+// #error "Please select scalar implementation"
+// #endif
 
 #ifndef USE_NUM_NONE
 static void secp256k1_scalar_get_num(secp256k1_num *r, const secp256k1_scalar *a) {
@@ -223,9 +223,9 @@ SECP256K1_INLINE static int secp256k1_scalar_is_even(const secp256k1_scalar *a) 
 #endif
 
 static void secp256k1_scalar_inverse_var(secp256k1_scalar *r, const secp256k1_scalar *x) {
-#if defined(USE_SCALAR_INV_BUILTIN)
-    secp256k1_scalar_inverse(r, x);
-#elif defined(USE_SCALAR_INV_NUM)
+// #if defined(USE_SCALAR_INV_BUILTIN)
+//     secp256k1_scalar_inverse(r, x);
+// #elif defined(USE_SCALAR_INV_NUM)
     unsigned char b[32];
     secp256k1_num n, m;
     secp256k1_scalar t = *x;
@@ -238,9 +238,9 @@ static void secp256k1_scalar_inverse_var(secp256k1_scalar *r, const secp256k1_sc
     /* Verify that the inverse was computed correctly, without GMP code. */
     secp256k1_scalar_mul(&t, &t, r);
     CHECK(secp256k1_scalar_is_one(&t));
-#else
-#error "Please select scalar inverse implementation"
-#endif
+// #else
+// #error "Please select scalar inverse implementation"
+// #endif
 }
 
 #ifdef USE_ENDOMORPHISM

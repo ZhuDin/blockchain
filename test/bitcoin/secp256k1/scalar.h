@@ -12,7 +12,7 @@
 #if defined HAVE_CONFIG_H
 #include <secp256k1/libsecp256k1-config.h>
 #endif
-
+#include <secp256k1/scalar_low.h>
 // #if defined(EXHAUSTIVE_TEST_ORDER)
 // #include <secp256k1/scalar_low.h>
 // #elif defined(USE_SCALAR_4X64)
@@ -22,7 +22,6 @@
 // #else
 // #error "Please select scalar implementation"
 // #endif
-#include <secp256k1/scalar_8x32.h>
 
 /** Clear a scalar to prevent the leak of sensitive data. */
 static void secp256k1_scalar_clear(secp256k1_scalar *r);
