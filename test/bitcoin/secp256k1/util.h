@@ -84,22 +84,22 @@ static SECP256K1_INLINE void secp256k1_callback_call(const secp256k1_callback * 
 //     return ret;
 // }
 
-// /* Macro for restrict, when available and not in a VERIFY build. */
-// #if defined(SECP256K1_BUILD) && defined(VERIFY)
-// # define SECP256K1_RESTRICT
-// #else
-// # if (!defined(__STDC_VERSION__) || (__STDC_VERSION__ < 199901L) )
-// #  if SECP256K1_GNUC_PREREQ(3,0)
-// #   define SECP256K1_RESTRICT __restrict__
-// #  elif (defined(_MSC_VER) && _MSC_VER >= 1400)
-// #   define SECP256K1_RESTRICT __restrict
-// #  else
-// #   define SECP256K1_RESTRICT
-// #  endif
-// # else
-// #  define SECP256K1_RESTRICT restrict
-// # endif
-// #endif
+/* Macro for restrict, when available and not in a VERIFY build. */
+#if defined(SECP256K1_BUILD) && defined(VERIFY)
+# define SECP256K1_RESTRICT
+#else
+# if (!defined(__STDC_VERSION__) || (__STDC_VERSION__ < 199901L) )
+#  if SECP256K1_GNUC_PREREQ(3,0)
+#   define SECP256K1_RESTRICT __restrict__
+#  elif (defined(_MSC_VER) && _MSC_VER >= 1400)
+#   define SECP256K1_RESTRICT __restrict
+#  else
+#   define SECP256K1_RESTRICT
+#  endif
+# else
+#  define SECP256K1_RESTRICT restrict
+# endif
+#endif
 
 // #if defined(_WIN32)
 // # define I64FORMAT "I64d"

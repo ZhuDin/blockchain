@@ -6,9 +6,10 @@
 
 #ifndef SECP256K1_ECMULT_GEN_IMPL_H
 #define SECP256K1_ECMULT_GEN_IMPL_H
-
+#include <stdio.h>
+#include <string.h>
 // #include "scalar.h"
-// #include "group.h"
+#include "group.h"
 #include "ecmult_gen.h"
 // #include "hash_impl.h"
 // #ifdef USE_ECMULT_STATIC_PRECOMPUTATION
@@ -92,6 +93,7 @@
 // }
 
 static int secp256k1_ecmult_gen_context_is_built(const secp256k1_ecmult_gen_context* ctx) {
+    printf("ecmult_gen_impl.h::secp256k1_ecmult_gen_context_is_built() return %d\n", ctx->prec != NULL);
     return ctx->prec != NULL;
 }
 
@@ -121,14 +123,16 @@ static int secp256k1_ecmult_gen_context_is_built(const secp256k1_ecmult_gen_cont
 //     ctx->prec = NULL;
 // }
 
-// static void secp256k1_ecmult_gen(const secp256k1_ecmult_gen_context *ctx, secp256k1_gej *r, const secp256k1_scalar *gn) {
-//     secp256k1_ge add;
-//     secp256k1_ge_storage adds;
-//     secp256k1_scalar gnb;
-//     int bits;
-//     int i, j;
-//     memset(&adds, 0, sizeof(adds));
-//     *r = ctx->initial;
+static void secp256k1_ecmult_gen(const secp256k1_ecmult_gen_context *ctx, secp256k1_gej *r, const secp256k1_scalar *gn) {
+    printf("ecmult_gen_impl.h::secp256k1_ecmult_gen() runing\n");
+    secp256k1_ge add;
+    secp256k1_ge_storage adds;
+    secp256k1_scalar gnb;
+    int bits;
+    int i, j;
+    memset(&adds, 0, sizeof(adds));
+    // *r = ctx->initial;
+    printf("ctx: %p\n", ctx);
 //     /* Blind scalar/point multiplication by computing (n-b)G + bG instead of nG. */
 //     secp256k1_scalar_add(&gnb, gn, &ctx->blind);
 //     add.infinity = 0;
@@ -153,7 +157,7 @@ static int secp256k1_ecmult_gen_context_is_built(const secp256k1_ecmult_gen_cont
 //     bits = 0;
 //     secp256k1_ge_clear(&add);
 //     secp256k1_scalar_clear(&gnb);
-// }
+}
 
 // /* Setup blinding values for secp256k1_ecmult_gen. */
 // static void secp256k1_ecmult_gen_blind(secp256k1_ecmult_gen_context *ctx, const unsigned char *seed32) {

@@ -2,7 +2,7 @@
 #include <secp256k1/ecmult.h>
 #include <secp256k1/ecmult_gen.h>
 #include <secp256k1/ecmult_gen_impl.h>
-// #include <secp256k1/group_impl.h>
+#include <secp256k1/group_impl.h>
 // #include <secp256k1/scalar_8x32.h>
 #include <secp256k1/scalar_8x32_impl.h>
 #include <secp256k1/util.h>
@@ -66,7 +66,8 @@ struct secp256k1_context_struct {
 // };
 // const secp256k1_context *secp256k1_context_no_precomp = &secp256k1_context_no_precomp_;
 
-// secp256k1_context* secp256k1_context_create(unsigned int flags) {
+secp256k1_context* secp256k1_context_create(unsigned int flags) {
+    printf("secp256k1.c::secp256k1_context_create() running\n");
 //     secp256k1_context* ret = (secp256k1_context*)checked_malloc(&default_error_callback, sizeof(secp256k1_context));
 //     ret->illegal_callback = default_illegal_callback;
 //     ret->error_callback = default_error_callback;
@@ -76,7 +77,7 @@ struct secp256k1_context_struct {
 //                                     "Invalid flags");
 //             free(ret);
 //             return NULL;
-//     }
+}
 
 //     secp256k1_ecmult_context_init(&ret->ecmult_ctx);
 //     secp256k1_ecmult_gen_context_init(&ret->ecmult_gen_ctx);
@@ -185,10 +186,11 @@ struct secp256k1_context_struct {
 //     return 1;
 // }
 
-// int secp256k1_ec_pubkey_serialize(const secp256k1_context* ctx, unsigned char *output, size_t *outputlen, const secp256k1_pubkey* pubkey, unsigned int flags) {
-//     secp256k1_ge Q;
-//     size_t len;
-//     int ret = 0;
+int secp256k1_ec_pubkey_serialize(const secp256k1_context* ctx, unsigned char *output, size_t *outputlen, const secp256k1_pubkey* pubkey, unsigned int flags) {
+    printf("secp256k1.c::secp256k1_ec_pubkey_serialize() running\n");
+    secp256k1_ge Q;
+    size_t len;
+    int ret = 0;
 
 //     VERIFY_CHECK(ctx != NULL);
 //     ARG_CHECK(outputlen != NULL);
@@ -206,7 +208,7 @@ struct secp256k1_context_struct {
 //         }
 //     }
 //     return ret;
-// }
+}
 
 // static void secp256k1_ecdsa_signature_load(const secp256k1_context* ctx, secp256k1_scalar* r, secp256k1_scalar* s, const secp256k1_ecdsa_signature* sig) {
 //     (void)ctx;
@@ -431,7 +433,7 @@ int secp256k1_ec_seckey_verify(const secp256k1_context* ctx, const unsigned char
 }
 
 int secp256k1_ec_pubkey_create(const secp256k1_context* ctx, secp256k1_pubkey *pubkey, const unsigned char *seckey) {
-    printf("secp256k1.c::secp256k1_ec_pubkey_create(%p, %d, %#x) running\n)", ctx, pubkey->data[0], *seckey);
+    printf("secp256k1.c::secp256k1_ec_pubkey_create(%p, %d, %#x) running\n", ctx, pubkey->data[0], *seckey);
     secp256k1_gej pj;
     secp256k1_ge p;
     secp256k1_scalar sec;
@@ -440,16 +442,18 @@ int secp256k1_ec_pubkey_create(const secp256k1_context* ctx, secp256k1_pubkey *p
     VERIFY_CHECK(ctx != NULL);
     ARG_CHECK(pubkey != NULL);
     memset(pubkey, 0, sizeof(*pubkey));
-    ARG_CHECK(secp256k1_ecmult_gen_context_is_built(&ctx->ecmult_gen_ctx));
-//     // ARG_CHECK(seckey != NULL);
+    // ARG_CHECK(secp256k1_ecmult_gen_context_is_built(&ctx->ecmult_gen_ctx));
+    ARG_CHECK(seckey != NULL);
 
-//     secp256k1_scalar_set_b32(&sec, seckey, &overflow);
-//     ret = (!overflow) & (!secp256k1_scalar_is_zero(&sec));
-//     if (ret) {
-//         secp256k1_ecmult_gen(&ctx->ecmult_gen_ctx, &pj, &sec);
-//         secp256k1_ge_set_gej(&p, &pj);
+    secp256k1_scalar_set_b32(&sec, seckey, &overflow);
+    ret = (!overflow) & (!secp256k1_scalar_is_zero(&sec));
+    if (ret) {
+        printf("\tret != 0\n");
+        printf("\tctx --> %p\n", ctx);
+        secp256k1_ecmult_gen(&ctx->ecmult_gen_ctx, &pj, &sec);
+        secp256k1_ge_set_gej(&p, &pj);
 //         secp256k1_pubkey_save(pubkey, &p);
-//     }
+    }
 //     secp256k1_scalar_clear(&sec);
 //     return ret;
 }
