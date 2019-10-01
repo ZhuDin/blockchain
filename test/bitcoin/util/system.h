@@ -1,29 +1,29 @@
+// Copyright (c) 2009-2010 Satoshi Nakamoto
+// Copyright (c) 2009-2019 The Bitcoin Core developers
+// Distributed under the MIT software license, see the accompanying
+// file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-
-
-
-
-
-
-
-
+/**
+ * Server/client environment: argument handling, config file parsing,
+ * thread wrappers, startup time
+ */
 #ifndef BITCOIN_UTIL_SYSTEM_H
 #define BITCOIN_UTIL_SYSTEM_H
 
-
-
-
+#if defined(HAVE_CONFIG_H)
+#include <config/bitcoin-config.h>
+#endif
 
 #include <attributes.h>
-
-
-
+#include <compat.h>
+#include <compat/assumptions.h>
+#include <fs.h>
 #include <logging.h>
 #include <sync.h>
-
-
-
-
+#include <tinyformat.h>
+#include <util/memory.h>
+#include <util/threadnames.h>
+#include <util/time.h>
 
 #include <exception>
 #include <map>
@@ -33,7 +33,75 @@
 #include <utility>
 #include <vector>
 
-// line 104
+#include <boost/thread/condition_variable.hpp> // for boost::thread_interrupted
+
+// Application startup time (used for uptime calculation)
+int64_t GetStartupTime();
+
+extern const char * const BITCOIN_CONF_FILENAME;
+
+void SetupEnvironment();
+bool SetupNetworking();
+
+template<typename... Args>
+bool error(const char* fmt, const Args&... args)
+{
+    LogPrintf("ERROR: %s\n", tfm::format(fmt, args...));
+    return false;
+}
+
+void PrintExceptionContinue(const std::exception *pex, const char* pszThread);
+bool FileCommit(FILE *file);
+bool TruncateFile(FILE *file, unsigned int length);
+int RaiseFileDescriptorLimit(int nMinFD);
+void AllocateFileRange(FILE *file, unsigned int offset, unsigned int length);
+bool RenameOver(fs::path src, fs::path dest);
+bool LockDirectory(const fs::path& directory, const std::string lockfile_name, bool probe_only=false);
+void UnlockDirectory(const fs::path& directory, const std::string& lockfile_name);
+bool DirIsWritable(const fs::path& directory);
+bool CheckDiskSpace(const fs::path& dir, uint64_t additional_bytes = 0);
+
+/** Release all directory locks. This is used for unit testing only, at runtime
+ * the global destructor will take care of the locks.
+ */
+void ReleaseDirectoryLocks();
+
+bool TryCreateDirectories(const fs::path& p);
+fs::path GetDefaultDataDir();
+// The blocks directory is always net specific.
+const fs::path &GetBlocksDir();
+const fs::path &GetDataDir(bool fNetSpecific = true);
+// Return true if -datadir option points to a valid directory or is not specified.
+bool CheckDataDirOption();
+/** Tests only */
+void ClearDatadirCache();
+fs::path GetConfigFile(const std::string& confPath);
+#ifdef WIN32
+fs::path GetSpecialFolderPath(int nFolder, bool fCreate = true);
+#endif
+#if HAVE_SYSTEM
+void runCommand(const std::string& strCommand);
+#endif
+
+/**
+ * Most paths passed as configuration arguments are treated as relative to
+ * the datadir if they are not absolute.
+ *
+ * @param path The path to be conditionally prefixed with datadir.
+ * @param net_specific Forwarded to GetDataDir().
+ * @return The normalized path.
+ */
+fs::path AbsPathForConfigVal(const fs::path& path, bool net_specific = true);
+
+inline bool IsSwitchChar(char c)
+{
+#ifdef WIN32
+    return c == '-' || c == '/';
+#else
+    return c == '-';
+#endif
+}
+
 enum class OptionsCategory {
     OPTIONS,
     CONNECTION,
@@ -52,7 +120,6 @@ enum class OptionsCategory {
     HIDDEN // Always the last option to avoid printing these in the help
 };
 
-// line 122
 struct SectionInfo
 {
     std::string m_name;
@@ -60,7 +127,6 @@ struct SectionInfo
     int m_line;
 };
 
-// line 129
 class ArgsManager
 {
 public:
@@ -235,7 +301,104 @@ public:
     unsigned int FlagsOfKnownArg(const std::string& key) const;
 };
 
-// line 303
 extern ArgsManager gArgs;
+
+/**
+ * @return true if help has been requested via a command-line arg
+ */
+bool HelpRequested(const ArgsManager& args);
+
+/** Add help options to the args manager */
+void SetupHelpOptions(ArgsManager& args);
+
+/**
+ * Format a string to be used as group of options in help messages
+ *
+ * @param message Group name (e.g. "RPC server options:")
+ * @return the formatted string
+ */
+std::string HelpMessageGroup(const std::string& message);
+
+/**
+ * Format a string to be used as option description in help messages
+ *
+ * @param option Option message (e.g. "-rpcuser=<user>")
+ * @param message Option description (e.g. "Username for JSON-RPC connections")
+ * @return the formatted string
+ */
+std::string HelpMessageOpt(const std::string& option, const std::string& message);
+
+/**
+ * Return the number of cores available on the current system.
+ * @note This does count virtual cores, such as those provided by HyperThreading.
+ */
+int GetNumCores();
+
+/**
+ * .. and a wrapper that just calls func once
+ */
+template <typename Callable> void TraceThread(const char* name,  Callable func)
+{
+    util::ThreadRename(name);
+    try
+    {
+        LogPrintf("%s thread start\n", name);
+        func();
+        LogPrintf("%s thread exit\n", name);
+    }
+    catch (const boost::thread_interrupted&)
+    {
+        LogPrintf("%s thread interrupt\n", name);
+        throw;
+    }
+    catch (const std::exception& e) {
+        PrintExceptionContinue(&e, name);
+        throw;
+    }
+    catch (...) {
+        PrintExceptionContinue(nullptr, name);
+        throw;
+    }
+}
+
+std::string CopyrightHolders(const std::string& strPrefix);
+
+/**
+ * On platforms that support it, tell the kernel the calling thread is
+ * CPU-intensive and non-interactive. See SCHED_BATCH in sched(7) for details.
+ *
+ * @return The return value of sched_setschedule(), or 1 on systems without
+ * sched_setschedule().
+ */
+int ScheduleBatchPriority();
+
+namespace util {
+
+//! Simplification of std insertion
+template <typename Tdst, typename Tsrc>
+inline void insert(Tdst& dst, const Tsrc& src) {
+    dst.insert(dst.begin(), src.begin(), src.end());
+}
+template <typename TsetT, typename Tsrc>
+inline void insert(std::set<TsetT>& dst, const Tsrc& src) {
+    dst.insert(src.begin(), src.end());
+}
+
+#ifdef WIN32
+class WinCmdLineArgs
+{
+public:
+    WinCmdLineArgs();
+    ~WinCmdLineArgs();
+    std::pair<int, char**> get();
+
+private:
+    int argc;
+    char** argv;
+    std::vector<std::string> args;
+};
+#endif
+
+} // namespace util
 
 #endif // BITCOIN_UTIL_SYSTEM_H

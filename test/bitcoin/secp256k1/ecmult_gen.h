@@ -7,8 +7,9 @@
 #ifndef SECP256K1_ECMULT_GEN_H
 #define SECP256K1_ECMULT_GEN_H
 
-#include "scalar_8x32.h"
+#include "group.h"
 #include "field_10x26.h"
+#include "scalar_8x32.h"
 
 typedef struct {
     /* For accelerating the computation of a*G:
@@ -36,7 +37,7 @@ typedef struct {
 static int secp256k1_ecmult_gen_context_is_built(const secp256k1_ecmult_gen_context* ctx);
 
 /** Multiply with the generator: R = a*G */
-// static void secp256k1_ecmult_gen(const secp256k1_ecmult_gen_context* ctx, secp256k1_gej *r, const secp256k1_scalar *a);
+static void secp256k1_ecmult_gen(const secp256k1_ecmult_gen_context* ctx, secp256k1_gej *r, const secp256k1_scalar *a);
 
 // static void secp256k1_ecmult_gen_blind(secp256k1_ecmult_gen_context *ctx, const unsigned char *seed32);
 

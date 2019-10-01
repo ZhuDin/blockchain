@@ -38,6 +38,8 @@ int main()
 	printf("\tNow the strSecret Valid ? %d\n", key1.IsValid());
 	printf("\tNow the strSecret UnCompressed ? %d\n", !key1.IsCompressed());
 	CPubKey pubkey1  = key1. GetPubKey();
+	printf("\tnow the pubkey size --> %d\n", pubkey1.size());
+	// key1.VerifyPubKey(pubkey1);
 
 // test
 
