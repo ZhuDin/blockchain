@@ -5,7 +5,7 @@
 
 #include <key.h>
 
-
+#include <hash.h>
 #include <secp256k1.h>
 
 // #include <crypto/common.h>
@@ -214,16 +214,18 @@ bool SigHasLowR(const secp256k1_ecdsa_signature* sig)
 }
 
 bool CKey::Sign(const uint256 &hash, std::vector<unsigned char>& vchSig, bool grind, uint32_t test_case) const {
+    printf("key.cpp::Sign(%s, %zd) running\n", hash.ToString().c_str(), vchSig.size());
     if (!fValid)
         return false;
     vchSig.resize(CPubKey::SIGNATURE_SIZE);
+    printf("\tvchSig size --> %zd\n", vchSig.size());
     size_t nSigLen = CPubKey::SIGNATURE_SIZE;
     unsigned char extra_entropy[32] = {0};
     WriteLE32(extra_entropy, test_case);
     secp256k1_ecdsa_signature sig;
     uint32_t counter = 0;
     int ret = secp256k1_ecdsa_sign(secp256k1_context_sign, &sig, hash.begin(), begin(), secp256k1_nonce_function_rfc6979, (!grind && test_case) ? extra_entropy : nullptr);
-
+    printf("ret --> %d\n", ret);
     // Grind for low R
     while (ret && !SigHasLowR(&sig) && grind) {
         WriteLE32(extra_entropy, ++counter);
@@ -236,6 +238,11 @@ bool CKey::Sign(const uint256 &hash, std::vector<unsigned char>& vchSig, bool gr
 }
 
 bool CKey::VerifyPubKey(const CPubKey& pubkey) const {
+    printf("key.cpp::VerifyPubKey( "); 
+    for (int n=0; n < pubkey.size(); n++) {
+        printf("%x ",pubkey.data()[n]);
+    }
+    printf(") running\n");
     if (pubkey.IsCompressed() != fCompressed) {
         return false;
     }
@@ -245,7 +252,7 @@ bool CKey::VerifyPubKey(const CPubKey& pubkey) const {
     uint256 hash;
     CHash256().Write((unsigned char*)str.data(), str.size()).Write(rnd, sizeof(rnd)).Finalize(hash.begin());
     std::vector<unsigned char> vchSig;
-    Sign(hash, vchSig);
+    // Sign(hash, vchSig);
     return pubkey.Verify(hash, vchSig);
 }
 
