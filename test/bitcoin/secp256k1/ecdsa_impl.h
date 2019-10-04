@@ -8,13 +8,10 @@
 #ifndef SECP256K1_ECDSA_IMPL_H
 #define SECP256K1_ECDSA_IMPL_H
 
-#include <string.h>
-#include "scalar_8x32_impl.h"
+#include "scalar.h"
 #include "field.h"
-#include "field_impl.h"
-#include "field_10x26_impl.h"
-#include "group_impl.h"
-#include "ecmult_impl.h"
+#include "group.h"
+#include "ecmult.h"
 #include "ecmult_gen.h"
 #include "ecdsa.h"
 

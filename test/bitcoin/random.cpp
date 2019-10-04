@@ -197,8 +197,8 @@ static uint64_t GetRdSeed() noexcept
  * Slower sources should probably be invoked separately, and/or only from
  * RandAddSeedSleep (which is called during idle background operation).
  */
-static void InitHardwareRand() {}
-static void ReportHardwareRand() {}
+// static void InitHardwareRand() {}
+// static void ReportHardwareRand() {}
 #endif
 
 /** Add 64 bits of entropy gathered from hardware to hasher. Do nothing if not supported. */
@@ -398,7 +398,7 @@ void GetOSRand(unsigned char *ent32)
 #endif
 }
 
-void LockingCallbackOpenSSL(int mode, int i, const char* file, int line);
+// void LockingCallbackOpenSSL(int mode, int i, const char* file, int line);
 
 namespace {
 
@@ -431,7 +431,7 @@ public:
         // which attempt to load the config file, possibly resulting in an exit() or crash if it is missing
         // or corrupt. Explicitly tell OpenSSL not to try to load the file. The result for our libs will be
         // that the config appears to have been loaded and there are no modules/engines available.
-        // OPENSSL_no_config();
+        OPENSSL_no_config();
     }
 
     ~RNGState()
@@ -488,16 +488,16 @@ RNGState& GetRNGState() noexcept
 }
 }
 
-void LockingCallbackOpenSSL(int mode, int i, const char* file, int line) NO_THREAD_SAFETY_ANALYSIS
-{
-    RNGState& rng = GetRNGState();
+// void LockingCallbackOpenSSL(int mode, int i, const char* file, int line) NO_THREAD_SAFETY_ANALYSIS
+// {
+//     RNGState& rng = GetRNGState();
 
-    if (mode & CRYPTO_LOCK) {
-        rng.GetOpenSSLMutex(i).lock();
-    } else {
-        rng.GetOpenSSLMutex(i).unlock();
-    }
-}
+//     if (mode & CRYPTO_LOCK) {
+//         rng.GetOpenSSLMutex(i).lock();
+//     } else {
+//         rng.GetOpenSSLMutex(i).unlock();
+//     }
+// }
 
 /* A note on the use of noexcept in the seeding functions below:
  *
@@ -547,7 +547,7 @@ static void SeedSlow(CSHA512& hasher) noexcept
     hasher.Write(buffer, sizeof(buffer));
 
     // OpenSSL RNG (for now)
-    // RAND_bytes(buffer, sizeof(buffer));
+    RAND_bytes(buffer, sizeof(buffer));
     hasher.Write(buffer, sizeof(buffer));
 
     // High-precision timestamp.
@@ -651,14 +651,14 @@ static void ProcRand(unsigned char* out, int num, RNGLevel level)
     if (level != RNGLevel::FAST) {
         unsigned char buf[64];
         CSHA512().Write(out, num).Finalize(buf);
-        // RAND_add(buf, sizeof(buf), num);
+        RAND_add(buf, sizeof(buf), num);
         memory_cleanse(buf, 64);
     }
 }
 
 void GetRandBytes(unsigned char* buf, int num) noexcept { ProcRand(buf, num, RNGLevel::FAST); }
-void GetStrongRandBytes(unsigned char* buf, int num) noexcept { ProcRand(buf, num, RNGLevel::SLOW); }
-void RandAddSeedSleep() { ProcRand(nullptr, 0, RNGLevel::SLEEP); }
+// void GetStrongRandBytes(unsigned char* buf, int num) noexcept { ProcRand(buf, num, RNGLevel::SLOW); }
+// void RandAddSeedSleep() { ProcRand(nullptr, 0, RNGLevel::SLEEP); }
 
 bool g_mock_deterministic_tests{false};
 
@@ -667,15 +667,15 @@ uint64_t GetRand(uint64_t nMax) noexcept
     return FastRandomContext(g_mock_deterministic_tests).randrange(nMax);
 }
 
-std::chrono::microseconds GetRandMicros(std::chrono::microseconds duration_max) noexcept
-{
-    return std::chrono::microseconds{GetRand(duration_max.count())};
-}
+// std::chrono::microseconds GetRandMicros(std::chrono::microseconds duration_max) noexcept
+// {
+//     return std::chrono::microseconds{GetRand(duration_max.count())};
+// }
 
-int GetRandInt(int nMax) noexcept
-{
-    return GetRand(nMax);
-}
+// int GetRandInt(int nMax) noexcept
+// {
+//     return GetRand(nMax);
+// }
 
 uint256 GetRandHash() noexcept
 {
@@ -691,77 +691,77 @@ void FastRandomContext::RandomSeed()
     requires_seed = false;
 }
 
-uint256 FastRandomContext::rand256() noexcept
-{
-    if (bytebuf_size < 32) {
-        FillByteBuffer();
-    }
-    uint256 ret;
-    memcpy(ret.begin(), bytebuf + 64 - bytebuf_size, 32);
-    bytebuf_size -= 32;
-    return ret;
-}
+// uint256 FastRandomContext::rand256() noexcept
+// {
+//     if (bytebuf_size < 32) {
+//         FillByteBuffer();
+//     }
+//     uint256 ret;
+//     memcpy(ret.begin(), bytebuf + 64 - bytebuf_size, 32);
+//     bytebuf_size -= 32;
+//     return ret;
+// }
 
-std::vector<unsigned char> FastRandomContext::randbytes(size_t len)
-{
-    if (requires_seed) RandomSeed();
-    std::vector<unsigned char> ret(len);
-    if (len > 0) {
-        rng.Keystream(&ret[0], len);
-    }
-    return ret;
-}
+// std::vector<unsigned char> FastRandomContext::randbytes(size_t len)
+// {
+//     if (requires_seed) RandomSeed();
+//     std::vector<unsigned char> ret(len);
+//     if (len > 0) {
+//         rng.Keystream(&ret[0], len);
+//     }
+//     return ret;
+// }
 
 FastRandomContext::FastRandomContext(const uint256& seed) noexcept : requires_seed(false), bytebuf_size(0), bitbuf_size(0)
 {
     rng.SetKey(seed.begin(), 32);
 }
 
-bool Random_SanityCheck()
-{
-    uint64_t start = GetPerformanceCounter();
+// bool Random_SanityCheck()
+// {
+//     uint64_t start = GetPerformanceCounter();
 
     /* This does not measure the quality of randomness, but it does test that
      * OSRandom() overwrites all 32 bytes of the output given a maximum
      * number of tries.
      */
-    static const ssize_t MAX_TRIES = 1024;
-    uint8_t data[NUM_OS_RANDOM_BYTES];
-    bool overwritten[NUM_OS_RANDOM_BYTES] = {}; /* Tracks which bytes have been overwritten at least once */
-    int num_overwritten;
-    int tries = 0;
+    // static const ssize_t MAX_TRIES = 1024;
+    // uint8_t data[NUM_OS_RANDOM_BYTES];
+    // bool overwritten[NUM_OS_RANDOM_BYTES] = {}; /* Tracks which bytes have been overwritten at least once */
+    // int num_overwritten;
+    // int tries = 0;
     /* Loop until all bytes have been overwritten at least once, or max number tries reached */
-    do {
-        memset(data, 0, NUM_OS_RANDOM_BYTES);
-        GetOSRand(data);
-        for (int x=0; x < NUM_OS_RANDOM_BYTES; ++x) {
-            overwritten[x] |= (data[x] != 0);
-        }
+//     do {
+//         memset(data, 0, NUM_OS_RANDOM_BYTES);
+//         GetOSRand(data);
+//         for (int x=0; x < NUM_OS_RANDOM_BYTES; ++x) {
+//             overwritten[x] |= (data[x] != 0);
+//         }
 
-        num_overwritten = 0;
-        for (int x=0; x < NUM_OS_RANDOM_BYTES; ++x) {
-            if (overwritten[x]) {
-                num_overwritten += 1;
-            }
-        }
+//         num_overwritten = 0;
+//         for (int x=0; x < NUM_OS_RANDOM_BYTES; ++x) {
+//             if (overwritten[x]) {
+//                 num_overwritten += 1;
+//             }
+//         }
 
-        tries += 1;
-    } while (num_overwritten < NUM_OS_RANDOM_BYTES && tries < MAX_TRIES);
-    if (num_overwritten != NUM_OS_RANDOM_BYTES) return false; /* If this failed, bailed out after too many tries */
+//         tries += 1;
+//     } while (num_overwritten < NUM_OS_RANDOM_BYTES && tries < MAX_TRIES);
+//     if (num_overwritten != NUM_OS_RANDOM_BYTES) return false;  If this failed, bailed out after too many tries 
 
-    // Check that GetPerformanceCounter increases at least during a GetOSRand() call + 1ms sleep.
-    std::this_thread::sleep_for(std::chrono::milliseconds(1));
-    uint64_t stop = GetPerformanceCounter();
-    if (stop == start) return false;
+//     // Check that GetPerformanceCounter increases at least during a GetOSRand() call + 1ms sleep.
+//     std::this_thread::sleep_for(std::chrono::milliseconds(1));
+//     uint64_t stop = GetPerformanceCounter();
+//     if (stop == start) return false;
 
-    // We called GetPerformanceCounter. Use it as entropy.
-    CSHA512 to_add;
-    to_add.Write((const unsigned char*)&start, sizeof(start));
-    to_add.Write((const unsigned char*)&stop, sizeof(stop));
-    GetRNGState().MixExtract(nullptr, 0, std::move(to_add), false);
+//     // We called GetPerformanceCounter. Use it as entropy.
+//     CSHA512 to_add;
+//     to_add.Write((const unsigned char*)&start, sizeof(start));
+//     to_add.Write((const unsigned char*)&stop, sizeof(stop));
+//     GetRNGState().MixExtract(nullptr, 0, std::move(to_add), false);
 
-    return true;
-}
+//     return true;
+// }
 
 FastRandomContext::FastRandomContext(bool fDeterministic) noexcept : requires_seed(!fDeterministic), bytebuf_size(0), bitbuf_size(0)
 {

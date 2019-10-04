@@ -1,0 +1,15 @@
+g++ -I . -o a bitcoind.cpp \
+	boost/path.cpp \
+	crypto/chacha20.cpp crypto/sha512.cpp \
+	interfaces/chain.cpp \
+	policy/fees.cpp \
+	rpc/server.cpp \
+	support/cleanse.cpp support/lockedpool.cpp \
+	util/system.cpp util/threadnames.cpp util/time.cpp \
+	fs.cpp \
+	logging.cpp \
+	noui.cpp \
+	random.cpp \
+	txmempool.cpp \
+	ui_interface.cpp \
+	validation.cpp

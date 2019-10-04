@@ -7,8 +7,8 @@
 #ifndef SECP256K1_GROUP_H
 #define SECP256K1_GROUP_H
 
-// #include "num.h"
-#include "field_10x26.h"
+#include "num.h"
+#include "field.h"
 
 /** A group element of the secp256k1 curve, in affine coordinates. */
 typedef struct {
@@ -59,7 +59,7 @@ static int secp256k1_ge_is_infinity(const secp256k1_ge *a);
 /** Check whether a group element is valid (i.e., on the curve). */
 static int secp256k1_ge_is_valid_var(const secp256k1_ge *a);
 
-// static void secp256k1_ge_neg(secp256k1_ge *r, const secp256k1_ge *a);
+static void secp256k1_ge_neg(secp256k1_ge *r, const secp256k1_ge *a);
 
 /** Set a group element equal to another which is given in jacobian coordinates */
 static void secp256k1_ge_set_gej(secp256k1_ge *r, secp256k1_gej *a);
@@ -80,13 +80,13 @@ static void secp256k1_ge_set_infinity(secp256k1_ge *r);
 /** Set a group element (jacobian) equal to the point at infinity. */
 static void secp256k1_gej_set_infinity(secp256k1_gej *r);
 
-/* Set a group element (jacobian) equal to another which is given in affine coordinates. */
+/** Set a group element (jacobian) equal to another which is given in affine coordinates. */
 static void secp256k1_gej_set_ge(secp256k1_gej *r, const secp256k1_ge *a);
 
-/* Compare the X coordinate of a group element (jacobian). */
+/** Compare the X coordinate of a group element (jacobian). */
 static int secp256k1_gej_eq_x_var(const secp256k1_fe *x, const secp256k1_gej *a);
 
-/* Set r equal to the inverse of a (i.e., mirrored around the X axis) */
+/** Set r equal to the inverse of a (i.e., mirrored around the X axis) */
 static void secp256k1_gej_neg(secp256k1_gej *r, const secp256k1_gej *a);
 
 /** Check whether a group element is the point at infinity. */

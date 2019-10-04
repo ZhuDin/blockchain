@@ -376,10 +376,10 @@ LockedPool::LockedPageArena::~LockedPageArena()
 /*******************************************************************************/
 // Implementation: LockedPoolManager
 //
-// LockedPoolManager::LockedPoolManager(std::unique_ptr<LockedPageAllocator> allocator_in):
-//     LockedPool(std::move(allocator_in), &LockedPoolManager::LockingFailed)
-// {
-// }
+LockedPoolManager::LockedPoolManager(std::unique_ptr<LockedPageAllocator> allocator_in):
+    LockedPool(std::move(allocator_in), &LockedPoolManager::LockingFailed)
+{
+}
 
 bool LockedPoolManager::LockingFailed()
 {
@@ -387,18 +387,18 @@ bool LockedPoolManager::LockingFailed()
     return true;
 }
 
-// void LockedPoolManager::CreateInstance()
-// {
+void LockedPoolManager::CreateInstance()
+{
     // Using a local static instance guarantees that the object is initialized
     // when it's first needed and also deinitialized after all objects that use
     // it are done with it.  I can think of one unlikely scenario where we may
     // have a static deinitialization order/problem, but the check in
     // LockedPoolManagerBase's destructor helps us detect if that ever happens.
-// #ifdef WIN32
-//     std::unique_ptr<LockedPageAllocator> allocator(new Win32LockedPageAllocator());
-// #else
-//     std::unique_ptr<LockedPageAllocator> allocator(new PosixLockedPageAllocator());
-// #endif
-//     static LockedPoolManager instance(std::move(allocator));
-//     LockedPoolManager::_instance = &instance;
-// }
+#ifdef WIN32
+    std::unique_ptr<LockedPageAllocator> allocator(new Win32LockedPageAllocator());
+#else
+    std::unique_ptr<LockedPageAllocator> allocator(new PosixLockedPageAllocator());
+#endif
+    static LockedPoolManager instance(std::move(allocator));
+    LockedPoolManager::_instance = &instance;
+}

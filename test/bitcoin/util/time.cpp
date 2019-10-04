@@ -8,9 +8,10 @@
 #endif
 
 #include <util/time.h>
+
 #include <atomic>
-// #include <boost/date_time/posix_time/posix_time.hpp>
-// #include <boost/thread.hpp>=
+#include <boost/date_time/posix_time/posix_time.hpp>
+#include <boost/thread.hpp>
 #include <ctime>
 #include <tinyformat.h>
 
@@ -52,18 +53,16 @@ int64_t GetMockTime()
 
 int64_t GetTimeMillis()
 {
-	time_t now = time(0)*1000;
-    // int64_t now = (boost::posix_time::microsec_clock::universal_time() -
-    //                boost::posix_time::ptime(boost::gregorian::date(1970,1,1))).total_milliseconds();
+    int64_t now = (boost::posix_time::microsec_clock::universal_time() -
+                   boost::posix_time::ptime(boost::gregorian::date(1970,1,1))).total_milliseconds();
     assert(now > 0);
     return now;
 }
 
 int64_t GetTimeMicros()
 {
-	time_t now = time(0)*1000000;
-    // int64_t now = (boost::posix_time::microsec_clock::universal_time() -
-    //                boost::posix_time::ptime(boost::gregorian::date(1970,1,1))).total_microseconds();
+    int64_t now = (boost::posix_time::microsec_clock::universal_time() -
+                   boost::posix_time::ptime(boost::gregorian::date(1970,1,1))).total_microseconds();
     assert(now > 0);
     return now;
 }
@@ -75,19 +74,20 @@ int64_t GetSystemTimeInSeconds()
 
 void MilliSleep(int64_t n)
 {
+
 /**
  * Boost's sleep_for was uninterruptible when backed by nanosleep from 1.50
  * until fixed in 1.52. Use the deprecated sleep method for the broken case.
  * See: https://svn.boost.org/trac/boost/ticket/7238
  */
-// #if defined(HAVE_WORKING_BOOST_SLEEP_FOR)
-//     boost::this_thread::sleep_for(boost::chrono::milliseconds(n));
-// #elif defined(HAVE_WORKING_BOOST_SLEEP)
-    // boost::this_thread::sleep(boost::posix_time::milliseconds(n));
-// #else
-// //should never get here
+#if defined(HAVE_WORKING_BOOST_SLEEP_FOR)
+    boost::this_thread::sleep_for(boost::chrono::milliseconds(n));
+#elif defined(HAVE_WORKING_BOOST_SLEEP)
+    boost::this_thread::sleep(boost::posix_time::milliseconds(n));
+#else
+//should never get here
 // #error missing boost sleep implementation
-// #endif
+#endif
 }
 
 std::string FormatISO8601DateTime(int64_t nTime) {

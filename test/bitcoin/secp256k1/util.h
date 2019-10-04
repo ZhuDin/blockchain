@@ -68,21 +68,21 @@ static SECP256K1_INLINE void secp256k1_callback_call(const secp256k1_callback * 
 #define VERIFY_SETUP(stmt)
 #endif
 
-// static SECP256K1_INLINE void *checked_malloc(const secp256k1_callback* cb, size_t size) {
-//     void *ret = malloc(size);
-//     if (ret == NULL) {
-//         secp256k1_callback_call(cb, "Out of memory");
-//     }
-//     return ret;
-// }
+static SECP256K1_INLINE void *checked_malloc(const secp256k1_callback* cb, size_t size) {
+    void *ret = malloc(size);
+    if (ret == NULL) {
+        secp256k1_callback_call(cb, "Out of memory");
+    }
+    return ret;
+}
 
-// static SECP256K1_INLINE void *checked_realloc(const secp256k1_callback* cb, void *ptr, size_t size) {
-//     void *ret = realloc(ptr, size);
-//     if (ret == NULL) {
-//         secp256k1_callback_call(cb, "Out of memory");
-//     }
-//     return ret;
-// }
+static SECP256K1_INLINE void *checked_realloc(const secp256k1_callback* cb, void *ptr, size_t size) {
+    void *ret = realloc(ptr, size);
+    if (ret == NULL) {
+        secp256k1_callback_call(cb, "Out of memory");
+    }
+    return ret;
+}
 
 /* Macro for restrict, when available and not in a VERIFY build. */
 #if defined(SECP256K1_BUILD) && defined(VERIFY)
@@ -101,21 +101,21 @@ static SECP256K1_INLINE void secp256k1_callback_call(const secp256k1_callback * 
 # endif
 #endif
 
-// #if defined(_WIN32)
-// # define I64FORMAT "I64d"
-// # define I64uFORMAT "I64u"
-// #else
-// # define I64FORMAT "lld"
-// # define I64uFORMAT "llu"
-// #endif
+#if defined(_WIN32)
+# define I64FORMAT "I64d"
+# define I64uFORMAT "I64u"
+#else
+# define I64FORMAT "lld"
+# define I64uFORMAT "llu"
+#endif
 
-// #if defined(HAVE___INT128)
-// # if defined(__GNUC__)
-// #  define SECP256K1_GNUC_EXT __extension__
-// # else
-// #  define SECP256K1_GNUC_EXT
-// # endif
-// SECP256K1_GNUC_EXT typedef unsigned __int128 uint128_t;
-// #endif
+#if defined(HAVE___INT128)
+# if defined(__GNUC__)
+#  define SECP256K1_GNUC_EXT __extension__
+# else
+#  define SECP256K1_GNUC_EXT
+# endif
+SECP256K1_GNUC_EXT typedef unsigned __int128 uint128_t;
+#endif
 
 #endif /* SECP256K1_UTIL_H */

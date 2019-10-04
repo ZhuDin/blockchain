@@ -9,21 +9,20 @@
 
 #include "group.h"
 #include "scalar.h"
-#include "secp256k1/util.h"
 
 #if defined HAVE_CONFIG_H
 #include "libsecp256k1-config.h"
 #endif
 
-// #if defined(EXHAUSTIVE_TEST_ORDER)
-// #include "scalar_low_impl.h"
-// #elif defined(USE_SCALAR_4X64)
-// #include "scalar_4x64_impl.h"
-// #elif defined(USE_SCALAR_8X32)
+#if defined(EXHAUSTIVE_TEST_ORDER)
+#include "scalar_low_impl.h"
+#elif defined(USE_SCALAR_4X64)
+#include "scalar_4x64_impl.h"
+#elif defined(USE_SCALAR_8X32)
 #include "scalar_8x32_impl.h"
-// #else
-// #error "Please select scalar implementation"
-// #endif
+#else
+#error "Please select scalar implementation"
+#endif
 
 #ifndef USE_NUM_NONE
 static void secp256k1_scalar_get_num(secp256k1_num *r, const secp256k1_scalar *a) {
@@ -60,8 +59,8 @@ static void secp256k1_scalar_inverse(secp256k1_scalar *r, const secp256k1_scalar
     for (i = 0; i < EXHAUSTIVE_TEST_ORDER; i++)
         if ((i * *x) % EXHAUSTIVE_TEST_ORDER == 1)
             *r = i;
-     If this VERIFY_CHECK triggers we were given a noninvertible scalar (and thus
-     * have a composite group order; fix it in exhaustive_tests.c). 
+    /* If this VERIFY_CHECK triggers we were given a noninvertible scalar (and thus
+     * have a composite group order; fix it in exhaustive_tests.c). */
     VERIFY_CHECK(*r != 0);
 }
 #else
@@ -224,9 +223,9 @@ SECP256K1_INLINE static int secp256k1_scalar_is_even(const secp256k1_scalar *a) 
 #endif
 
 static void secp256k1_scalar_inverse_var(secp256k1_scalar *r, const secp256k1_scalar *x) {
-// #if defined(USE_SCALAR_INV_BUILTIN)
-//     secp256k1_scalar_inverse(r, x);
-// #elif defined(USE_SCALAR_INV_NUM)
+#if defined(USE_SCALAR_INV_BUILTIN)
+    secp256k1_scalar_inverse(r, x);
+#elif defined(USE_SCALAR_INV_NUM)
     unsigned char b[32];
     secp256k1_num n, m;
     secp256k1_scalar t = *x;
@@ -239,9 +238,9 @@ static void secp256k1_scalar_inverse_var(secp256k1_scalar *r, const secp256k1_sc
     /* Verify that the inverse was computed correctly, without GMP code. */
     secp256k1_scalar_mul(&t, &t, r);
     CHECK(secp256k1_scalar_is_one(&t));
-// #else
-// #error "Please select scalar inverse implementation"
-// #endif
+#else
+#error "Please select scalar inverse implementation"
+#endif
 }
 
 #ifdef USE_ENDOMORPHISM

@@ -1,15 +1,15 @@
-// // Copyright (c) 2009-2010 Satoshi Nakamoto
-// // Copyright (c) 2009-2018 The Bitcoin Core developers
-// // Distributed under the MIT software license, see the accompanying
-// // file COPYING or http://www.opensource.org/licenses/mit-license.php.
+// Copyright (c) 2009-2010 Satoshi Nakamoto
+// Copyright (c) 2009-2018 The Bitcoin Core developers
+// Distributed under the MIT software license, see the accompanying
+// file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include <logging.h>
 #include <util/threadnames.h>
 #include <util/time.h>
-#include <util/system.h>
+
 #include <mutex>
 
-// const char * const DEFAULT_DEBUGLOGFILE = "debug.log";
+const char * const DEFAULT_DEBUGLOGFILE = "debug.log";
 
 BCLog::Logger& LogInstance()
 {
@@ -32,7 +32,7 @@ BCLog::Logger& LogInstance()
     return *g_logger;
 }
 
-// bool fLogIPs = DEFAULT_LOGIPS;
+bool fLogIPs = DEFAULT_LOGIPS;
 
 static int FileWriteStr(const std::string &str, FILE *fp)
 {
@@ -55,12 +55,12 @@ static int FileWriteStr(const std::string &str, FILE *fp)
 
 //         setbuf(m_fileout, nullptr); // unbuffered
 
-//         // Add newlines to the logfile to distinguish this execution from the
-//         // last one.
-//         FileWriteStr("\n\n\n\n\n", m_fileout);
-//     }
+        // Add newlines to the logfile to distinguish this execution from the
+        // last one.
+    //     FileWriteStr("\n\n\n\n\n", m_fileout);
+    // }
 
-//     // dump buffered messages from before we opened the log
+    // dump buffered messages from before we opened the log
 //     m_buffering = false;
 //     while (!m_msgs_before_open.empty()) {
 //         const std::string& s = m_msgs_before_open.front();
@@ -174,7 +174,7 @@ static int FileWriteStr(const std::string &str, FILE *fp)
 //     std::string ret;
 //     int outcount = 0;
 //     for (const CLogCategoryDesc& category_desc : LogCategories) {
-//         // Omit the special cases.
+        // Omit the special cases.
 //         if (category_desc.flag != BCLog::NONE && category_desc.flag != BCLog::ALL) {
 //             if (outcount != 0) ret += ", ";
 //             ret += category_desc.category;
@@ -188,7 +188,7 @@ static int FileWriteStr(const std::string &str, FILE *fp)
 // {
 //     std::vector<CLogCategoryActive> ret;
 //     for (const CLogCategoryDesc& category_desc : LogCategories) {
-//         // Omit the special cases.
+        // Omit the special cases.
 //         if (category_desc.flag != BCLog::NONE && category_desc.flag != BCLog::ALL) {
 //             CLogCategoryActive catActive;
 //             catActive.category = category_desc.category;
@@ -267,25 +267,25 @@ void BCLog::Logger::LogPrintStr(const std::string& str)
 
 // void BCLog::Logger::ShrinkDebugFile()
 // {
-//     // Amount of debug.log to save at end when shrinking (must fit in memory)
-//     constexpr size_t RECENT_DEBUG_HISTORY_SIZE = 10 * 1000000;
+    // Amount of debug.log to save at end when shrinking (must fit in memory)
+    // constexpr size_t RECENT_DEBUG_HISTORY_SIZE = 10 * 1000000;
 
-//     assert(!m_file_path.empty());
+    // assert(!m_file_path.empty());
 
-//     // Scroll debug.log if it's getting too big
-//     FILE* file = fsbridge::fopen(m_file_path, "r");
+    // Scroll debug.log if it's getting too big
+    // FILE* file = fsbridge::fopen(m_file_path, "r");
 
-//     // Special files (e.g. device nodes) may not have a size.
-//     size_t log_size = 0;
-//     try {
-//         log_size = fs::file_size(m_file_path);
-//     } catch (const fs::filesystem_error&) {}
+    // Special files (e.g. device nodes) may not have a size.
+    // size_t log_size = 0;
+    // try {
+    //     log_size = fs::file_size(m_file_path);
+    // } catch (const fs::filesystem_error&) {}
 
-//     // If debug.log file is more than 10% bigger the RECENT_DEBUG_HISTORY_SIZE
-//     // trim it down by saving only the last RECENT_DEBUG_HISTORY_SIZE bytes
-//     if (file && log_size > 11 * (RECENT_DEBUG_HISTORY_SIZE / 10))
-//     {
-//         // Restart the file with some of the end
+    // If debug.log file is more than 10% bigger the RECENT_DEBUG_HISTORY_SIZE
+    // trim it down by saving only the last RECENT_DEBUG_HISTORY_SIZE bytes
+    // if (file && log_size > 11 * (RECENT_DEBUG_HISTORY_SIZE / 10))
+    // {
+        // Restart the file with some of the end
 //         std::vector<char> vch(RECENT_DEBUG_HISTORY_SIZE, 0);
 //         if (fseek(file, -((long)vch.size()), SEEK_END)) {
 //             LogPrintf("Failed to shrink debug log file: fseek(...) failed\n");

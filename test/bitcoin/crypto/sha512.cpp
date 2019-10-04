@@ -149,7 +149,7 @@ void Transform(uint64_t* s, const unsigned char* chunk)
 } // namespace
 
 
-// SHA-512
+////// SHA-512
 
 CSHA512::CSHA512() : bytes(0)
 {

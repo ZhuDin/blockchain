@@ -72,8 +72,7 @@ public:
     //! Initialize using begin and end iterators to byte data.
     template <typename T>
     void Set(const T pbegin, const T pend, bool fCompressedIn)
-    {   printf("key.h::Set(%#x, %#x, %d) --> set CKey: fValid, fCompressed\n", *pbegin, *pend, fCompressedIn);
-        printf("\tAfter remove privkey_prefix CKey:keydata size() --> %zd = %zd\n", keydata.size(), size_t(pend-pbegin));
+    {
         if (size_t(pend - pbegin) != keydata.size()) {
             fValid = false;
         } else if (Check(&pbegin[0])) {
