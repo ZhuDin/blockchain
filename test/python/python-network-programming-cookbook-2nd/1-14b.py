@@ -18,10 +18,10 @@ def echo_client(port):
         message = 'Test message. This will be echoed'
         print('Sending %s' % message)
         sent = sock.sendto(message.encode('utf-8'), server_address)
-
+        print('sent data length: %s' % sent)
         # Receive response 
         data, server = sock.recvfrom(data_payload)
-        print('received %s' % data)
+        print('received %s from %s' % (data, server))
     finally:
         print('Closing connectionto the server')
         sock.close()

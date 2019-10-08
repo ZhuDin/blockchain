@@ -23,6 +23,7 @@ def reuse_socket_addr():
     while True:
         try:
             connection, addr = srv.accept()
+            print('connection : %s' % connection)
             print('Connected by %s: %s' % (addr[0], addr[1]))
         except KeyboardInterrupt:
             break

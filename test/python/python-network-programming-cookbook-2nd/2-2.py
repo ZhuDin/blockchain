@@ -1,5 +1,5 @@
 import os 
-import secket 
+import socket 
 import threading 
 import socketserver 
 
@@ -15,7 +15,38 @@ def client(ip, port, message):
     try:
         sock.sendall(bytes(message, 'utf-8'))
         response = sock.recv(BUF_SIZE)
-        print('Client received: %s' % reponse)
+        print('Client received: %s' % response)
     finally:
         sock.close()
 
+class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
+    ''' An example of threaded TCP request handler '''
+    def handle(self):
+        data = self.request.recv(1024)
+        cur_thread = threading.current_thread()
+        response = '%s: %s' % (cur_thread.name, data) 
+        self.request.sendall(bytes(response, 'utf-8'))
+
+class ThreadedTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
+    ''' Nothing to add here, inherited everything necessary from parents '''
+    pass 
+
+if __name__ == '__main__':
+    # Run server 
+    server = ThreadedTCPServer((SERVER_HOST, SERVER_PORT), ThreadedTCPRequestHandler)
+    ip, port = server.server_address # retrieve ip address 
+
+    # Start a thread with the server -- one thread of request 
+    server_thread = threading.Thread(target=server.serve_forever)
+    # Exit the server thread when the main thread exits 
+    server_thread.daemon = True 
+    server_thread.start()
+    print('Server loop running on thread: %s' % server_thread.name)
+
+    # Run clients
+    client(ip, port, 'Hello from client 1')
+    client(ip, port, 'Hello from client 2')
+    client(ip, port, 'Hello from client 3')
+
+    # Server cleanup
+    server.shutdown()
