@@ -1,4 +1,5 @@
 # blockchain
+# time
                 blockchain data analysis   
 
         client(cs)                      browser(bs)
@@ -6,3 +7,6 @@
 
                         data(p2p)
                         rust
+
+Storage and Computing
+matter and energy
